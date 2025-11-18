@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vežbe za glagolska vremena</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #0066cc;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.2em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1em;
+        }
+        
+        .level-selector {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .level-btn {
+            padding: 10px 25px;
+            border: 2px solid #0066cc;
+            background: white;
+            color: #0066cc;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .level-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 102, 204, 0.3);
+        }
+        
+        .level-btn.active {
+            background: #0066cc;
+            color: white;
+        }
+        
+        .exercise {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border-left: 5px solid #0066cc;
+        }
+        
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .question-number {
+            font-weight: bold;
+            color: #0066cc;
+            font-size: 1.1em;
+        }
+        
+        .level-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            background: #4facfe;
+            color: white;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+        
+        .question {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .blank {
+            display: inline-block;
+            min-width: 180px;
+            border-bottom: 3px solid #0066cc;
+            margin: 0 5px;
+            padding: 2px 8px;
+            position: relative;
+        }
+        
+        input[type="text"] {
+            border: none;
+            background: transparent;
+            font-size: 1em;
+            width: 100%;
+            outline: none;
+            font-family: inherit;
+            font-weight: 500;
+        }
+        
+        .hint {
+            font-size: 0.9em;
+            color: #0066cc;
+            font-style: italic;
+            margin-top: 10px;
+            padding: 8px 12px;
+            background: #e3f2fd;
+            border-radius: 8px;
+        }
+        
+        .check-btn {
+            background: linear-gradient(135deg, #0066cc 0%, #0099ff 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 1.1em;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 102, 204, 0.3);
+        }
+        
+        .check-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 102, 204, 0.4);
+        }
+        
+        .feedback {
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        
+        .correct {
+            background: #d4edda;
+            color: #155724;
+            border-left: 5px solid #28a745;
+        }
+        
+        .incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 5px solid #dc3545;
+        }
+        
+        .explanation-box {
+            margin-top: 10px;
+            padding: 12px;
+            background: #fff3cd;
+            border-radius: 8px;
+            border-left: 5px solid #ffc107;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        
+        .score {
+            text-align: center;
+            font-size: 1.8em;
+            color: #0066cc;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+            transition: all 0.3s;
+        }
+        
+        .reset-btn:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        .progress {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .verb-info {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⏰ Vežbe za glagolska vremena</h1>
+        <p class="subtitle">Popuni prazna mesta pravilnim oblikom glagola</p>
+        
+        <div class="level-selector">
+            <button class="level-btn active" onclick="filterLevel('all')">Sve</button>
+            <button class="level-btn" onclick="filterLevel('A2')">A2</button>
+            <button class="level-btn" onclick="filterLevel('B1')">B1</button>
+            <button class="level-btn" onclick="filterLevel('B2')">B2</button>
+        </div>
+        
+        <div class="progress" id="progress"></div>
+        <div id="exercises"></div>
+        
+        <button class="check-btn" onclick="checkAnswers()">Proveri odgovore</button>
+        <button class="reset-btn" onclick="resetExercises()">Nove vežbe</button>
+        
+        <div id="score"></div>
+    </div>
+
+    <script>
+        const exercises = [
+            // A2 nivo - osnovna vremena
+            {
+                level: 'A2',
+                question: 'Juče ________ (ja - ići) u bioskop sa prijateljima.',
+                answer: 'sam išao',
+                alternatives: ['sam išla'],
+                hint: 'perfekat - prošlo vreme',
+                explanation: 'Perfekat se koristi za radnje koje su se završile u prošlosti. Obrazac: pomoćni glagol (sam) + radni glagolski pridev (išao/išla).'
+            },
+            {
+                level: 'A2',
+                question: 'Sutra ________ (mi - putovati) u Novi Sad.',
+                answer: 'ćemo putovati',
+                alternatives: ['putovaćemo'],
+                hint: 'futur I - buduće vreme',
+                explanation: 'Futur I se koristi za buduće radnje. Obrazac: hteti u prezent (ću, ćeš, će...) + infinitiv.'
+            },
+            {
+                level: 'A2',
+                question: 'Svaki dan ________ (ona - učiti) srpski jezik.',
+                answer: 'uči',
+                alternatives: ['uci'],
+                hint: 'prezent - sadašnje vreme',
+                explanation: 'Prezent se koristi za radnje koje se dešavaju sada ili redovno. "Uči" je treće lice jednine prezenta glagola učiti.'
+            },
+            {
+                level: 'A2',
+                question: 'Prošle nedelje ________ (on - kupiti) novu knjigu.',
+                answer: 'je kupio',
+                alternatives: ['sam kupio'],
+                hint: 'perfekat - svršeni glagol',
+                explanation: 'Svršeni glagoli (kupiti) označavaju završenu radnju. Perfekat: je + kupio.'
+            },
+            {
+                level: 'A2',
+                question: 'Sada ________ (ja - pisati) poruku.',
+                answer: 'pišem',
+                alternatives: ['pisem'],
+                hint: 'prezent',
+                explanation: 'Prezent za radnju koja se odvija u ovom trenutku. "Pišem" je prvo lice jednine.'
+            },
+            {
+                level: 'A2',
+                question: 'Pre dva dana ________ (mi - gledati) film.',
+                answer: 'smo gledali',
+                alternatives: ['smo gledale'],
+                hint: 'perfekat - nesvršeni glagol',
+                explanation: 'Nesvršeni glagoli (gledati) ne naglašavaju završetak radnje. Perfekat: smo + gledali/gledale.'
+            },
+
+            // B1 nivo - složenija vremena
+            {
+                level: 'B1',
+                question: 'Dok sam čekao autobus, ________ (početi - imperfektivno) da pada kiša.',
+                answer: 'počela je',
+                alternatives: ['je počela'],
+                hint: 'perfekat - radnja u prošlosti',
+                explanation: 'Perfekat se koristi za radnju koja se dogodila u prošlosti dok je trajala druga radnja (čekanje).'
+            },
+            {
+                level: 'B1',
+                question: 'Do sutra ________ (ja - završiti) sve zadatke.',
+                answer: 'ću završiti',
+                alternatives: ['završiću','zavrsicu','cu zavrsiti'],
+                hint: 'futur I - obećanje/plan',
+                explanation: 'Futur I se koristi za obećanja i planove. "Ću završiti" ili "završiću" - obe forme su ispravne.'
+            },
+            {
+                level: 'B1',
+                question: 'Kada sam stigao, oni već ________ (otići).',
+                answer: 'su bili otišli',
+                alternatives: ['behu otišli', 'su otišli', 'su bili otisli','behu otisli','su otisli'],
+                hint: 'pluskvamperfekat - radnja pre druge u prošlosti',
+                explanation: 'Pluskvamperfekat pokazuje da se radnja dogodila PRE druge radnje u prošlosti. Obrazac: bio/bila sam + radni glagolski pridev.'
+            },
+            {
+                level: 'B1',
+                question: 'Pre nego što je stigao, ________ (ja - već - spremiti) večeru.',
+                answer: 'već sam spremio',
+                alternatives: ['već sam spremila', 'već sam spremio', 'već sam spremila','vec sam spremio','vec sam spremila'],
+                hint: 'perfekat sa "već"',
+                explanation: 'Perfekat sa "već" naglašava da je radnja završena pre određenog trenutka.'
+            },
+            {
+                level: 'B1',
+                question: 'Sutra u ovo vreme ________ (mi - sedeti) u avionu.',
+                answer: 'ćemo sedeti',
+                alternatives: ['sedećemo','sedecemo','cemo sedeti'],
+                hint: 'futur I - radnja u određenom trenutku',
+                explanation: 'Futur I se koristi za radnju koja će se odvijati u određenom trenutku u budućnosti.'
+            },
+            {
+                level: 'B1',
+                question: 'Rekao mi je da ________ (on - dolaziti) sutra.',
+                answer: 'dolazi',
+                alternatives: ['će doći', 'će dolaziti','ce doci'],
+                hint: 'prezent umesto futura u zavisnoj rečenici',
+                explanation: 'U zavisnim rečenicama nakon "da" često se koristi prezent umesto futura: "da dolazi" (umesto "da će doći").'
+            },
+
+            // B2 nivo - napredna upotreba
+            {
+                level: 'B2',
+                question: 'Da sam znao, ________ (ja - doći).',
+                answer: 'ja bih došao',
+                alternatives: ['ja bih došla', 'ja bih dosla', 'ja bih dosao', 'došao bih', 'došla bih','dosao bih','dosla bih'],
+                hint: 'potencijal - nerealna situacija u prošlosti',
+                explanation: 'Potencijal (bio/bila bih + radni pridev) za nerealne situacije u prošlosti. Koristi se sa "da sam...".'
+            },
+            {
+                level: 'B2',
+                question: 'Do prošle godine ________ (ona - živeti) u Beogradu deset godina.',
+                answer: 'je živela',
+                alternatives: ['živela je','je zivela','zivela je'],
+                hint: 'perfekat - trajanje do određenog trenutka',
+                explanation: 'Perfekat za radnju koja je trajala do određenog trenutka u prošlosti (pre nego što se preselila).'
+            },
+            {
+                level: 'B2',
+                question: 'Kad god bi došao, uvek ________ (mi - se radovati).',
+                answer: 'bismo se radovali',
+                alternatives: ['bismo se radovale'],
+                hint: 'potencijal - ponavljana radnja u prošlosti',
+                explanation: 'Potencijal za ponavljane radnje u prošlosti. "Kad god bi" + potencijal = obična prošlost.'
+            },
+            {
+                level: 'B2',
+                question: 'Trebalo bi da ________ (ti - uraditi) to još ranije.',
+                answer: 'si uradio',
+                alternatives: ['si uradila', 'uradiš'],
+                hint: 'trebalo bi da + perfekat',
+                explanation: '"Trebalo bi da si uradio/la" = trebalo je da to uradiš (kritika prošle radnje).'
+            },
+            {
+                level: 'B2',
+                question: 'Da ________ (oni - slušati) savet, ne bi imali probleme.',
+                answer: 'su slušali',
+                alternatives: ['su slušale','su slusali','su slusale'],
+                hint: 'perfekat u kondicionalu',
+                explanation: 'Kondicional u prošlosti: "Da su slušali, ne bi imali" = ako bi bili poslušali (ali nisu).'
+            },
+            {
+                level: 'B2',
+                question: 'Budući da ________ (mi - završiti) posao, možemo da odmorimo.',
+                answer: 'smo završili',
+                alternatives: ['smo završile','smo zavrsili','smo zavrsile'],
+                hint: 'perfekat nakon "budući da"',
+                explanation: '"Budući da smo završili" = pošto/jer smo završili. Perfekat jer je radnja već završena.'
+            },
+            {
+                level: 'B2',
+                question: 'Da ________ (ja - znati) to ranije, drugačije bih postupio.',
+                answer: 'sam znao',
+                alternatives: ['sam znala'],
+                hint: 'perfekat u realnom kondicionalu',
+                explanation: 'Realni kondicional u prošlosti: "Ako sam znao" + "bih postupio". Nerealno u prošlosti.'
+            },
+            {
+                level: 'B2',
+                question: 'Pre nego što je otišao, ________ (on - obećati) da će se vratiti.',
+                answer: 'obećao je',
+                alternatives: ['obecao je'],
+                hint: 'perfekat - redosled radnji',
+                explanation: 'Obe radnje su u perfektu, ali "pre nego što" pokazuje redosled: prvo obećao, pa otišao.'
+            },
+            {
+                level: 'B2',
+                question: 'Makar da ________ (oni - pokušati), možda bi uspeli.',
+                answer: 'su pokušali',
+                alternatives: ['su pokušale', 'su pokusali','su pokusale'],
+                hint: 'makar + perfekat',
+                explanation: '"Makar su pokušali" = čak i da su pokušali. Izražava žaljenje zbog radnje koja nije urađena.'
+            }
+        ];
+
+        let currentLevel = 'all';
+        let checked = false;
+
+        function shuffle(array) {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+
+        function displayExercises() {
+            const container = document.getElementById('exercises');
+            const filtered = currentLevel === 'all' 
+                ? exercises 
+                : exercises.filter(ex => ex.level === currentLevel);
+            
+            const shuffled = shuffle(filtered);
+            checked = false;
+            
+            container.innerHTML = shuffled.map((ex, index) => `
+                <div class="exercise" data-answer="${ex.answer}" data-alternatives='${JSON.stringify(ex.alternatives)}' data-index="${index}">
+                    <div class="question-header">
+                        <span class="question-number">${index + 1}.</span>
+                        <span class="level-badge">Nivo ${ex.level}</span>
+                    </div>
+                    <div class="question">
+                        ${ex.question.replace('________', 
+                            `<span class="blank"><input type="text" id="input-${index}" autocomplete="off" /></span>`)}
+                    </div>
+                    <div class="hint">💡 ${ex.hint}</div>
+                    <div id="feedback-${index}"></div>
+                </div>
+            `).join('');
+
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const total = document.querySelectorAll('.exercise').length;
+            const filled = Array.from(document.querySelectorAll('input[type="text"]'))
+                .filter(input => input.value.trim() !== '').length;
+            
+            document.getElementById('progress').textContent = 
+                `Popunjeno: ${filled}/${total}`;
+        }
+
+        // Dodaj event listenere za praćenje unosa
+        document.addEventListener('input', function(e) {
+            if (e.target.type === 'text') {
+                updateProgress();
+            }
+        });
+
+        function normalize(str) {
+            return str.toLowerCase().trim().replace(/\s+/g, ' ');
+        }
+
+        function checkAnswers() {
+            if (checked) return;
+            
+            const exerciseDivs = document.querySelectorAll('.exercise');
+            let correct = 0;
+            let total = exerciseDivs.length;
+
+            exerciseDivs.forEach((div, index) => {
+                const input = document.getElementById(`input-${index}`);
+                const feedback = document.getElementById(`feedback-${index}`);
+                const userAnswer = normalize(input.value);
+                const correctAnswer = normalize(div.dataset.answer);
+                const alternatives = JSON.parse(div.dataset.alternatives).map(alt => normalize(alt));
+                
+                const allCorrect = [correctAnswer, ...alternatives];
+                
+                if (allCorrect.includes(userAnswer)) {
+                    feedback.innerHTML = `
+                        <div class="feedback correct">✓ Tačno!</div>
+                        <div class="explanation-box">
+                            <strong>Objašnjenje:</strong> ${exercises.find(ex => 
+                                normalize(ex.answer) === correctAnswer
+                            ).explanation}
+                        </div>
+                    `;
+                    correct++;
+                } else {
+                    const allAnswers = allCorrect.join(' / ');
+                    feedback.innerHTML = `
+                        <div class="feedback incorrect">
+                            ✗ Netačno. Tačan odgovor: <strong>${allAnswers}</strong>
+                        </div>
+                        <div class="explanation-box">
+                            <strong>Objašnjenje:</strong> ${exercises.find(ex => 
+                                normalize(ex.answer) === correctAnswer
+                            ).explanation}
+                        </div>
+                    `;
+                }
+            });
+
+            const percentage = Math.round((correct / total) * 100);
+            document.getElementById('score').innerHTML = 
+                `Rezultat: ${correct}/${total} (${percentage}%) ${
+                    percentage >= 80 ? '🎉 Odlično!' : 
+                    percentage >= 60 ? '👍 Dobro!' : 
+                    '💪 Vežbaj još!'
+                }`;
+            
+            checked = true;
+        }
+
+        function filterLevel(level) {
+            currentLevel = level;
+            document.querySelectorAll('.level-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            resetExercises();
+        }
+
+        function resetExercises() {
+            displayExercises();
+            document.getElementById('score').innerHTML = '';
+        }
+
+        // Inicijalizacija
+        displayExercises();
+    </script>
+</body>
+</html>

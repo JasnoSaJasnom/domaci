@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vežbe za srpske padeže</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 0.9em;
+        }
+        
+        .level-selector {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .level-btn {
+            padding: 10px 25px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .level-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .level-btn.active {
+            background: #667eea;
+            color: white;
+        }
+        
+        .exercise {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border-left: 5px solid #667eea;
+        }
+        
+        .question {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .blank {
+            display: inline-block;
+            min-width: 150px;
+            border-bottom: 2px solid #667eea;
+            margin: 0 5px;
+            padding: 2px 8px;
+        }
+        
+        input[type="text"] {
+            border: none;
+            background: transparent;
+            font-size: 1em;
+            width: 100%;
+            outline: none;
+            font-family: inherit;
+        }
+        
+        .hint {
+            font-size: 0.85em;
+            color: #764ba2;
+            font-style: italic;
+            margin-top: 8px;
+        }
+        
+        .check-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .check-btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(118, 75, 162, 0.3);
+        }
+        
+        .feedback {
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        
+        .correct {
+            background: #d4edda;
+            color: #155724;
+            border-left: 5px solid #28a745;
+        }
+        
+        .incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 5px solid #dc3545;
+        }
+        
+        .score {
+            text-align: center;
+            font-size: 1.5em;
+            color: #667eea;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-size: 0.9em;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+            transition: all 0.3s;
+        }
+        
+        .reset-btn:hover {
+            background: #5a6268;
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 5px solid #2196F3;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Vežbe za srpske padeže</h1>
+        <p class="subtitle">Popunite prazna mesta odgovarajućim oblikom reči</p>
+        
+        <div class="info-box">
+            ℹ️ <strong>Napomena:</strong> Možete pisati i sa engleskom tastaturom (s umesto š, c umesto č, z umesto ž, dj umesto đ)
+        </div>
+        
+        <div class="level-selector">
+            <button class="level-btn active" onclick="filterLevel('all')">Sve</button>
+            <button class="level-btn" onclick="filterLevel('A1')">A1</button>
+            <button class="level-btn" onclick="filterLevel('A2')">A2</button>
+            <button class="level-btn" onclick="filterLevel('B1')">B1</button>
+        </div>
+        
+        <div id="exercises"></div>
+        
+        <button class="check-btn" onclick="checkAnswers()">Proveri odgovore</button>
+        <button class="reset-btn" onclick="resetExercises()">Ponovo</button>
+        
+        <div id="score"></div>
+    </div>
+
+    <script>
+        const exercises = [
+            // A1 nivo
+            { level: 'A1', question: 'Ja imam ________ (pas).', answer: 'psa', hint: 'akuzativ' },
+            { level: 'A1', question: 'Idem u ________ (škola).', answer: 'školu', hint: 'akuzativ' },
+            { level: 'A1', question: 'Ovo je knjiga ________ (moj brat).', answer: 'mog brata', hint: 'genitiv' },
+            { level: 'A1', question: 'Dajem poklon ________ (mama).', answer: 'mami', hint: 'dativ' },
+            { level: 'A1', question: 'Živim u ________ (Beograd).', answer: 'Beogradu', hint: 'lokativ' },
+            { level: 'A1', question: 'Pišem ________ (olovka).', answer: 'olovkom', hint: 'instrumental' },
+            { level: 'A1', question: 'Vidim ________ (devojka).', answer: 'devojku', hint: 'akuzativ' },
+            { level: 'A1', question: 'Stojim pored ________ (prozor).', answer: 'prozora', hint: 'genitiv' },
+            
+            // A2 nivo
+            { level: 'A2', question: 'Razgovaram sa ________ (prijatelj).', answer: 'prijateljem', hint: 'instrumental' },
+            { level: 'A2', question: 'Vraćam se iz ________ (prodavnica).', answer: 'prodavnice', hint: 'genitiv' },
+            { level: 'A2', question: 'Čekam ________ (autobus) već pola sata.', answer: 'autobus', hint: 'akuzativ' },
+            { level: 'A2', question: 'Pričam o ________ (moj posao).', answer: 'mom poslu', hint: 'lokativ' },
+            { level: 'A2', question: 'Pomažem ________ (stariji ljudi).', answer: 'starijim ljudima', hint: 'dativ' },
+            { level: 'A2', question: 'Soba je puna ________ (knjige).', answer: 'knjiga', hint: 'genitiv' },
+            { level: 'A2', question: 'Pored ________ (naša kuća) je park.', answer: 'naše kuće', hint: 'genitiv' },
+            { level: 'A2', question: 'Idem na sastanak sa ________ (šef).', answer: 'šefom', hint: 'instrumental' },
+            { level: 'A2', question: 'Kupujem poklon za ________ (sestra).', answer: 'sestru', hint: 'akuzativ' },
+            
+            // B1 nivo
+            { level: 'B1', question: 'Bavim se ________ (sportska analiza).', answer: 'sportskom analizom', hint: 'instrumental' },
+            { level: 'B1', question: 'Bez ________ (tvoja pomoć) ne bih uspeo.', answer: 'tvoje pomoći', hint: 'genitiv' },
+            { level: 'B1', question: 'Zahvaljujem ________ (svi prisutni).', answer: 'svim prisutnim', hint: 'dativ' },
+            { level: 'B1', question: 'U ________ (ovaj problem) vidim rešenje.', answer: 'ovom problemu', hint: 'lokativ' },
+            { level: 'B1', question: 'Film je snimljen u ________ (prirodan ambijent).', answer: 'prirodnom ambijentu', hint: 'lokativ' },
+            { level: 'B1', question: 'Razočaran sam ________ (njegovi rezultati).', answer: 'njegovim rezultatima', hint: 'instrumental' },
+            { level: 'B1', question: 'Prema ________ (statistički podaci) situacija se poboljšava.', answer: 'statističkim podacima', hint: 'dativ' },
+            { level: 'B1', question: 'U ________ (različite kulture) postoje različite tradicije.', answer: 'različitim kulturama', hint: 'lokativ' },
+            { level: 'B1', question: 'Interesujem se za ________ (savremena umetnost).', answer: 'savremenu umetnost', hint: 'akuzativ' }
+        ];
+
+        let currentLevel = 'all';
+
+        // Funkcija za konvertovanje latiničnih slova u srpska
+        function convertToSerbian(str) {
+            const replacements = {
+                'š': 's', 'Š': 'S',
+                'č': 'c', 'Č': 'C',
+                'ć': 'c', 'Ć': 'C',
+                'ž': 'z', 'Ž': 'Z',
+                'đ': 'dj', 'Đ': 'Dj', 'đ': 'd', 'Đ': 'D'
+            };
+            
+            let result = str;
+            // Najpre konvertujemo unos korisnika u srpska slova za poređenje
+            for (let [serbian, latin] of Object.entries(replacements)) {
+                result = result.replace(new RegExp(latin, 'g'), serbian);
+            }
+            return result;
+        }
+
+        function shuffle(array) {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+
+        function displayExercises() {
+            const container = document.getElementById('exercises');
+            const filtered = currentLevel === 'all' 
+                ? exercises 
+                : exercises.filter(ex => ex.level === currentLevel);
+            
+            const shuffled = shuffle(filtered);
+            
+            container.innerHTML = shuffled.map((ex, index) => `
+                <div class="exercise" data-answer="${ex.answer}" data-index="${index}">
+                    <div class="question">
+                        <strong>${index + 1}.</strong> ${ex.question.replace('________', 
+                            `<span class="blank"><input type="text" id="input-${index}" /></span>`)}
+                    </div>
+                    <div class="hint">💡 ${ex.hint} | Nivo: ${ex.level}</div>
+                    <div id="feedback-${index}"></div>
+                </div>
+            `).join('');
+        }
+
+        function filterLevel(level) {
+            currentLevel = level;
+            document.querySelectorAll('.level-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            displayExercises();
+            document.getElementById('score').innerHTML = '';
+        }
+
+        function normalize(str) {
+            return str.toLowerCase().trim().replace(/\s+/g, ' ');
+        }
+
+        function checkAnswers() {
+            const exerciseDivs = document.querySelectorAll('.exercise');
+            let correct = 0;
+            let total = exerciseDivs.length;
+
+            exerciseDivs.forEach((div, index) => {
+                const input = document.getElementById(`input-${index}`);
+                const feedback = document.getElementById(`feedback-${index}`);
+                const userAnswer = normalize(input.value);
+                const correctAnswer = normalize(div.dataset.answer);
+                
+                // Konvertujemo oba odgovora u jedinstveni format za poređenje
+                const userConverted = convertToSerbian(userAnswer);
+                const correctConverted = convertToSerbian(correctAnswer);
+
+                if (userConverted === correctConverted || userAnswer === correctAnswer) {
+                    feedback.innerHTML = '✓ Tačno!';
+                    feedback.className = 'feedback correct';
+                    correct++;
+                } else {
+                    feedback.innerHTML = `✗ Netačno. Tačan odgovor: <strong>${div.dataset.answer}</strong>`;
+                    feedback.className = 'feedback incorrect';
+                }
+            });
+
+            const percentage = Math.round((correct / total) * 100);
+            document.getElementById('score').innerHTML = 
+                `Rezultat: ${correct}/${total} (${percentage}%) ${percentage >= 80 ? '🎉' : percentage >= 60 ? '👍' : '💪'}`;
+        }
+
+        function resetExercises() {
+            displayExercises();
+            document.getElementById('score').innerHTML = '';
+        }
+
+        // Inicijalizacija
+        displayExercises();
+    </script>
+</body>
+</html>
