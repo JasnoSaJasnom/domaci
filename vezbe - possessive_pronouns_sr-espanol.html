@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vežbe prisvojnih zamenica - Srpski jezik</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .exercise {
+            background: #f8f9fa;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+        }
+        
+        .exercise h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        .question {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        
+        .spanish-help {
+            color: #6c757d;
+            font-size: 0.9em;
+            font-style: italic;
+            margin-top: 5px;
+        }
+        
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        
+        input[type="text"] {
+            flex: 1;
+            min-width: 150px;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        input.correct {
+            border-color: #28a745;
+            background-color: #d4edda;
+        }
+        
+        input.incorrect {
+            border-color: #dc3545;
+            background-color: #f8d7da;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+            font-weight: 500;
+        }
+        
+        .feedback.show {
+            display: block;
+            animation: slideIn 0.3s;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .feedback.correct {
+            background-color: #d4edda;
+            color: #155724;
+            border: 2px solid #28a745;
+        }
+        
+        .feedback.incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 2px solid #dc3545;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+        }
+        
+        .nav-button {
+            background: #6c757d;
+        }
+        
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .page-indicator {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            color: #667eea;
+            font-weight: 600;
+        }
+        
+        .score {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Vežbe prisvojnih zamenica</h1>
+            <p>Ejercicios de pronombres posesivos en serbio</p>
+        </div>
+        
+        <div class="content">
+            <!-- Page 1 -->
+            <div class="page active" id="page1">
+                <div class="page-indicator">Strana 1 od 3</div>
+                <div class="score" id="score1">Poeni: 0/5</div>
+                
+                <!-- Exercise 1 -->
+                <div class="exercise">
+                    <h3>Vežba 1: Popunite praznine</h3>
+                    <div class="question">
+                        To je _____ knjiga. (ja)
+                        <div class="spanish-help">Ese es _____ libro. (yo)</div>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="ex1_1" data-answer="moja" placeholder="Unesite odgovor">
+                        <button onclick="checkAnswer('ex1_1', 1, 1)">Proveri</button>
+                    </div>
+                    <div class="feedback" id="feedback1_1"></div>
+                </div>
+                
+                <!-- Exercise 2 -->
+                <div class="exercise">
+                    <h3>Vežba 2: Popunite praznine</h3>
+                    <div class="question">
+                        Gde je _____ torba? (ti)
+                        <div class="spanish-help">¿Dónde está _____ bolso? (tú)</div>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="ex1_2" data-answer="tvoja" placeholder="Unesite odgovor">
+                        <button onclick="checkAnswer('ex1_2', 1, 2)">Proveri</button>
+                    </div>
+                    <div class="feedback" id="feedback1_2"></div>
+                </div>
+                
+                <!-- Exercise 3 -->
+                <div class="exercise">
+                    <h3>Vežba 3: Popunite praznine</h3>
+                    <div class="question">
+                        On voli _____ posao. (on)
+                        <div class="spanish-help">Él ama _____ trabajo. (él)</div>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="ex1_3" data-answer="svoj" placeholder="Unesite odgovor">
+                        <button onclick="checkAnswer('ex1_3', 1, 3)">Proveri</button>
+                    </div>
+                    <div class="feedback" id="feedback1_3"></div>
+                </div>
+                
+                <!-- Exercise 4 -->
+                <div class="exercise">
+                    <h3>Vežba 4: Popunite praznine</h3>
+                    <div class="question">
+                        Mi volimo _____ kuću. (mi)
+                        <div class="spanish-help">Nosotros amamos _____ casa. (nosotros)</div>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="ex1_4" data-answer="našu" placeholder="Unesite odgovor">
+                        <button onclick="checkAnswer('ex1_4', 1, 4)">Proveri</button>
+                    </div>
+                    <div class="feedback" id="feedback1_4"></div>
+                </div>
+                
+                <!-- Exercise 5 -->
+                <div class="exercise">
+                    <h3>Vežba 5: Popunite praznine</h3>
+                    <div class="question">
+                        Da li je ovo _____ auto? (vi)
+                        <div class="spanish-help">¿Es este _____ coche? (ustedes)</div>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="ex1_5" data-answer="vaš" placeholder="Unesite odgovor">
+                        <button onclick="checkAnswer('ex1_5', 1, 5)">Proveri</button>
+                    </div>
+                    <div class="feedback" id="feedback1_5"></div>
+                </div>
+                
+                <div class="navigation">
+                    <button class="nav-button" disabled>← Prethodna</button>
+                    <button class="nav-button" onclick="changePage(2)">Sledeća →</button>
+                </div>
+            </div>
+            
+            <!-- Page 2 -->
+            <div class="page" id="page2">
+                <div class="page-indicator">Strana 2 od 3</div>
+                <div class="score" id="score2">Poeni: 0/5</div>
+                
+                <!-- Exercise 1 -->
+                <div class="exercise">
+                    <h3>Vežba 1: Popunite praznine</h3>
+                    <div class="question">
+                        Oni su izgubili _____ ključeve. (oni)
+                        <div class="spanish-help">Ellos perdieron _____ llaves. (ellos)</div>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="ex2_1" data-answer="svoje" placeholder="Unesite odgovor">
+                        <button onclick="checkAnswer('ex2_1', 2, 1)">Proveri</button>
+                    </div>
+                    <div class="feedback" id="feedback2_1"></div>
+                </div>
+                
+                <!-- Exercise 2 -->
+                <div class="exercise">
+                    <h3>Vežba 2: Popunite praznine</h3>
+                    <div class="question">
+                        Videla sam _____ sestru juče. (ti)
+                        <div class="spanish-help">Vi a _____ hermana ayer. (tú)</div>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="ex2_2" data-answer="tvoju" placeholder="Unesite odgovor">
+                        <button onclick="checkAnswer('ex2_2', 2, 2)">Proveri</button>
+                    </div>
+                    <div class="feedback" id="feedback2_2"></div>
+                </div>
+                
+                <!-- Exercise 3 -->
+                <div class="exercise">
+                    <h3>Vežba 3: Popunite praznine</h3>
+                    <div class="question">
+                        Volim _____ roditelje. (ja)
+                        <div class="spanish-help">Amo a _____ padres. (yo)</div>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="ex2_3" data-answer="svoje" placeholder="Unesite odgovor">
+                        <button onclick="checkAnswer('ex2_3', 2, 3)">Proveri</button>
+                    </div>
+                    <div class="feedback" id="feedback2_3"></div>
+                </div>
+                
+                <!-- Exercise 4 -->
+                <div class="exercise">
+                    <h3>Vežba 4: Popunite praznine</h3>
+                    <div class="question">
+                        Ona čita _____ pismo. (ona)
+                        <div class="spanish-help">Ella lee _____ carta. (ella)</div>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="ex2_4" data-answer="svoje" placeholder="Unesite odgovor">
+                        <button onclick="checkAnswer('ex2_4', 2, 4)">Proveri</button>
+                    </div>
+                    <div class="feedback" id="feedback2_4"></div>
+                </div>
+                
+                <!-- Exercise 5 -->
+                <div class="exercise">
+                    <h3>Vežba 5: Popunite praznine</h3>
+                    <div class="question">
+                        Posetili smo _____ prijatelje. (mi)
+                        <div class="spanish-help">Visitamos a _____ amigos. (nosotros)</div>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="ex2_5" data-answer="naše" placeholder="Unesite odgovor">
+                        <button onclick="checkAnswer('ex2_5', 2, 5)">Proveri</button>
+                    </div>
+                    <div class="feedback" id="feedback2_5"></div>
+                </div>
+                
+                <div class="navigation">
+                    <button class="nav-button" onclick="changePage(1)">← Prethodna</button>
+                    <button class="nav-button" onclick="changePage(3)">Sledeća →</button>
+                </div>
+            </div>
+            
+            <!-- Page 3 -->
+            <div class="page" id="page3">
+                <div class="page-indicator">Strana 3 od 3</div>
+                <div class="score" id="score3">Poeni: 0/5</div>
+                
+                <!-- Exercise 1 -->
+                <div class="exercise">
+                    <h3>Vežba 1: Popunite praznine</h3>
+                    <div class="question">
+                        Njihova mačka je na _____ krevetu. (oni)
+                        <div class="spanish-help">Su gato está en _____ cama. (ellos)</div>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="ex3_1" data-answer="njihovom" placeholder="Unesite odgovor">
+                        <button onclick="checkAnswer('ex3_1', 3, 1)">Proveri</button>
+                    </div>
+                    <div class="feedback" id="feedback3_1"></div>
+                </div>
+                
+                <!-- Exercise 2 -->
+                <div class="exercise">
+                    <h3>Vežba 2: Popunite praznine</h3>
+                    <div class="question">
+                        Razgovarao sam sa _____ bratom. (ti)
+                        <div class="spanish-help">Hablé con _____ hermano. (tú)</div>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="ex3_2" data-answer="tvojim" placeholder="Unesite odgovor">
+                        <button onclick="checkAnswer('ex3_2', 3, 2)">Proveri</button>
+                    </div>
+                    <div class="feedback" id="feedback3_2"></div>
+                </div>
+                
+                <!-- Exercise 3 -->
+                <div class="exercise">
+                    <h3>Vežba 3: Popunite praznine</h3>
+                    <div class="question">
+                        Pričao sam o _____ deci. (ja)
+                        <div class="spanish-help">Hablé sobre _____ hijos. (yo)</div>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="ex3_3" data-answer="svojoj" placeholder="Unesite odgovor">
+                        <button onclick="checkAnswer('ex3_3', 3, 3)">Proveri</button>
+                    </div>
+                    <div class="feedback" id="feedback3_3"></div>
+                </div>
+                
+                <!-- Exercise 4 -->
+                <div class="exercise">
+                    <h3>Vežba 4: Popunite praznine</h3>
+                    <div class="question">
+                        Sreli smo se kod _____ kuće. (vi)
+                        <div class="spanish-help">Nos encontramos en _____ casa. (ustedes)</div>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="ex3_4" data-answer="vaše" placeholder="Unesite odgovor">
+                        <button onclick="checkAnswer('ex3_4', 3, 4)">Proveri</button>
+                    </div>
+                    <div class="feedback" id="feedback3_4"></div>
+                </div>
+                
+                <!-- Exercise 5 -->
+                <div class="exercise">
+                    <h3>Vežba 5: Popunite praznine</h3>
+                    <div class="question">
+                        Pričali su o _____ planovima. (oni)
+                        <div class="spanish-help">Hablaron sobre _____ planes. (ellos)</div>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="ex3_5" data-answer="svojim" placeholder="Unesite odgovor">
+                        <button onclick="checkAnswer('ex3_5', 3, 5)">Proveri</button>
+                    </div>
+                    <div class="feedback" id="feedback3_5"></div>
+                </div>
+                
+                <div class="navigation">
+                    <button class="nav-button" onclick="changePage(2)">← Prethodna</button>
+                    <button class="nav-button" disabled>Sledeća →</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const scores = {1: 0, 2: 0, 3: 0};
+        const checkedAnswers = {1: new Set(), 2: new Set(), 3: new Set()};
+        
+        function normalizeAnswer(answer) {
+            return answer.toLowerCase().trim();
+        }
+        
+        function checkAnswer(inputId, page, exerciseNum) {
+            const input = document.getElementById(inputId);
+            const feedback = document.getElementById(`feedback${page}_${exerciseNum}`);
+            const userAnswer = normalizeAnswer(input.value);
+            const correctAnswer = input.getAttribute('data-answer');
+            
+            if (!userAnswer) {
+                feedback.textContent = '⚠️ Molimo unesite odgovor.';
+                feedback.className = 'feedback show incorrect';
+                return;
+            }
+            
+            const isCorrect = userAnswer === correctAnswer;
+            
+            // Update score only if this answer hasn't been checked correctly before
+            const answerKey = `${page}_${exerciseNum}`;
+            if (isCorrect && !checkedAnswers[page].has(answerKey)) {
+                scores[page]++;
+                checkedAnswers[page].add(answerKey);
+                document.getElementById(`score${page}`).textContent = `Poeni: ${scores[page]}/5`;
+            }
+            
+            if (isCorrect) {
+                input.className = 'correct';
+                feedback.textContent = '✅ Tačno! Odličan posao!';
+                feedback.className = 'feedback show correct';
+                input.disabled = true;
+            } else {
+                input.className = 'incorrect';
+                feedback.textContent = `❌ Netačno. Tačan odgovor je: ${correctAnswer}`;
+                feedback.className = 'feedback show incorrect';
+            }
+        }
+        
+        function changePage(pageNum) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(`page${pageNum}`).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+        
+        // Allow Enter key to submit answers
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && e.target.tagName === 'INPUT') {
+                const button = e.target.nextElementSibling;
+                if (button && button.tagName === 'BUTTON') {
+                    button.click();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
