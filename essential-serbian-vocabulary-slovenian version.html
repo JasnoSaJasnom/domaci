@@ -1,0 +1,1075 @@
+
+
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esencijalne srpske reči</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 18px;
+            opacity: 0.95;
+        }
+        
+        .controls {
+            padding: 20px 30px;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e0e0e0;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            padding: 12px 20px;
+            border: 2px solid #2193b0;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+        
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid #2193b0;
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: #2193b0;
+            color: white;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .category {
+            margin-bottom: 40px;
+        }
+        
+        .category-header {
+            background: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 22px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .word-count {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        thead {
+            background: #2193b0;
+            color: white;
+        }
+        
+        th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        tbody tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .serbian {
+            font-weight: 600;
+            color: #2193b0;
+            font-size: 16px;
+        }
+        
+        .slovenian {
+            color: #495057;
+        }
+        
+        .english {
+            color: #6c757d;
+            font-style: italic;
+        }
+        
+        .note {
+            color: #dc3545;
+            font-size: 13px;
+        }
+        
+        .stats {
+            display: flex;
+            gap: 20px;
+            padding: 20px 30px;
+            background: #fff3cd;
+            border-top: 3px solid #ffc107;
+            flex-wrap: wrap;
+        }
+        
+        .stat-box {
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .stat-number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2193b0;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📖 KOMPLETNA LISTA ESENCIJALNIH SRPSKIH REČI</h1>
+            <p>Sve što ti treba za svakodnevnu komunikaciju</p>
+        </div>
+        
+        <div class="controls">
+            <input type="text" class="search-box" id="searchBox" placeholder="Pretraži bilo koju reč (srpski, slovenski, engleski)...">
+            <button class="filter-btn active" onclick="filterCategory('all')">Sve (500+)</button>
+            <button class="filter-btn" onclick="filterCategory('glagoli')">Glagoli</button>
+            <button class="filter-btn" onclick="filterCategory('imenice')">Imenice</button>
+            <button class="filter-btn" onclick="filterCategory('pridevi')">Pridevi</button>
+            <button class="filter-btn" onclick="filterCategory('veznici')">Veznici</button>
+            <button class="filter-btn" onclick="filterCategory('recice')">Rečice</button>
+            <button class="filter-btn" onclick="filterCategory('zamenice')">Zamenice</button>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-box">
+                <div class="stat-number" id="totalWords">500+</div>
+                <div class="stat-label">Ukupno reči</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Svakodnevna upotreba</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">12</div>
+                <div class="stat-label">Kategorija</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number" id="visibleWords">500+</div>
+                <div class="stat-label">Prikazano</div>
+            </div>
+        </div>
+        
+        <div class="content" id="content">
+            
+            <!-- GLAGOLI - NAJVAŽNIJI -->
+            <div class="category" data-category="glagoli">
+                <div class="category-header">
+                    <span>🏃 GLAGOLI (Najvažniji za razgovor)</span>
+                    <span class="word-count">100 reči</span>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 20%">SRPSKI (Infinitiv)</th>
+                            <th style="width: 25%">SLOVENAČKI</th>
+                            <th style="width: 25%">ENGLISH</th>
+                            <th style="width: 30%">NAPOMENA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="serbian">biti</td><td class="slovenian">biti</td><td class="english">to be</td><td class="note">Najvažniji glagol!</td></tr>
+                        <tr><td class="serbian">imati</td><td class="slovenian">imeti</td><td class="english">to have</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">moći</td><td class="slovenian">moči</td><td class="english">can, to be able</td><td class="note">mogu, možeš, može...</td></tr>
+                        <tr><td class="serbian">hteti</td><td class="slovenian">hoteti</td><td class="english">to want</td><td class="note">hoću, hoćeš, hoće...</td></tr>
+                        <tr><td class="serbian">ići</td><td class="slovenian">iti</td><td class="english">to go</td><td class="note">idem, ideš, ide...</td></tr>
+                        <tr><td class="serbian">raditi</td><td class="slovenian">delati</td><td class="english">to work, to do</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">govoriti</td><td class="slovenian">govoriti</td><td class="english">to speak</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">znati</td><td class="slovenian">znati</td><td class="english">to know</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">videti</td><td class="slovenian">videti</td><td class="english">to see</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">čuti</td><td class="slovenian">slišati</td><td class="english">to hear</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">jesti</td><td class="slovenian">jesti</td><td class="english">to eat</td><td class="note">jedem, jedeš...</td></tr>
+                        <tr><td class="serbian">piti</td><td class="slovenian">piti</td><td class="english">to drink</td><td class="note">pijem, piješ...</td></tr>
+                        <tr><td class="serbian">spavati</td><td class="slovenian">spati</td><td class="english">to sleep</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">ustati</td><td class="slovenian">vstati</td><td class="english">to get up</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">sedeti</td><td class="slovenian">sedeti</td><td class="english">to sit</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">stajati</td><td class="slovenian">stati</td><td class="english">to stand</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">ležati</td><td class="slovenian">ležati</td><td class="english">to lie down</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">doći</td><td class="slovenian">priti</td><td class="english">to come, arrive</td><td class="note">dođem, dođeš...</td></tr>
+                        <tr><td class="serbian">otići</td><td class="slovenian">oditi</td><td class="english">to leave, go away</td><td class="note">odem, odeš...</td></tr>
+                        <tr><td class="serbian">voleti</td><td class="slovenian">ljubiti, imeti rad</td><td class="english">to love</td><td class="note">volim, voliš...</td></tr>
+                        <tr><td class="serbian">živeti</td><td class="slovenian">živeti</td><td class="english">to live</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">dati</td><td class="slovenian">dati</td><td class="english">to give</td><td class="note">dam, daš...</td></tr>
+                        <tr><td class="serbian">uzeti</td><td class="slovenian">vzeti</td><td class="english">to take</td><td class="note">uzmem, uzmeš...</td></tr>
+                        <tr><td class="serbian">kupiti</td><td class="slovenian">kupiti</td><td class="english">to buy</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">prodati</td><td class="slovenian">prodati</td><td class="english">to sell</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">platiti</td><td class="slovenian">plačati</td><td class="english">to pay</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">koštati</td><td class="slovenian">stati</td><td class="english">to cost</td><td class="note">Pazi! "stati" u slo = stati i koštati</td></tr>
+                        <tr><td class="serbian">pitati</td><td class="slovenian">vprašati</td><td class="english">to ask</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">odgovoriti</td><td class="slovenian">odgovoriti</td><td class="english">to answer</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">misliti</td><td class="slovenian">misliti</td><td class="english">to think</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">razumeti</td><td class="slovenian">razumeti</td><td class="english">to understand</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">učiti</td><td class="slovenian">učiti se</td><td class="english">to learn</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">čitati</td><td class="slovenian">brati</td><td class="english">to read</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">pisati</td><td class="slovenian">pisati</td><td class="english">to write</td><td class="note">pišem, pišeš...</td></tr>
+                        <tr><td class="serbian">slušati</td><td class="slovenian">poslušati</td><td class="english">to listen</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">gledati</td><td class="slovenian">gledati</td><td class="english">to watch, look at</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">pokazati</td><td class="slovenian">pokazati</td><td class="english">to show</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">nositi</td><td class="slovenian">nositi</td><td class="english">to wear, carry</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">voziti</td><td class="slovenian">voziti</td><td class="english">to drive</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">hodati</td><td class="slovenian">hoditi</td><td class="english">to walk</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">trčati</td><td class="slovenian">teči</td><td class="english">to run</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">zvati</td><td class="slovenian">klicati</td><td class="english">to call</td><td class="note">zovem, zoveš...</td></tr>
+                        <tr><td class="serbian">zvati se</td><td class="slovenian">imenovati se</td><td class="english">to be called</td><td class="note">Kako se zoveš?</td></tr>
+                        <tr><td class="serbian">tražiti</td><td class="slovenian">iskati</td><td class="english">to search</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">naći</td><td class="slovenian">najti</td><td class="english">to find</td><td class="note">nađem, nađeš...</td></tr>
+                        <tr><td class="serbian">izgubiti</td><td class="slovenian">izgubiti</td><td class="english">to lose</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">doneti</td><td class="slovenian">prinesti</td><td class="english">to bring</td><td class="note">donesem, doneseš...</td></tr>
+                        <tr><td class="serbian">otvoriti</td><td class="slovenian">odpreti</td><td class="english">to open</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">zatvoriti</td><td class="slovenian">zapreti</td><td class="english">to close</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">početi</td><td class="slovenian">začeti</td><td class="english">to begin</td><td class="note">počnem, počneš...</td></tr>
+                        <tr><td class="serbian">završiti</td><td class="slovenian">končati</td><td class="english">to finish</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">čekati</td><td class="slovenian">čakati</td><td class="english">to wait</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">pomoći</td><td class="slovenian">pomagati</td><td class="english">to help</td><td class="note">pomognem, pomogneš...</td></tr>
+                        <tr><td class="serbian">verovati</td><td class="slovenian">verjeti</td><td class="english">to believe</td><td class="note">verujem, veruješ...</td></tr>
+                        <tr><td class="serbian">zaboraviti</td><td class="slovenian">pozabiti</td><td class="english">to forget</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">kuvati</td><td class="slovenian">kuhati</td><td class="english">to cook</td><td class="note">-</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ZAMENICE -->
+            <div class="category" data-category="zamenice">
+                <div class="category-header">
+                    <span>👤 ZAMENICE (Lične i ostale)</span>
+                    <span class="word-count">40 reči</span>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 20%">SRPSKI</th>
+                            <th style="width: 25%">SLOVENAČKI</th>
+                            <th style="width: 25%">ENGLISH</th>
+                            <th style="width: 30%">NAPOMENA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="serbian">ja</td><td class="slovenian">jaz</td><td class="english">I</td><td class="note">mene, meni, mnom</td></tr>
+                        <tr><td class="serbian">ti</td><td class="slovenian">ti</td><td class="english">you (sg.)</td><td class="note">tebe, tebi, tobom</td></tr>
+                        <tr><td class="serbian">on</td><td class="slovenian">on</td><td class="english">he</td><td class="note">njega, njemu, njim</td></tr>
+                        <tr><td class="serbian">ona</td><td class="slovenian">ona</td><td class="english">she</td><td class="note">nje, njoj, njom</td></tr>
+                        <tr><td class="serbian">ono</td><td class="slovenian">ono</td><td class="english">it</td><td class="note">njega, njemu, njim</td></tr>
+                        <tr><td class="serbian">mi</td><td class="slovenian">mi</td><td class="english">we</td><td class="note">nas, nama, nama</td></tr>
+                        <tr><td class="serbian">vi</td><td class="slovenian">vi</td><td class="english">you (pl.)</td><td class="note">vas, vama, vama</td></tr>
+                        <tr><td class="serbian">oni (m)</td><td class="slovenian">oni</td><td class="english">they (masc.)</td><td class="note">njih, njima, njima</td></tr>
+                        <tr><td class="serbian">one (ž)</td><td class="slovenian">one</td><td class="english">they (fem.)</td><td class="note">njih, njima, njima</td></tr>
+                        <tr><td class="serbian">ona (s)</td><td class="slovenian">ona</td><td class="english">they (neut.)</td><td class="note">njih, njima, njima</td></tr>
+                        <tr><td class="serbian">moj/moja/moje</td><td class="slovenian">moj/moja/moje</td><td class="english">my, mine</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">tvoj/tvoja/tvoje</td><td class="slovenian">tvoj/tvoja/tvoje</td><td class="english">your (sg.)</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">njegov</td><td class="slovenian">njegov</td><td class="english">his</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">njen</td><td class="slovenian">njen</td><td class="english">her</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">naš/naša/naše</td><td class="slovenian">naš/naša/naše</td><td class="english">our</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">vaš/vaša/vaše</td><td class="slovenian">vaš/vaša/vaše</td><td class="english">your (pl.)</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">njihov</td><td class="slovenian">njihov</td><td class="english">their</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">ovaj/ova/ovo</td><td class="slovenian">ta/ta/to</td><td class="english">this</td><td class="note">pokazne zamenice</td></tr>
+                        <tr><td class="serbian">taj/ta/to</td><td class="slovenian">tisti/tista/tisto</td><td class="english">that</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">onaj/ona/ono</td><td class="slovenian">oni/ona/ono</td><td class="english">that (over there)</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">ko</td><td class="slovenian">kdo</td><td class="english">who</td><td class="note">koga, kome, kim</td></tr>
+                        <tr><td class="serbian">što/šta</td><td class="slovenian">kaj</td><td class="english">what</td><td class="note">čega, čemu, čim</td></tr>
+                        <tr><td class="serbian">koji</td><td class="slovenian">kateri</td><td class="english">which</td><td class="note">koji/koja/koje</td></tr>
+                        <tr><td class="serbian">kakav</td><td class="slovenian">kakšen</td><td class="english">what kind of</td><td class="note">kakav/kakva/kakvo</td></tr>
+                        <tr><td class="serbian">čiji</td><td class="slovenian">čigav</td><td class="english">whose</td><td class="note">čiji/čija/čije</td></tr>
+                        <tr><td class="serbian">koliko</td><td class="slovenian">koliko</td><td class="english">how much/many</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">neko</td><td class="slovenian">nekdo</td><td class="english">someone</td><td class="note">nekoga, nekome</td></tr>
+                        <tr><td class="serbian">nešto</td><td class="slovenian">nekaj</td><td class="english">something</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">niko</td><td class="slovenian">nihče</td><td class="english">nobody</td><td class="note">nikoga, nikome</td></tr>
+                        <tr><td class="serbian">ništa</td><td class="slovenian">nič</td><td class="english">nothing</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">svako</td><td class="slovenian">vsakdo</td><td class="english">everyone</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">sve</td><td class="slovenian">vse</td><td class="english">everything</td><td class="note">svega, svemu, svim</td></tr>
+                        <tr><td class="serbian">svi/sve/sva</td><td class="slovenian">vsi/vse/vsa</td><td class="english">all</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">bilo ko</td><td class="slovenian">kdorkoli</td><td class="english">anyone at all</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">bilo šta</td><td class="slovenian">karkoli</td><td class="english">anything at all</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">sam/sama/samo</td><td class="slovenian">sam/sama/samo</td><td class="english">alone, self</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">jedan</td><td class="slovenian">en</td><td class="english">one, a, an</td><td class="note">jedan/jedna/jedno</td></tr>
+                        <tr><td class="serbian">drugi</td><td class="slovenian">drug</td><td class="english">other, another</td><td class="note">drugi/druga/drugo</td></tr>
+                        <tr><td class="serbian">isti</td><td class="slovenian">isti</td><td class="english">same</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">neki</td><td class="slovenian">nek</td><td class="english">some, certain</td><td class="note">neki/neka/neko</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- PREDLOZI -->
+            <div class="category" data-category="predlozi">
+                <div class="category-header">
+                    <span>📍 PREDLOZI (Sa padežima)</span>
+                    <span class="word-count">35 reči</span>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 20%">SRPSKI</th>
+                            <th style="width: 25%">SLOVENAČKI</th>
+                            <th style="width: 25%">ENGLISH</th>
+                            <th style="width: 30%">NAPOMENA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="serbian">u (+ akuz/lok)</td><td class="slovenian">v</td><td class="english">in, into, at</td><td class="note">NAJVAŽNIJI! u + A (pokret), u + L (mesto)</td></tr>
+                        <tr><td class="serbian">na (+ akuz/lok)</td><td class="slovenian">na</td><td class="english">on, onto, at</td><td class="note">na + A (pokret), na + L (mesto)</td></tr>
+                        <tr><td class="serbian">od (+ gen)</td><td class="slovenian">od</td><td class="english">from, of, since</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">do (+ gen)</td><td class="slovenian">do</td><td class="english">to, until, up to</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">za (+ akuz)</td><td class="slovenian">za</td><td class="english">for, behind</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">sa/s (+ instr)</td><td class="slovenian">s/z</td><td class="english">with</td><td class="note">sa + suglasnikom, s + samoglasnikom</td></tr>
+                        <tr><td class="serbian">bez (+ gen)</td><td class="slovenian">brez</td><td class="english">without</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">pre (+ gen)</td><td class="slovenian">pred</td><td class="english">before, ago</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">posle (+ gen)</td><td class="slovenian">po</td><td class="english">after</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">kod (+ gen)</td><td class="slovenian">pri</td><td class="english">at (someone's place)</td><td class="note">kod kuće = at home</td></tr>
+                        <tr><td class="serbian">iz (+ gen)</td><td class="slovenian">iz</td><td class="english">from, out of</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">preko (+ gen)</td><td class="slovenian">preko</td><td class="english">across, over</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">ispod (+ gen)</td><td class="slovenian">pod</td><td class="english">under, below</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">iznad (+ gen)</td><td class="slovenian">nad</td><td class="english">above, over</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">oko (+ gen)</td><td class="slovenian">okrog</td><td class="english">around, about</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">među (+ instr)</td><td class="slovenian">med</td><td class="english">among, between</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">pored (+ gen)</td><td class="slovenian">poleg</td><td class="english">beside, next to</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">prema (+ dat)</td><td class="slovenian">proti</td><td class="english">toward</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">protiv (+ gen)</td><td class="slovenian">proti</td><td class="english">against</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">kroz (+ akuz)</td><td class="slovenian">skozi</td><td class="english">through</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">po (+ lok)</td><td class="slovenian">po</td><td class="english">along, around</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">o (+ lok)</td><td class="slovenian">o</td><td class="english">about</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">zbog (+ gen)</td><td class="slovenian">zaradi</td><td class="english">because of</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">tokom (+ gen)</td><td class="slovenian">med</td><td class="english">during</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">između (+ gen)</td><td class="slovenian">med</td><td class="english">between</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">iza (+ gen)</td><td class="slovenian">za</td><td class="english">behind</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">ispred (+ gen)</td><td class="slovenian">pred</td><td class="english">in front of</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">umesto (+ gen)</td><td class="slovenian">namesto</td><td class="english">instead of</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">osim (+ gen)</td><td class="slovenian">razen</td><td class="english">except</td><td class="note">-</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- LAŽNI PRIJATELJI -->
+            <div class="category" data-category="lazni-prijatelji">
+                <div class="category-header">
+                    <span>⚠️ LAŽNI PRIJATELJI (Slovenački-Srpski) - VAŽNO!</span>
+                    <span class="word-count">25 reči</span>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 20%">SLOVENAČKI</th>
+                            <th style="width: 25%">ZNAČI U SLOVENSKOM</th>
+                            <th style="width: 25%">SRPSKI PREVOD</th>
+                            <th style="width: 30%">SRPSKA REČ (SLIČNOST)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="serbian">jutri</td><td class="slovenian">tomorrow</td><td class="english">sutra</td><td class="note">jutro (srp) = morning</td></tr>
+                        <tr><td class="serbian">včeraj</td><td class="slovenian">yesterday</td><td class="english">juče</td><td class="note">večeras (srp) = tonight</td></tr>
+                        <tr><td class="serbian">nedelja</td><td class="slovenian">Sunday</td><td class="english">nedelja (dan)</td><td class="note">nedelja (srp) = week</td></tr>
+                        <tr><td class="serbian">teden</td><td class="slovenian">week</td><td class="english">nedelja</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">pozoren</td><td class="slovenian">careful</td><td class="english">pažljiv</td><td class="note">pozoren (srp) = late</td></tr>
+                        <tr><td class="serbian">stati</td><td class="slovenian">to cost</td><td class="english">koštati</td><td class="note">stati (srp) = to stop</td></tr>
+                        <tr><td class="serbian">stol</td><td class="slovenian">chair</td><td class="english">stolica</td><td class="note">sto (srp) = table</td></tr>
+                        <tr><td class="serbian">miza</td><td class="slovenian">table</td><td class="english">sto</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">hiša</td><td class="slovenian">house</td><td class="english">kuća</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">brati</td><td class="slovenian">to read</td><td class="english">čitati</td><td class="note">brati (srp) = to pick</td></tr>
+                        <tr><td class="serbian">iskati</td><td class="slovenian">to search</td><td class="english">tražiti</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">lačen</td><td class="slovenian">hungry</td><td class="english">gladan</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">žejen</td><td class="slovenian">thirsty</td><td class="english">žedan</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">leto</td><td class="slovenian">year</td><td class="english">godina</td><td class="note">leto (srp) = summer</td></tr>
+                        <tr><td class="serbian">poletje</td><td class="slovenian">summer</td><td class="english">leto</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">mesto</td><td class="slovenian">city</td><td class="english">grad</td><td class="note">mesto (srp) = place</td></tr>
+                        <tr><td class="serbian">kraj</td><td class="slovenian">place, area</td><td class="english">mesto</td><td class="note">kraj (srp) = end</td></tr>
+                        <tr><td class="serbian">otrok</td><td class="slovenian">child</td><td class="english">dete</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">vprašati</td><td class="slovenian">to ask</td><td class="english">pitati</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">moški</td><td class="slovenian">man (male)</td><td class="english">muškarac</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">denar</td><td class="slovenian">money</td><td class="english">novac</td><td class="note">-</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        
+        
+            <!-- IMENICE -->
+            <div class="category" data-category="imenice">
+                <div class="category-header">
+                    <span>🏠 IMENICE (Najvažnije)</span>
+                    <span class="word-count">80 reči</span>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 20%">SRPSKI</th>
+                            <th style="width: 25%">SLOVENAČKI</th>
+                            <th style="width: 25%">ENGLISH</th>
+                            <th style="width: 30%">NAPOMENA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="serbian">čovek (m)</td><td class="slovenian">človek</td><td class="english">man, person</td><td class="note">ljudi (mn)</td></tr>
+                        <tr><td class="serbian">žena (ž)</td><td class="slovenian">ženska</td><td class="english">woman</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">muškarac (m)</td><td class="slovenian">moški</td><td class="english">man (male)</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">dete (s)</td><td class="slovenian">otrok</td><td class="english">child</td><td class="note">deca (mn)</td></tr>
+                        <tr><td class="serbian">majka (ž)</td><td class="slovenian">mati</td><td class="english">mother</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">otac (m)</td><td class="slovenian">oče</td><td class="english">father</td><td class="note">oca, ocu...</td></tr>
+                        <tr><td class="serbian">sin (m)</td><td class="slovenian">sin</td><td class="english">son</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">kćerka (ž)</td><td class="slovenian">hči</td><td class="english">daughter</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">brat (m)</td><td class="slovenian">brat</td><td class="english">brother</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">sestra (ž)</td><td class="slovenian">sestra</td><td class="english">sister</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">prijatelj (m)</td><td class="slovenian">prijatelj</td><td class="english">friend</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">kuća (ž)</td><td class="slovenian">hiša</td><td class="english">house</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">stan (m)</td><td class="slovenian">stanovanje</td><td class="english">apartment</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">soba (ž)</td><td class="slovenian">soba</td><td class="english">room</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">kuhinja (ž)</td><td class="slovenian">kuhinja</td><td class="english">kitchen</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">kupatilo (s)</td><td class="slovenian">kopalnica</td><td class="english">bathroom</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">vrata (s mn)</td><td class="slovenian">vrata</td><td class="english">door</td><td class="note">uvek množina!</td></tr>
+                        <tr><td class="serbian">prozor (m)</td><td class="slovenian">okno</td><td class="english">window</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">sto (m)</td><td class="slovenian">miza</td><td class="english">table</td><td class="note">LAŽNI PRIJATELJ!</td></tr>
+                        <tr><td class="serbian">stolica (ž)</td><td class="slovenian">stol</td><td class="english">chair</td><td class="note">LAŽNI PRIJATELJ!</td></tr>
+                        <tr><td class="serbian">krevet (m)</td><td class="slovenian">postelja</td><td class="english">bed</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">ulica (ž)</td><td class="slovenian">ulica</td><td class="english">street</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">grad (m)</td><td class="slovenian">mesto</td><td class="english">city</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">škola (ž)</td><td class="slovenian">šola</td><td class="english">school</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">posao (m)</td><td class="slovenian">delo</td><td class="english">job, work</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">prodavnica (ž)</td><td class="slovenian">trgovina</td><td class="english">store</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">restoran (m)</td><td class="slovenian">restavracija</td><td class="english">restaurant</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">bolnica (ž)</td><td class="slovenian">bolnišnica</td><td class="english">hospital</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">auto (m)</td><td class="slovenian">avto</td><td class="english">car</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">autobus (m)</td><td class="slovenian">avtobus</td><td class="english">bus</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">voz (m)</td><td class="slovenian">vlak</td><td class="english">train</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">vreme (s)</td><td class="slovenian">vreme/vreme</td><td class="english">time/weather</td><td class="note">dva značenja!</td></tr>
+                        <tr><td class="serbian">dan (m)</td><td class="slovenian">dan</td><td class="english">day</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">noć (ž)</td><td class="slovenian">noč</td><td class="english">night</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">jutro (s)</td><td class="slovenian">jutro</td><td class="english">morning</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">veče (s)</td><td class="slovenian">večer</td><td class="english">evening</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">nedelja (ž)</td><td class="slovenian">teden</td><td class="english">week</td><td class="note">LAŽNI PRIJATELJ!</td></tr>
+                        <tr><td class="serbian">mesec (m)</td><td class="slovenian">mesec</td><td class="english">month</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">godina (ž)</td><td class="slovenian">leto</td><td class="english">year</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">sat (m)</td><td class="slovenian">ura</td><td class="english">hour, clock</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">hrana (ž)</td><td class="slovenian">hrana</td><td class="english">food</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">piće (s)</td><td class="slovenian">pijača</td><td class="english">drink</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">hleb (m)</td><td class="slovenian">kruh</td><td class="english">bread</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">mleko (s)</td><td class="slovenian">mleko</td><td class="english">milk</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">voda (ž)</td><td class="slovenian">voda</td><td class="english">water</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">kafa (ž)</td><td class="slovenian">kava</td><td class="english">coffee</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">čaj (m)</td><td class="slovenian">čaj</td><td class="english">tea</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">meso (s)</td><td class="slovenian">meso</td><td class="english">meat</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">riba (ž)</td><td class="slovenian">riba</td><td class="english">fish</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">voće (s)</td><td class="slovenian">sadje</td><td class="english">fruit</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">povrće (s)</td><td class="slovenian">zelenjava</td><td class="english">vegetables</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">novac (m)</td><td class="slovenian">denar</td><td class="english">money</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">telefon (m)</td><td class="slovenian">telefon</td><td class="english">phone</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">knjiga (ž)</td><td class="slovenian">knjiga</td><td class="english">book</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">jezik (m)</td><td class="slovenian">jezik</td><td class="english">language</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">reč (ž)</td><td class="slovenian">beseda</td><td class="english">word</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">ime (s)</td><td class="slovenian">ime</td><td class="english">name</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">glava (ž)</td><td class="slovenian">glava</td><td class="english">head</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">oko (s)</td><td class="slovenian">oko</td><td class="english">eye</td><td class="note">oči (mn)</td></tr>
+                        <tr><td class="serbian">ruka (ž)</td><td class="slovenian">roka</td><td class="english">hand, arm</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">noga (ž)</td><td class="slovenian">noga</td><td class="english">leg, foot</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">srce (s)</td><td class="slovenian">srce</td><td class="english">heart</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">problem (m)</td><td class="slovenian">problem</td><td class="english">problem</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">život (m)</td><td class="slovenian">življenje</td><td class="english">life</td><td class="note">-</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- PRIDEVI -->
+            <div class="category" data-category="pridevi">
+                <div class="category-header">
+                    <span>✨ PRIDEVI (Najčešći)</span>
+                    <span class="word-count">50 reči</span>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 20%">SRPSKI</th>
+                            <th style="width: 25%">SLOVENAČKI</th>
+                            <th style="width: 25%">ENGLISH</th>
+                            <th style="width: 30%">NAPOMENA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="serbian">dobar</td><td class="slovenian">dober</td><td class="english">good</td><td class="note">dobar/dobra/dobro</td></tr>
+                        <tr><td class="serbian">loš</td><td class="slovenian">slab</td><td class="english">bad</td><td class="note">loš/loša/loše</td></tr>
+                        <tr><td class="serbian">veliki</td><td class="slovenian">velik</td><td class="english">big</td><td class="note">veliki/velika/veliko</td></tr>
+                        <tr><td class="serbian">mali</td><td class="slovenian">majhen</td><td class="english">small</td><td class="note">mali/mala/malo</td></tr>
+                        <tr><td class="serbian">lep</td><td class="slovenian">lep</td><td class="english">beautiful</td><td class="note">lep/lepa/lepo</td></tr>
+                        <tr><td class="serbian">ružan</td><td class="slovenian">grd</td><td class="english">ugly</td><td class="note">ružan/ružna/ružno</td></tr>
+                        <tr><td class="serbian">star</td><td class="slovenian">star</td><td class="english">old</td><td class="note">star/stara/staro</td></tr>
+                        <tr><td class="serbian">mlad</td><td class="slovenian">mlad</td><td class="english">young</td><td class="note">mlad/mlada/mlado</td></tr>
+                        <tr><td class="serbian">nov</td><td class="slovenian">nov</td><td class="english">new</td><td class="note">nov/nova/novo</td></tr>
+                        <tr><td class="serbian">dugi</td><td class="slovenian">dolg</td><td class="english">long</td><td class="note">dugi/duga/dugo</td></tr>
+                        <tr><td class="serbian">kratak</td><td class="slovenian">kratek</td><td class="english">short</td><td class="note">kratak/kratka/kratko</td></tr>
+                        <tr><td class="serbian">visok</td><td class="slovenian">visok</td><td class="english">tall, high</td><td class="note">visok/visoka/visoko</td></tr>
+                        <tr><td class="serbian">nizak</td><td class="slovenian">nizek</td><td class="english">short, low</td><td class="note">nizak/niska/nisko</td></tr>
+                        <tr><td class="serbian">topao</td><td class="slovenian">topel</td><td class="english">warm</td><td class="note">topao/topla/toplo</td></tr>
+                        <tr><td class="serbian">hladan</td><td class="slovenian">hladen</td><td class="english">cold</td><td class="note">hladan/hladna/hladno</td></tr>
+                        <tr><td class="serbian">vrući</td><td class="slovenian">vroč</td><td class="english">hot</td><td class="note">vrući/vruća/vruće</td></tr>
+                        <tr><td class="serbian">lak</td><td class="slovenian">lahek</td><td class="english">easy, light</td><td class="note">lak/laka/lako</td></tr>
+                        <tr><td class="serbian">težak</td><td class="slovenian">težek</td><td class="english">difficult, heavy</td><td class="note">težak/teška/teško</td></tr>
+                        <tr><td class="serbian">brz</td><td class="slovenian">hiter</td><td class="english">fast</td><td class="note">brz/brza/brzo</td></tr>
+                        <tr><td class="serbian">spor</td><td class="slovenian">počasen</td><td class="english">slow</td><td class="note">spor/spora/sporo</td></tr>
+                        <tr><td class="serbian">jak</td><td class="slovenian">močan</td><td class="english">strong</td><td class="note">jak/jaka/jako</td></tr>
+                        <tr><td class="serbian">slab</td><td class="slovenian">šibek</td><td class="english">weak</td><td class="note">slab/slaba/slabo</td></tr>
+                        <tr><td class="serbian">čist</td><td class="slovenian">čist</td><td class="english">clean</td><td class="note">čist/čista/čisto</td></tr>
+                        <tr><td class="serbian">prljav</td><td class="slovenian">umazan</td><td class="english">dirty</td><td class="note">prljav/prljava/prljavo</td></tr>
+                        <tr><td class="serbian">pun</td><td class="slovenian">poln</td><td class="english">full</td><td class="note">pun/puna/puno</td></tr>
+                        <tr><td class="serbian">prazan</td><td class="slovenian">prazen</td><td class="english">empty</td><td class="note">prazan/prazna/prazno</td></tr>
+                        <tr><td class="serbian">srećan</td><td class="slovenian">srečen</td><td class="english">happy</td><td class="note">srećan/srećna/srećno</td></tr>
+                        <tr><td class="serbian">tužan</td><td class="slovenian">žalosten</td><td class="english">sad</td><td class="note">tužan/tužna/tužno</td></tr>
+                        <tr><td class="serbian">pametan</td><td class="slovenian">pameten</td><td class="english">smart</td><td class="note">pametan/pametna/pametno</td></tr>
+                        <tr><td class="serbian">glup</td><td class="slovenian">neumen</td><td class="english">stupid</td><td class="note">glup/glupa/glupo</td></tr>
+                        <tr><td class="serbian">važan</td><td class="slovenian">pomemben</td><td class="english">important</td><td class="note">važan/važna/važno</td></tr>
+                        <tr><td class="serbian">skup</td><td class="slovenian">drag</td><td class="english">expensive</td><td class="note">skup/skupa/skupo</td></tr>
+                        <tr><td class="serbian">jeftin</td><td class="slovenian">poceni</td><td class="english">cheap</td><td class="note">jeftin/jeftina/jeftino</td></tr>
+                        <tr><td class="serbian">zdrav</td><td class="slovenian">zdrav</td><td class="english">healthy</td><td class="note">zdrav/zdrava/zdravo</td></tr>
+                        <tr><td class="serbian">bolestan</td><td class="slovenian">bolan</td><td class="english">sick</td><td class="note">bolestan/bolesna/bolesno</td></tr>
+                        <tr><td class="serbian">crn</td><td class="slovenian">črn</td><td class="english">black</td><td class="note">crn/crna/crno</td></tr>
+                        <tr><td class="serbian">beo</td><td class="slovenian">bel</td><td class="english">white</td><td class="note">beo/bela/belo</td></tr>
+                        <tr><td class="serbian">crven</td><td class="slovenian">rdeč</td><td class="english">red</td><td class="note">crven/crvena/crveno</td></tr>
+                        <tr><td class="serbian">plav</td><td class="slovenian">moder</td><td class="english">blue</td><td class="note">plav/plava/plavo</td></tr>
+                        <tr><td class="serbian">zelen</td><td class="slovenian">zelen</td><td class="english">green</td><td class="note">zelen/zelena/zeleno</td></tr>
+                        <tr><td class="serbian">žut</td><td class="slovenian">rumen</td><td class="english">yellow</td><td class="note">žut/žuta/žuto</td></tr>
+                        <tr><td class="serbian">prvi</td><td class="slovenian">prvi</td><td class="english">first</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">poslednji</td><td class="slovenian">zadnji</td><td class="english">last</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">sledeći</td><td class="slovenian">naslednji</td><td class="english">next</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">tačan</td><td class="slovenian">točen</td><td class="english">correct</td><td class="note">tačan/tačna/tačno</td></tr>
+                        <tr><td class="serbian">siguran</td><td class="slovenian">gotov</td><td class="english">sure, safe</td><td class="note">siguran/sigurna/sigurno</td></tr>
+                        <tr><td class="serbian">moguć</td><td class="slovenian">mogoč</td><td class="english">possible</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">potreban</td><td class="slovenian">potreben</td><td class="english">necessary</td><td class="note">potreban/potrebna/potrebno</td></tr>
+                        <tr><td class="serbian">slobodan</td><td class="slovenian">prost</td><td class="english">free</td><td class="note">slobodan/slobodna/slobodno</td></tr>
+                        <tr><td class="serbian">zauzet</td><td class="slovenian">zaposlen</td><td class="english">busy</td><td class="note">zauzet/zauzeta/zauzeto</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- VEZNICI -->
+            <div class="category" data-category="veznici">
+                <div class="category-header">
+                    <span>🔗 VEZNICI I KONJUNKCIJE</span>
+                    <span class="word-count">25 reči</span>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 20%">SRPSKI</th>
+                            <th style="width: 25%">SLOVENAČKI</th>
+                            <th style="width: 25%">ENGLISH</th>
+                            <th style="width: 30%">NAPOMENA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="serbian">i</td><td class="slovenian">in</td><td class="english">and</td><td class="note">Najvažniji veznik!</td></tr>
+                        <tr><td class="serbian">a</td><td class="slovenian">a</td><td class="english">and, but (mild)</td><td class="note">blaga suprotnost</td></tr>
+                        <tr><td class="serbian">ali</td><td class="slovenian">ampak</td><td class="english">but</td><td class="note">jaka suprotnost</td></tr>
+                        <tr><td class="serbian">ili</td><td class="slovenian">ali</td><td class="english">or</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">pa</td><td class="slovenian">pa</td><td class="english">and, so</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">jer</td><td class="slovenian">ker</td><td class="english">because</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">zato što</td><td class="slovenian">zato ker</td><td class="english">because</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">ako</td><td class="slovenian">če</td><td class="english">if</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">kad(a)</td><td class="slovenian">ko</td><td class="english">when</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">dok</td><td class="slovenian">dokler</td><td class="english">while</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">pre nego što</td><td class="slovenian">preden</td><td class="english">before</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">posle (što)</td><td class="slovenian">potem ko</td><td class="english">after</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">iako</td><td class="slovenian">čeprav</td><td class="english">although</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">mada</td><td class="slovenian">čeprav</td><td class="english">though</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">da</td><td class="slovenian">da</td><td class="english">that, to</td><td class="note">Multifunkcionalno!</td></tr>
+                        <tr><td class="serbian">da bi</td><td class="slovenian">da bi</td><td class="english">in order to</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">čim</td><td class="slovenian">takoj ko</td><td class="english">as soon as</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">čak i</td><td class="slovenian">celo</td><td class="english">even</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">osim</td><td class="slovenian">razen</td><td class="english">except, besides</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">ni</td><td class="slovenian">niti</td><td class="english">nor, neither</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">niti</td><td class="slovenian">niti</td><td class="english">neither, nor</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">i...i</td><td class="slovenian">tako...kot</td><td class="english">both...and</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">zato</td><td class="slovenian">zato</td><td class="english">therefore</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">te</td><td class="slovenian">in</td><td class="english">and, so</td><td class="note">posledica</td></tr>
+                        <tr><td class="serbian">pa ipak</td><td class="slovenian">pa vendar</td><td class="english">but still, yet</td><td class="note">-</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- REČICE I PRILOZI -->
+            <div class="category" data-category="recice">
+                <div class="category-header">
+                    <span>⚡ REČICE I PRILOZI (Ključne reči)</span>
+                    <span class="word-count">60 reči</span>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 20%">SRPSKI</th>
+                            <th style="width: 25%">SLOVENAČKI</th>
+                            <th style="width: 25%">ENGLISH</th>
+                            <th style="width: 30%">NAPOMENA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="serbian">da</td><td class="slovenian">ja</td><td class="english">yes</td><td class="note">Najvažnije!</td></tr>
+                        <tr><td class="serbian">ne</td><td class="slovenian">ne</td><td class="english">no, not</td><td class="note">Najvažnije!</td></tr>
+                        <tr><td class="serbian">možda</td><td class="slovenian">mogoče</td><td class="english">maybe, perhaps</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">sigurno</td><td class="slovenian">gotovo</td><td class="english">surely, certainly</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">verovatno</td><td class="slovenian">verjetno</td><td class="english">probably</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">naravno</td><td class="slovenian">seveda</td><td class="english">of course</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">uvek</td><td class="slovenian">vedno</td><td class="english">always</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">nikad(a)</td><td class="slovenian">nikoli</td><td class="english">never</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">često</td><td class="slovenian">pogosto</td><td class="english">often</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">retko</td><td class="slovenian">redko</td><td class="english">rarely, seldom</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">ponekad</td><td class="slovenian">včasih</td><td class="english">sometimes</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">danas</td><td class="slovenian">danes</td><td class="english">today</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">juče</td><td class="slovenian">včeraj</td><td class="english">yesterday</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">sutra</td><td class="slovenian">jutri</td><td class="english">tomorrow</td><td class="note">LAŽNI PRIJATELJ!</td></tr>
+                        <tr><td class="serbian">sad(a)</td><td class="slovenian">zdaj</td><td class="english">now</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">odmah</td><td class="slovenian">takoj</td><td class="english">immediately</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">kasnije</td><td class="slovenian">pozneje</td><td class="english">later</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">ranije</td><td class="slovenian">prej</td><td class="english">earlier</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">pre</td><td class="slovenian">pred</td><td class="english">before, ago</td><td class="note">pre + genitiv</td></tr>
+                        <tr><td class="serbian">posle</td><td class="slovenian">po</td><td class="english">after</td><td class="note">posle + genitiv</td></tr>
+                        <tr><td class="serbian">već</td><td class="slovenian">že</td><td class="english">already</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">još</td><td class="slovenian">še</td><td class="english">still, yet, more</td><td class="note">Multifunkcionalno!</td></tr>
+                        <tr><td class="serbian">još uvek</td><td class="slovenian">še vedno</td><td class="english">still</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">više</td><td class="slovenian">več</td><td class="english">more, no longer</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">manje</td><td class="slovenian">manj</td><td class="english">less</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">malo</td><td class="slovenian">malo</td><td class="english">a little, few</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">mnogo</td><td class="slovenian">veliko</td><td class="english">much, many</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">dosta</td><td class="slovenian">dovolj</td><td class="english">enough, quite</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">previše</td><td class="slovenian">preveč</td><td class="english">too much</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">potpuno</td><td class="slovenian">popolnoma</td><td class="english">completely</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">skoro</td><td class="slovenian">skoraj</td><td class="english">almost</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">tek</td><td class="slovenian">šele</td><td class="english">just, only</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">samo</td><td class="slovenian">samo</td><td class="english">only, just</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">takođe</td><td class="slovenian">tudi</td><td class="english">also, too</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">čak</td><td class="slovenian">celo</td><td class="english">even</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">bar</td><td class="slovenian">vsaj</td><td class="english">at least</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">ovde</td><td class="slovenian">tukaj</td><td class="english">here</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">tu</td><td class="slovenian">tukaj</td><td class="english">here</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">tamo</td><td class="slovenian">tam</td><td class="english">there</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">gde</td><td class="slovenian">kje</td><td class="english">where</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">gore</td><td class="slovenian">zgoraj</td><td class="english">up, above</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">dole</td><td class="slovenian">spodaj</td><td class="english">down, below</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">unutra</td><td class="slovenian">notri</td><td class="english">inside</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">napolju</td><td class="slovenian">zunaj</td><td class="english">outside</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">napred</td><td class="slovenian">naprej</td><td class="english">forward</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">nazad</td><td class="slovenian">nazaj</td><td class="english">back</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">levo</td><td class="slovenian">levo</td><td class="english">left (direction)</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">desno</td><td class="slovenian">desno</td><td class="english">right (direction)</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">blizu</td><td class="slovenian">blizu</td><td class="english">near</td><td class="note">blizu + genitiv</td></tr>
+                        <tr><td class="serbian">daleko</td><td class="slovenian">daleč</td><td class="english">far</td><td class="note">daleko od + genitiv</td></tr>
+                        <tr><td class="serbian">brzo</td><td class="slovenian">hitro</td><td class="english">quickly</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">sporo</td><td class="slovenian">počasi</td><td class="english">slowly</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">dobro</td><td class="slovenian">dobro</td><td class="english">well, good</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">loše</td><td class="slovenian">slabo</td><td class="english">badly</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">lepo</td><td class="slovenian">lepo</td><td class="english">nicely</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">jako</td><td class="slovenian">močno</td><td class="english">strongly, very</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">glasno</td><td class="slovenian">glasno</td><td class="english">loudly</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">tiho</td><td class="slovenian">tiho</td><td class="english">quietly</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">zajedno</td><td class="slovenian">skupaj</td><td class="english">together</td><td class="note">-</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- IMENICE -->
+            <div class="category" data-category="imenice">
+                <div class="category-header">
+                    <span>🏠 IMENICE (Najvažnije)</span>
+                    <span class="word-count">80 reči</span>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 20%">SRPSKI</th>
+                            <th style="width: 25%">SLOVENAČKI</th>
+                            <th style="width: 25%">ENGLISH</th>
+                            <th style="width: 30%">NAPOMENA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="serbian">čovek (m)</td><td class="slovenian">človek</td><td class="english">man, person</td><td class="note">ljudi (mn)</td></tr>
+                        <tr><td class="serbian">žena (ž)</td><td class="slovenian">ženska</td><td class="english">woman</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">muškarac (m)</td><td class="slovenian">moški</td><td class="english">man (male)</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">dete (s)</td><td class="slovenian">otrok</td><td class="english">child</td><td class="note">deca (mn)</td></tr>
+                        <tr><td class="serbian">majka (ž)</td><td class="slovenian">mati</td><td class="english">mother</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">otac (m)</td><td class="slovenian">oče</td><td class="english">father</td><td class="note">oca, ocu...</td></tr>
+                        <tr><td class="serbian">sin (m)</td><td class="slovenian">sin</td><td class="english">son</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">kćerka (ž)</td><td class="slovenian">hči</td><td class="english">daughter</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">brat (m)</td><td class="slovenian">brat</td><td class="english">brother</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">sestra (ž)</td><td class="slovenian">sestra</td><td class="english">sister</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">prijatelj (m)</td><td class="slovenian">prijatelj</td><td class="english">friend</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">kuća (ž)</td><td class="slovenian">hiša</td><td class="english">house</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">stan (m)</td><td class="slovenian">stanovanje</td><td class="english">apartment</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">soba (ž)</td><td class="slovenian">soba</td><td class="english">room</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">kuhinja (ž)</td><td class="slovenian">kuhinja</td><td class="english">kitchen</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">kupatilo (s)</td><td class="slovenian">kopalnica</td><td class="english">bathroom</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">vrata (s mn)</td><td class="slovenian">vrata</td><td class="english">door</td><td class="note">uvek množina!</td></tr>
+                        <tr><td class="serbian">prozor (m)</td><td class="slovenian">okno</td><td class="english">window</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">sto (m)</td><td class="slovenian">miza</td><td class="english">table</td><td class="note">LAŽNI PRIJATELJ!</td></tr>
+                        <tr><td class="serbian">stolica (ž)</td><td class="slovenian">stol</td><td class="english">chair</td><td class="note">LAŽNI PRIJATELJ!</td></tr>
+                        <tr><td class="serbian">krevet (m)</td><td class="slovenian">postelja</td><td class="english">bed</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">ulica (ž)</td><td class="slovenian">ulica</td><td class="english">street</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">grad (m)</td><td class="slovenian">mesto</td><td class="english">city</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">škola (ž)</td><td class="slovenian">šola</td><td class="english">school</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">posao (m)</td><td class="slovenian">delo</td><td class="english">job, work</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">prodavnica (ž)</td><td class="slovenian">trgovina</td><td class="english">store</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">restoran (m)</td><td class="slovenian">restavracija</td><td class="english">restaurant</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">bolnica (ž)</td><td class="slovenian">bolnišnica</td><td class="english">hospital</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">auto (m)</td><td class="slovenian">avto</td><td class="english">car</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">autobus (m)</td><td class="slovenian">avtobus</td><td class="english">bus</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">voz (m)</td><td class="slovenian">vlak</td><td class="english">train</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">vreme (s)</td><td class="slovenian">vreme/vreme</td><td class="english">time/weather</td><td class="note">dva značenja!</td></tr>
+                        <tr><td class="serbian">dan (m)</td><td class="slovenian">dan</td><td class="english">day</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">noć (ž)</td><td class="slovenian">noč</td><td class="english">night</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">jutro (s)</td><td class="slovenian">jutro</td><td class="english">morning</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">veče (s)</td><td class="slovenian">večer</td><td class="english">evening</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">nedelja (ž)</td><td class="slovenian">teden</td><td class="english">week</td><td class="note">LAŽNI PRIJATELJ!</td></tr>
+                        <tr><td class="serbian">mesec (m)</td><td class="slovenian">mesec</td><td class="english">month</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">godina (ž)</td><td class="slovenian">leto</td><td class="english">year</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">sat (m)</td><td class="slovenian">ura</td><td class="english">hour, clock</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">hrana (ž)</td><td class="slovenian">hrana</td><td class="english">food</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">piće (s)</td><td class="slovenian">pijača</td><td class="english">drink</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">hleb (m)</td><td class="slovenian">kruh</td><td class="english">bread</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">mleko (s)</td><td class="slovenian">mleko</td><td class="english">milk</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">voda (ž)</td><td class="slovenian">voda</td><td class="english">water</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">kafa (ž)</td><td class="slovenian">kava</td><td class="english">coffee</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">čaj (m)</td><td class="slovenian">čaj</td><td class="english">tea</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">meso (s)</td><td class="slovenian">meso</td><td class="english">meat</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">riba (ž)</td><td class="slovenian">riba</td><td class="english">fish</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">voće (s)</td><td class="slovenian">sadje</td><td class="english">fruit</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">povrće (s)</td><td class="slovenian">zelenjava</td><td class="english">vegetables</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">novac (m)</td><td class="slovenian">denar</td><td class="english">money</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">telefon (m)</td><td class="slovenian">telefon</td><td class="english">phone</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">knjiga (ž)</td><td class="slovenian">knjiga</td><td class="english">book</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">jezik (m)</td><td class="slovenian">jezik</td><td class="english">language</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">reč (ž)</td><td class="slovenian">beseda</td><td class="english">word</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">ime (s)</td><td class="slovenian">ime</td><td class="english">name</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">glava (ž)</td><td class="slovenian">glava</td><td class="english">head</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">oko (s)</td><td class="slovenian">oko</td><td class="english">eye</td><td class="note">oči (mn)</td></tr>
+                        <tr><td class="serbian">ruka (ž)</td><td class="slovenian">roka</td><td class="english">hand, arm</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">noga (ž)</td><td class="slovenian">noga</td><td class="english">leg, foot</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">srce (s)</td><td class="slovenian">srce</td><td class="english">heart</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">problem (m)</td><td class="slovenian">problem</td><td class="english">problem</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">život (m)</td><td class="slovenian">življenje</td><td class="english">life</td><td class="note">-</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- PRIDEVI -->
+            <div class="category" data-category="pridevi">
+                <div class="category-header">
+                    <span>✨ PRIDEVI (Najčešći)</span>
+                    <span class="word-count">50 reči</span>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 20%">SRPSKI</th>
+                            <th style="width: 25%">SLOVENAČKI</th>
+                            <th style="width: 25%">ENGLISH</th>
+                            <th style="width: 30%">NAPOMENA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="serbian">dobar</td><td class="slovenian">dober</td><td class="english">good</td><td class="note">dobar/dobra/dobro</td></tr>
+                        <tr><td class="serbian">loš</td><td class="slovenian">slab</td><td class="english">bad</td><td class="note">loš/loša/loše</td></tr>
+                        <tr><td class="serbian">veliki</td><td class="slovenian">velik</td><td class="english">big</td><td class="note">veliki/velika/veliko</td></tr>
+                        <tr><td class="serbian">mali</td><td class="slovenian">majhen</td><td class="english">small</td><td class="note">mali/mala/malo</td></tr>
+                        <tr><td class="serbian">lep</td><td class="slovenian">lep</td><td class="english">beautiful</td><td class="note">lep/lepa/lepo</td></tr>
+                        <tr><td class="serbian">ružan</td><td class="slovenian">grd</td><td class="english">ugly</td><td class="note">ružan/ružna/ružno</td></tr>
+                        <tr><td class="serbian">star</td><td class="slovenian">star</td><td class="english">old</td><td class="note">star/stara/staro</td></tr>
+                        <tr><td class="serbian">mlad</td><td class="slovenian">mlad</td><td class="english">young</td><td class="note">mlad/mlada/mlado</td></tr>
+                        <tr><td class="serbian">nov</td><td class="slovenian">nov</td><td class="english">new</td><td class="note">nov/nova/novo</td></tr>
+                        <tr><td class="serbian">dugi</td><td class="slovenian">dolg</td><td class="english">long</td><td class="note">dugi/duga/dugo</td></tr>
+                        <tr><td class="serbian">kratak</td><td class="slovenian">kratek</td><td class="english">short</td><td class="note">kratak/kratka/kratko</td></tr>
+                        <tr><td class="serbian">visok</td><td class="slovenian">visok</td><td class="english">tall, high</td><td class="note">visok/visoka/visoko</td></tr>
+                        <tr><td class="serbian">nizak</td><td class="slovenian">nizek</td><td class="english">short, low</td><td class="note">nizak/niska/nisko</td></tr>
+                        <tr><td class="serbian">topao</td><td class="slovenian">topel</td><td class="english">warm</td><td class="note">topao/topla/toplo</td></tr>
+                        <tr><td class="serbian">hladan</td><td class="slovenian">hladen</td><td class="english">cold</td><td class="note">hladan/hladna/hladno</td></tr>
+                        <tr><td class="serbian">vrući</td><td class="slovenian">vroč</td><td class="english">hot</td><td class="note">vrući/vruća/vruće</td></tr>
+                        <tr><td class="serbian">lak</td><td class="slovenian">lahek</td><td class="english">easy, light</td><td class="note">lak/laka/lako</td></tr>
+                        <tr><td class="serbian">težak</td><td class="slovenian">težek</td><td class="english">difficult, heavy</td><td class="note">težak/teška/teško</td></tr>
+                        <tr><td class="serbian">brz</td><td class="slovenian">hiter</td><td class="english">fast</td><td class="note">brz/brza/brzo</td></tr>
+                        <tr><td class="serbian">spor</td><td class="slovenian">počasen</td><td class="english">slow</td><td class="note">spor/spora/sporo</td></tr>
+                        <tr><td class="serbian">jak</td><td class="slovenian">močan</td><td class="english">strong</td><td class="note">jak/jaka/jako</td></tr>
+                        <tr><td class="serbian">slab</td><td class="slovenian">šibek</td><td class="english">weak</td><td class="note">slab/slaba/slabo</td></tr>
+                        <tr><td class="serbian">čist</td><td class="slovenian">čist</td><td class="english">clean</td><td class="note">čist/čista/čisto</td></tr>
+                        <tr><td class="serbian">prljav</td><td class="slovenian">umazan</td><td class="english">dirty</td><td class="note">prljav/prljava/prljavo</td></tr>
+                        <tr><td class="serbian">pun</td><td class="slovenian">poln</td><td class="english">full</td><td class="note">pun/puna/puno</td></tr>
+                        <tr><td class="serbian">prazan</td><td class="slovenian">prazen</td><td class="english">empty</td><td class="note">prazan/prazna/prazno</td></tr>
+                        <tr><td class="serbian">srećan</td><td class="slovenian">srečen</td><td class="english">happy</td><td class="note">srećan/srećna/srećno</td></tr>
+                        <tr><td class="serbian">tužan</td><td class="slovenian">žalosten</td><td class="english">sad</td><td class="note">tužan/tužna/tužno</td></tr>
+                        <tr><td class="serbian">pametan</td><td class="slovenian">pameten</td><td class="english">smart</td><td class="note">pametan/pametna/pametno</td></tr>
+                        <tr><td class="serbian">glup</td><td class="slovenian">neumen</td><td class="english">stupid</td><td class="note">glup/glupa/glupo</td></tr>
+                        <tr><td class="serbian">važan</td><td class="slovenian">pomemben</td><td class="english">important</td><td class="note">važan/važna/važno</td></tr>
+                        <tr><td class="serbian">skup</td><td class="slovenian">drag</td><td class="english">expensive</td><td class="note">skup/skupa/skupo</td></tr>
+                        <tr><td class="serbian">jeftin</td><td class="slovenian">poceni</td><td class="english">cheap</td><td class="note">jeftin/jeftina/jeftino</td></tr>
+                        <tr><td class="serbian">zdrav</td><td class="slovenian">zdrav</td><td class="english">healthy</td><td class="note">zdrav/zdrava/zdravo</td></tr>
+                        <tr><td class="serbian">bolestan</td><td class="slovenian">bolan</td><td class="english">sick</td><td class="note">bolestan/bolesna/bolesno</td></tr>
+                        <tr><td class="serbian">crn</td><td class="slovenian">črn</td><td class="english">black</td><td class="note">crn/crna/crno</td></tr>
+                        <tr><td class="serbian">beo</td><td class="slovenian">bel</td><td class="english">white</td><td class="note">beo/bela/belo</td></tr>
+                        <tr><td class="serbian">crven</td><td class="slovenian">rdeč</td><td class="english">red</td><td class="note">crven/crvena/crveno</td></tr>
+                        <tr><td class="serbian">plav</td><td class="slovenian">moder</td><td class="english">blue</td><td class="note">plav/plava/plavo</td></tr>
+                        <tr><td class="serbian">zelen</td><td class="slovenian">zelen</td><td class="english">green</td><td class="note">zelen/zelena/zeleno</td></tr>
+                        <tr><td class="serbian">žut</td><td class="slovenian">rumen</td><td class="english">yellow</td><td class="note">žut/žuta/žuto</td></tr>
+                        <tr><td class="serbian">prvi</td><td class="slovenian">prvi</td><td class="english">first</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">poslednji</td><td class="slovenian">zadnji</td><td class="english">last</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">sledeći</td><td class="slovenian">naslednji</td><td class="english">next</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">tačan</td><td class="slovenian">točen</td><td class="english">correct</td><td class="note">tačan/tačna/tačno</td></tr>
+                        <tr><td class="serbian">siguran</td><td class="slovenian">gotov</td><td class="english">sure, safe</td><td class="note">siguran/sigurna/sigurno</td></tr>
+                        <tr><td class="serbian">moguć</td><td class="slovenian">mogoč</td><td class="english">possible</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">potreban</td><td class="slovenian">potreben</td><td class="english">necessary</td><td class="note">potreban/potrebna/potrebno</td></tr>
+                        <tr><td class="serbian">slobodan</td><td class="slovenian">prost</td><td class="english">free</td><td class="note">slobodan/slobodna/slobodno</td></tr>
+                        <tr><td class="serbian">zauzet</td><td class="slovenian">zaposlen</td><td class="english">busy</td><td class="note">zauzet/zauzeta/zauzeto</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- VEZNICI -->
+            <div class="category" data-category="veznici">
+                <div class="category-header">
+                    <span>🔗 VEZNICI I KONJUNKCIJE</span>
+                    <span class="word-count">25 reči</span>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 20%">SRPSKI</th>
+                            <th style="width: 25%">SLOVENAČKI</th>
+                            <th style="width: 25%">ENGLISH</th>
+                            <th style="width: 30%">NAPOMENA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="serbian">i</td><td class="slovenian">in</td><td class="english">and</td><td class="note">Najvažniji veznik!</td></tr>
+                        <tr><td class="serbian">a</td><td class="slovenian">a</td><td class="english">and, but (mild)</td><td class="note">blaga suprotnost</td></tr>
+                        <tr><td class="serbian">ali</td><td class="slovenian">ampak</td><td class="english">but</td><td class="note">jaka suprotnost</td></tr>
+                        <tr><td class="serbian">ili</td><td class="slovenian">ali</td><td class="english">or</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">pa</td><td class="slovenian">pa</td><td class="english">and, so</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">jer</td><td class="slovenian">ker</td><td class="english">because</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">zato što</td><td class="slovenian">zato ker</td><td class="english">because</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">ako</td><td class="slovenian">če</td><td class="english">if</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">kad(a)</td><td class="slovenian">ko</td><td class="english">when</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">dok</td><td class="slovenian">dokler</td><td class="english">while</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">pre nego što</td><td class="slovenian">preden</td><td class="english">before</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">posle (što)</td><td class="slovenian">potem ko</td><td class="english">after</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">iako</td><td class="slovenian">čeprav</td><td class="english">although</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">mada</td><td class="slovenian">čeprav</td><td class="english">though</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">da</td><td class="slovenian">da</td><td class="english">that, to</td><td class="note">Multifunkcionalno!</td></tr>
+                        <tr><td class="serbian">da bi</td><td class="slovenian">da bi</td><td class="english">in order to</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">čim</td><td class="slovenian">takoj ko</td><td class="english">as soon as</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">čak i</td><td class="slovenian">celo</td><td class="english">even</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">osim</td><td class="slovenian">razen</td><td class="english">except, besides</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">ni</td><td class="slovenian">niti</td><td class="english">nor, neither</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">niti</td><td class="slovenian">niti</td><td class="english">neither, nor</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">i...i</td><td class="slovenian">tako...kot</td><td class="english">both...and</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">zato</td><td class="slovenian">zato</td><td class="english">therefore</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">te</td><td class="slovenian">in</td><td class="english">and, so</td><td class="note">posledica</td></tr>
+                        <tr><td class="serbian">pa ipak</td><td class="slovenian">pa vendar</td><td class="english">but still, yet</td><td class="note">-</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- REČICE I PRILOZI -->
+            <div class="category" data-category="recice">
+                <div class="category-header">
+                    <span>⚡ REČICE I PRILOZI (Ključne reči)</span>
+                    <span class="word-count">60 reči</span>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 20%">SRPSKI</th>
+                            <th style="width: 25%">SLOVENAČKI</th>
+                            <th style="width: 25%">ENGLISH</th>
+                            <th style="width: 30%">NAPOMENA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="serbian">da</td><td class="slovenian">ja</td><td class="english">yes</td><td class="note">Najvažnije!</td></tr>
+                        <tr><td class="serbian">ne</td><td class="slovenian">ne</td><td class="english">no, not</td><td class="note">Najvažnije!</td></tr>
+                        <tr><td class="serbian">možda</td><td class="slovenian">mogoče</td><td class="english">maybe, perhaps</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">sigurno</td><td class="slovenian">gotovo</td><td class="english">surely, certainly</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">verovatno</td><td class="slovenian">verjetno</td><td class="english">probably</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">naravno</td><td class="slovenian">seveda</td><td class="english">of course</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">uvek</td><td class="slovenian">vedno</td><td class="english">always</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">nikad(a)</td><td class="slovenian">nikoli</td><td class="english">never</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">često</td><td class="slovenian">pogosto</td><td class="english">often</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">retko</td><td class="slovenian">redko</td><td class="english">rarely, seldom</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">ponekad</td><td class="slovenian">včasih</td><td class="english">sometimes</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">danas</td><td class="slovenian">danes</td><td class="english">today</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">juče</td><td class="slovenian">včeraj</td><td class="english">yesterday</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">sutra</td><td class="slovenian">jutri</td><td class="english">tomorrow</td><td class="note">LAŽNI PRIJATELJ!</td></tr>
+                        <tr><td class="serbian">sad(a)</td><td class="slovenian">zdaj</td><td class="english">now</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">odmah</td><td class="slovenian">takoj</td><td class="english">immediately</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">kasnije</td><td class="slovenian">pozneje</td><td class="english">later</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">ranije</td><td class="slovenian">prej</td><td class="english">earlier</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">pre</td><td class="slovenian">pred</td><td class="english">before, ago</td><td class="note">pre + genitiv</td></tr>
+                        <tr><td class="serbian">posle</td><td class="slovenian">po</td><td class="english">after</td><td class="note">posle + genitiv</td></tr>
+                        <tr><td class="serbian">već</td><td class="slovenian">že</td><td class="english">already</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">još</td><td class="slovenian">še</td><td class="english">still, yet, more</td><td class="note">Multifunkcionalno!</td></tr>
+                        <tr><td class="serbian">još uvek</td><td class="slovenian">še vedno</td><td class="english">still</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">više</td><td class="slovenian">več</td><td class="english">more, no longer</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">manje</td><td class="slovenian">manj</td><td class="english">less</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">malo</td><td class="slovenian">malo</td><td class="english">a little, few</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">mnogo</td><td class="slovenian">veliko</td><td class="english">much, many</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">dosta</td><td class="slovenian">dovolj</td><td class="english">enough, quite</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">previše</td><td class="slovenian">preveč</td><td class="english">too much</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">potpuno</td><td class="slovenian">popolnoma</td><td class="english">completely</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">skoro</td><td class="slovenian">skoraj</td><td class="english">almost</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">tek</td><td class="slovenian">šele</td><td class="english">just, only</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">samo</td><td class="slovenian">samo</td><td class="english">only, just</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">takođe</td><td class="slovenian">tudi</td><td class="english">also, too</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">čak</td><td class="slovenian">celo</td><td class="english">even</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">bar</td><td class="slovenian">vsaj</td><td class="english">at least</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">ovde</td><td class="slovenian">tukaj</td><td class="english">here</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">tu</td><td class="slovenian">tukaj</td><td class="english">here</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">tamo</td><td class="slovenian">tam</td><td class="english">there</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">gde</td><td class="slovenian">kje</td><td class="english">where</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">gore</td><td class="slovenian">zgoraj</td><td class="english">up, above</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">dole</td><td class="slovenian">spodaj</td><td class="english">down, below</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">unutra</td><td class="slovenian">notri</td><td class="english">inside</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">napolju</td><td class="slovenian">zunaj</td><td class="english">outside</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">napred</td><td class="slovenian">naprej</td><td class="english">forward</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">nazad</td><td class="slovenian">nazaj</td><td class="english">back</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">levo</td><td class="slovenian">levo</td><td class="english">left (direction)</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">desno</td><td class="slovenian">desno</td><td class="english">right (direction)</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">blizu</td><td class="slovenian">blizu</td><td class="english">near</td><td class="note">blizu + genitiv</td></tr>
+                        <tr><td class="serbian">daleko</td><td class="slovenian">daleč</td><td class="english">far</td><td class="note">daleko od + genitiv</td></tr>
+                        <tr><td class="serbian">brzo</td><td class="slovenian">hitro</td><td class="english">quickly</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">sporo</td><td class="slovenian">počasi</td><td class="english">slowly</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">dobro</td><td class="slovenian">dobro</td><td class="english">well, good</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">loše</td><td class="slovenian">slabo</td><td class="english">badly</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">lepo</td><td class="slovenian">lepo</td><td class="english">nicely</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">jako</td><td class="slovenian">močno</td><td class="english">strongly, very</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">glasno</td><td class="slovenian">glasno</td><td class="english">loudly</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">tiho</td><td class="slovenian">tiho</td><td class="english">quietly</td><td class="note">-</td></tr>
+                        <tr><td class="serbian">zajedno</td><td class="slovenian">skupaj</td><td class="english">together</td><td class="note">-</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+    
+    <script>
+        let allRows = [];
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            allRows = Array.from(document.querySelectorAll('tbody tr'));
+            updateCount();
+        });
+        
+        const searchBox = document.getElementById('searchBox');
+        searchBox.addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            
+            allRows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+            
+            updateCount();
+        });
+        
+        function filterCategory(category) {
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            const categories = document.querySelectorAll('.category');
+            
+            if (category === 'all') {
+                categories.forEach(cat => cat.style.display = 'block');
+            } else {
+                categories.forEach(cat => {
+                    if (cat.getAttribute('data-category') === category) {
+                        cat.style.display = 'block';
+                    } else {
+                        cat.style.display = 'none';
+                    }
+                });
+            }
+            
+            searchBox.value = '';
+            allRows.forEach(row => row.style.display = '');
+            updateCount();
+        }
+        
+        function updateCount() {
+            const visibleRows = allRows.filter(row => row.style.display !== 'none');
+            document.getElementById('visibleWords').textContent = visibleRows.length;
+        }
+    </script>
+</body>
+</html>
