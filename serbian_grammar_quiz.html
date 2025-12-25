@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modalni glagoli - Vežbe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            height: 8px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: white;
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .exercise-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .exercise-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .exercise-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .exercise-number {
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .question {
+            margin-bottom: 25px;
+        }
+
+        .question-text {
+            font-size: 1.05rem;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            min-width: 200px;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        input.correct {
+            border-color: #10b981;
+            background: #f0fdf4;
+        }
+
+        input.incorrect {
+            border-color: #ef4444;
+            background: #fef2f2;
+        }
+
+        .feedback {
+            display: none;
+            margin-top: 8px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .feedback.correct {
+            display: block;
+            background: #f0fdf4;
+            color: #10b981;
+        }
+
+        .feedback.incorrect {
+            display: block;
+            background: #fef2f2;
+            color: #ef4444;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-check {
+            background: #667eea;
+            color: white;
+            flex: 1;
+        }
+
+        .btn-check:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-next {
+            background: #10b981;
+            color: white;
+            display: none;
+        }
+
+        .btn-next:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-reset {
+            background: #f3f4f6;
+            color: #666;
+        }
+
+        .btn-reset:hover {
+            background: #e5e7eb;
+        }
+
+        .score-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            display: none;
+        }
+
+        .score-card h2 {
+            color: #667eea;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .score-number {
+            font-size: 4rem;
+            font-weight: 700;
+            color: #10b981;
+            margin: 20px 0;
+        }
+
+        .score-message {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .exercise-card {
+                padding: 20px;
+            }
+
+            .exercise-header {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+
+            input[type="text"] {
+                min-width: 100%;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Modalni glagoli i osnovna vremena</h1>
+            <p>Interaktivne vežbe</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div id="exerciseContainer"></div>
+
+        <div class="score-card" id="scoreCard">
+            <h2>Završili ste sve vežbe! 🎉</h2>
+            <div class="score-number" id="finalScore">0%</div>
+            <div class="score-message" id="scoreMessage"></div>
+            <button class="btn-check" onclick="resetAll()">Pokušaj ponovo</button>
+        </div>
+    </div>
+
+    <script>
+        const exercises = [
+            {
+                title: "Vežba 1: Popuni pravilnim oblikom modalnog glagola",
+                questions: [
+                    { text: "Ja _______ (moći) da ti pomognem sutra.", answer: "mogu" },
+                    { text: "Vi _______ (morati) da nosite masku u bolnici.", answer: "morate" },
+                    { text: "Oni _______ (želeti) da uče nemački jezik.", answer: "žele" },
+                    { text: "Mi _______ (smeti) da uđemo u muzej besplatno.", answer: "smemo" },
+                    { text: "Ti _______ (trebati) da piješ više vode.", answer: "trebaš" }
+                ]
+            },
+            {
+                title: "Vežba 3: Ispravi greške",
+                questions: [
+                    { text: "Ja možem da govorim tri jezika. → Ja _______ da govorim tri jezika.", answer: "mogu" },
+                    { text: "Mi trebamo raditi više. → Mi _______ da radimo više.", answer: "treba" },
+                    { text: "Oni mogu da dođeju sutra. → Oni mogu da _______ sutra.", answer: "dođu" },
+                    { text: "Ti nesmеš da piješ hladno pivo. → Ti _______ da piješ hladno pivo.", answer: "ne smeš" },
+                    { text: "Ja želim učiti srpski. → Ja želim _______ srpski.", answer: "da učim" }
+                ]
+            },
+            {
+                title: "Vežba 4: Perfekat modalnih glagola",
+                questions: [
+                    { text: "Ja mogu da dođem. → Ja _______ da dođem. (perfekat, ženski rod)", answer: "nisam mogao/mogla" },
+                    { text: "Oni moraju da rade. → Oni _______ da rade. (perfekat)", answer: "su morali" },
+                    { text: "Mi želimo da idemo. → Mi _______ da idemo. (perfekat)", answer: "smo želeli" },
+                    { text: "Ti ne smeš da ulaziš. → Ti _______ da ulaziš. (perfekat)", answer: "nisi smeo/smela" }
+                ]
+            },
+            {
+                title: "Vežba 6: Konjugacija u 3. licu množine",
+                questions: [
+                    { text: "Učiti → Oni _______", answer: "uče" },
+                    { text: "Tražiti → Oni _______", answer: "traže" },
+                    { text: "Čitati → Oni _______", answer: "čitaju" },
+                    { text: "Pisati → Oni _______", answer: "pišu" },
+                    { text: "Razumeti → Oni _______", answer: "razumeju" }
+                ]
+            },
+            {
+                title: "Vežba 10: Futur modalnih glagola",
+                questions: [
+                    { text: "Ja mogu da radim. → Ja _______ da radim. (futur)", answer: "ću moći" },
+                    { text: "Ti moraš da učiš. → Ti _______ da učiš. (futur)", answer: "ćeš morati" },
+                    { text: "Oni ne žele da idu. → Oni _______ da idu. (futur)", answer: "neće želeti" }
+                ]
+            }
+        ];
+
+        let currentExercise = 0;
+        let totalQuestions = exercises.reduce((sum, ex) => sum + ex.questions.length, 0);
+        let answeredQuestions = 0;
+
+        function renderExercise(index) {
+            const container = document.getElementById('exerciseContainer');
+            const exercise = exercises[index];
+            
+            let html = `
+                <div class="exercise-card">
+                    <div class="exercise-header">
+                        <div class="exercise-title">${exercise.title}</div>
+                        <div class="exercise-number">${index + 1}/${exercises.length}</div>
+                    </div>
+            `;
+
+            exercise.questions.forEach((q, i) => {
+                html += `
+                    <div class="question">
+                        <div class="question-text">${i + 1}. ${q.text}</div>
+                        <div class="input-group">
+                            <input type="text" id="q${index}_${i}" data-answer="${q.answer}" />
+                        </div>
+                        <div class="feedback" id="feedback${index}_${i}"></div>
+                    </div>
+                `;
+            });
+
+            html += `
+                    <div class="buttons">
+                        <button class="btn-check" onclick="checkAnswers(${index})">Proveri odgovore</button>
+                        <button class="btn-next" id="nextBtn${index}" onclick="nextExercise()">Sledeća vežba →</button>
+                        <button class="btn-reset" onclick="resetExercise(${index})">Resetuj</button>
+                    </div>
+                </div>
+            `;
+
+            container.innerHTML = html;
+        }
+
+        function checkAnswers(exerciseIndex) {
+            const exercise = exercises[exerciseIndex];
+            let correct = 0;
+
+            exercise.questions.forEach((q, i) => {
+                const input = document.getElementById(`q${exerciseIndex}_${i}`);
+                const feedback = document.getElementById(`feedback${exerciseIndex}_${i}`);
+                const userAnswer = input.value.trim().toLowerCase();
+                const correctAnswers = q.answer.toLowerCase().split('/').map(a => a.trim());
+
+                if (correctAnswers.includes(userAnswer)) {
+                    input.classList.add('correct');
+                    input.classList.remove('incorrect');
+                    feedback.className = 'feedback correct';
+                    feedback.textContent = '✓ Tačno!';
+                    correct++;
+                } else {
+                    input.classList.add('incorrect');
+                    input.classList.remove('correct');
+                    feedback.className = 'feedback incorrect';
+                    feedback.textContent = `✗ Tačan odgovor: ${q.answer}`;
+                }
+            });
+
+            document.getElementById(`nextBtn${exerciseIndex}`).style.display = 'block';
+            updateProgress();
+        }
+
+        function resetExercise(exerciseIndex) {
+            const exercise = exercises[exerciseIndex];
+            exercise.questions.forEach((q, i) => {
+                const input = document.getElementById(`q${exerciseIndex}_${i}`);
+                const feedback = document.getElementById(`feedback${exerciseIndex}_${i}`);
+                input.value = '';
+                input.classList.remove('correct', 'incorrect');
+                feedback.style.display = 'none';
+            });
+            document.getElementById(`nextBtn${exerciseIndex}`).style.display = 'none';
+        }
+
+        function nextExercise() {
+            currentExercise++;
+            if (currentExercise < exercises.length) {
+                renderExercise(currentExercise);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                showScore();
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentExercise + 1) / exercises.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function showScore() {
+            document.getElementById('exerciseContainer').style.display = 'none';
+            document.getElementById('scoreCard').style.display = 'block';
+            
+            let totalCorrect = 0;
+            
+            // Count all correct answers from ALL exercises (not just current one)
+            exercises.forEach((ex, exIndex) => {
+                ex.questions.forEach((q, qIndex) => {
+                    const input = document.getElementById(`q${exIndex}_${qIndex}`);
+                    if (input && input.classList.contains('correct')) {
+                        totalCorrect++;
+                    }
+                });
+            });
+
+            const percentage = Math.round((totalCorrect / totalQuestions) * 100);
+            document.getElementById('finalScore').textContent = percentage + '%';
+            
+            let message = '';
+            if (percentage >= 90) message = 'Odlično! Izvrsno poznavanje gradiva! 🌟';
+            else if (percentage >= 70) message = 'Vrlo dobro! Nastavite sa radom! 👏';
+            else if (percentage >= 50) message = 'Dobro! Još malo vežbe i bićete odlični! 💪';
+            else message = 'Nastavite sa vežbanjem! Uspeh dolazi sa praksom! 📚';
+            
+            document.getElementById('scoreMessage').textContent = `${totalCorrect} od ${totalQuestions} tačnih odgovora. ${message}`;
+        }
+
+        function resetAll() {
+            currentExercise = 0;
+            document.getElementById('exerciseContainer').style.display = 'block';
+            document.getElementById('scoreCard').style.display = 'none';
+            renderExercise(0);
+            updateProgress();
+        }
+
+        // Initialize
+        renderExercise(0);
+        updateProgress();
+    </script>
+</body>
+</html>
