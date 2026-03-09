@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Srpski jezik – Adaptivni test v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f7f4ef;
+  --card: #ffffff;
+  --primary: #b5451b;
+  --primary-light: #f9ede8;
+  --dark: #1e2b3a;
+  --text: #1e2b3a;
+  --muted: #8a8f99;
+  --border: #e2ddd6;
+  --correct: #1a7a4a;
+  --correct-bg: #edf7f2;
+  --wrong: #b5451b;
+  --wrong-bg: #fdf0ec;
+  --shadow: 0 2px 20px rgba(0,0,0,0.07);
+  --radius: 14px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+header { background: var(--dark); padding: 28px 24px 24px; text-align: center; }
+header h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.1rem; font-weight: 700; color: #fff; letter-spacing: 0.5px; }
+header p { color: rgba(255,255,255,0.55); font-size: 0.88rem; margin-top: 4px; font-weight: 300; }
+
+.progress-outer { background: #2e3d4f; height: 4px; }
+.progress-inner { height: 4px; background: var(--primary); transition: width 0.5s ease; width: 0%; }
+
+.level-strip { display: flex; justify-content: center; gap: 6px; padding: 14px 16px; background: var(--dark); border-top: 1px solid rgba(255,255,255,0.07); flex-wrap: wrap; }
+.lvl-dot { width: 32px; height: 32px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.4); font-size: 0.7rem; font-weight: 700; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+.lvl-dot.active { border-color: var(--primary); color: #fff; background: var(--primary); }
+.lvl-dot.done { border-color: #1a7a4a; color: #1a7a4a; }
+.lvl-dot.stopped { border-color: rgba(255,255,255,0.15); color: rgba(255,255,255,0.25); }
+
+main { max-width: 680px; margin: 0 auto; padding: 28px 16px 60px; }
+
+.level-intro { text-align: center; padding: 36px 24px 28px; animation: fadeUp 0.5s ease; }
+.level-tag { display: inline-block; background: var(--primary); color: #fff; padding: 6px 18px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 14px; }
+.level-intro h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; font-weight: 600; color: var(--dark); margin-bottom: 8px; }
+.level-intro p { color: var(--muted); font-size: 0.9rem; line-height: 1.6; }
+.topics-wrap { display: flex; flex-wrap: wrap; gap: 7px; justify-content: center; margin-top: 14px; }
+.topic-chip { background: #eef0f5; color: var(--dark); padding: 4px 12px; border-radius: 20px; font-size: 0.78rem; font-weight: 500; }
+.btn-start { margin-top: 22px; background: var(--dark); color: #fff; border: none; border-radius: 10px; padding: 13px 36px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 500; cursor: pointer; transition: background 0.2s, transform 0.15s; }
+.btn-start:hover { background: var(--primary); transform: translateY(-1px); }
+
+.q-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 26px 24px; box-shadow: var(--shadow); animation: fadeUp 0.4s ease; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+
+.q-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+.q-level-tag { background: var(--primary-light); color: var(--primary); padding: 3px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; }
+.q-topic-tag { background: #eef0f5; color: var(--dark); padding: 3px 10px; border-radius: 6px; font-size: 0.72rem; font-weight: 500; }
+.q-count { color: var(--muted); font-size: 0.82rem; margin-left: auto; }
+.q-text { font-family: 'Cormorant Garamond', serif; font-size: 1.28rem; font-weight: 600; line-height: 1.45; color: var(--dark); margin-bottom: 6px; }
+.q-hint { font-size: 0.82rem; color: var(--muted); margin-bottom: 18px; font-style: italic; line-height: 1.5; }
+
+.options { display: flex; flex-direction: column; gap: 9px; }
+.opt-btn { display: flex; align-items: center; gap: 13px; background: var(--bg); border: 2px solid var(--border); border-radius: 10px; padding: 12px 16px; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; color: var(--text); transition: all 0.16s; text-align: left; width: 100%; }
+.opt-btn:hover:not(:disabled) { border-color: var(--primary); background: var(--primary-light); }
+.opt-btn.selected { border-color: var(--dark); background: #edf0f5; }
+.opt-letter { width: 26px; height: 26px; background: #e8e4de; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0; color: var(--dark); }
+.opt-btn.selected .opt-letter { background: var(--dark); color: #fff; }
+
+.btn-next { margin-top: 20px; width: 100%; background: var(--primary); color: #fff; border: none; border-radius: 10px; padding: 14px; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 500; cursor: pointer; transition: background 0.2s, transform 0.15s; box-shadow: 0 4px 14px rgba(181,69,27,0.3); }
+.btn-next:hover { background: #952f10; transform: translateY(-1px); }
+.btn-next:disabled { background: var(--border); color: var(--muted); box-shadow: none; cursor: not-allowed; transform: none; }
+
+.mini-progress { display: flex; gap: 5px; margin-bottom: 18px; }
+.mini-dot { flex: 1; height: 5px; border-radius: 3px; background: var(--border); transition: background 0.3s; }
+.mini-dot.done-ok { background: var(--correct); }
+.mini-dot.done-no { background: var(--wrong); }
+.mini-dot.current { background: var(--primary); opacity: 0.5; }
+
+.transition-card { text-align: center; padding: 36px 24px; background: var(--card); border-radius: var(--radius); border: 1px solid var(--border); box-shadow: var(--shadow); animation: fadeUp 0.4s ease; }
+.big-icon { font-size: 3rem; margin-bottom: 12px; }
+.transition-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 700; margin-bottom: 8px; color: var(--dark); }
+.transition-card p { color: var(--muted); font-size: 0.92rem; line-height: 1.6; }
+.btn-continue { margin-top: 22px; background: var(--dark); color: #fff; border: none; border-radius: 10px; padding: 13px 36px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 500; cursor: pointer; transition: background 0.2s; }
+.btn-continue:hover { background: var(--primary); }
+
+.results-wrap { max-width: 680px; margin: 0 auto; padding: 28px 16px 60px; display: none; animation: fadeUp 0.6s ease; }
+.score-hero { background: var(--dark); border-radius: var(--radius); padding: 36px 24px; text-align: center; margin-bottom: 28px; color: #fff; }
+.final-level-label { font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; color: rgba(255,255,255,0.5); text-transform: uppercase; margin-bottom: 6px; }
+.score-hero h2 { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 700; color: #f5d76e; line-height: 1; margin-bottom: 6px; }
+.score-hero .sub { color: rgba(255,255,255,0.65); font-size: 0.92rem; }
+.level-desc-badge { margin-top: 16px; display: inline-block; background: var(--primary); color: #fff; padding: 7px 22px; border-radius: 20px; font-size: 0.9rem; font-weight: 500; }
+.level-summary { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; justify-content: center; }
+.lv-chip { background: rgba(255,255,255,0.08); border-radius: 10px; padding: 8px 16px; font-size: 0.82rem; color: rgba(255,255,255,0.7); }
+.lv-chip.passed { color: #7ee8a2; }
+.lv-chip.failed { color: rgba(255,255,255,0.35); text-decoration: line-through; }
+
+.review-section h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 700; margin: 24px 0 14px; color: var(--dark); padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+.review-item { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 12px; box-shadow: var(--shadow); }
+.review-top { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px; }
+.review-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+.review-q { font-weight: 600; font-size: 0.95rem; color: var(--dark); line-height: 1.4; }
+.ans-row { font-size: 0.88rem; margin: 3px 0; }
+.ans-wrong { color: var(--wrong); }
+.ans-right { color: var(--correct); font-weight: 600; }
+.ans-ok { color: var(--correct); font-weight: 600; }
+.exp-box { margin-top: 10px; border-radius: 8px; padding: 10px 14px; font-size: 0.85rem; line-height: 1.65; }
+.exp-ok { background: var(--correct-bg); border-left: 3px solid var(--correct); color: #1a4a30; }
+.exp-nok { background: var(--wrong-bg); border-left: 3px solid var(--wrong); color: #5a1a0a; }
+
+.btn-restart { display: block; margin: 28px auto 0; background: transparent; border: 2px solid var(--dark); color: var(--dark); padding: 12px 36px; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; cursor: pointer; transition: all 0.2s; }
+.btn-restart:hover { background: var(--dark); color: #fff; }
+
+@media(max-width:480px) { header h1 { font-size: 1.5rem; } .q-text { font-size: 1.1rem; } .q-card { padding: 20px 16px; } }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Srpski jezik – Provera znanja</h1>
+  <p>Serbian Language Placement Test &nbsp;·&nbsp; Version 2</p>
+</header>
+<div class="progress-outer"><div class="progress-inner" id="progressBar"></div></div>
+<div class="level-strip" id="levelStrip"></div>
+
+<main id="mainArea"></main>
+<div class="results-wrap" id="resultsWrap">
+  <div class="score-hero">
+    <div class="final-level-label" id="rLevel">—</div>
+    <h2 id="rScore">0/0</h2>
+    <div class="sub">Ukupan rezultat · Total score</div>
+    <div class="level-desc-badge" id="rDesc">—</div>
+    <div class="level-summary" id="rSummary"></div>
+  </div>
+  <div id="reviewContent"></div>
+  <button class="btn-restart" onclick="restart()">↺ Ponovi test / Restart</button>
+</div>
+
+<script>
+const LEVELS = [
+
+  // ══════════════════════════════════════════════
+  // A1 — POČETNIK
+  // ══════════════════════════════════════════════
+  {
+    id:'A1', srName:'Početnik', enName:'Beginner',
+    intro_sr:'Počinjemo od osnova — svakodnevni vokabular, pozdravl i prve rečenice.',
+    intro_en:'Starting with the basics — greetings, everyday vocabulary and first sentences.',
+    topics:['Vokabular','Glagol BITI','Prezent','Pozdrav','Lične zamenice'],
+    pass: 5,
+    questions:[
+      {
+        topic:'Vokabular',
+        sr:'Šta znači reč „prijatelj"?',
+        en:'What does the word "prijatelj" mean?',
+        opts:['city','family','friend','school'],
+        ans:2,
+        exp_sr:'„Prijatelj" znači friend (drugar/drugarica = školski drug).',
+        exp_en:'"Prijatelj" means friend. Related: prijateljica (female friend), drugar (school friend).'
+      },
+      {
+        topic:'Glagol BITI',
+        sr:'Dopuni ispravnim oblikom glagola BITI:\n„Ja ___ student."',
+        en:'Fill in the correct form of BITI (to be):\n"Ja ___ student." (I am a student.)',
+        opts:['si','je','sam','smo'],
+        ans:2,
+        exp_sr:'Glagol „biti" u prezentu: ja SAM, ti si, on/ona je, mi smo, vi ste, oni su.',
+        exp_en:'Verb "biti" (to be): ja SAM (I am), ti si (you are), on/ona je (he/she is), mi smo (we are).'
+      },
+      {
+        topic:'Vokabular',
+        sr:'Šta znači: „Dobro jutro!"?',
+        en:'What does "Dobro jutro!" mean?',
+        opts:['Good evening','Good night','Goodbye','Good morning'],
+        ans:3,
+        exp_sr:'„Dobro jutro" = Good morning. Ostali pozdravi: Dobar dan (Good day), Dobro veče (Good evening), Laku noć (Good night).',
+        exp_en:'"Dobro jutro" = Good morning. Other greetings: Dobar dan (Good day), Dobro veče (Good evening), Laku noć (Good night).'
+      },
+      {
+        topic:'Lične zamenice',
+        sr:'Koji je tačan prevod zamenice „they" (množina, muško/mešano)?',
+        en:'What is the correct Serbian translation of "they" (plural, male/mixed group)?',
+        opts:['mi','vi','oni','one'],
+        ans:2,
+        exp_sr:'Lične zamenice: ja, ti, on, ona, ono, mi, vi, ONI (muško/mešano), one (žensko), ona (srednji rod).',
+        exp_en:'Personal pronouns: ja (I), ti (you), on (he), ona (she), mi (we), vi (you pl.), ONI (they – male/mixed), one (they – female).'
+      },
+      {
+        topic:'Glagol BITI',
+        sr:'Izaberi tačan oblik za „ona":\n„Ona ___ iz Engleske."',
+        en:'Choose the correct form for "ona" (she):\n"Ona ___ iz Engleske." (She is from England.)',
+        opts:['sam','si','je','smo'],
+        ans:2,
+        exp_sr:'Za „ona" uvek koristimo „je": ona JE. Glagol biti: ja sam, ti si, on/ona/ono JE, mi smo, vi ste, oni su.',
+        exp_en:'For "ona" (she) we always use "je": ona JE. Verb biti: ja sam, ti si, on/ona/ono JE, mi smo, vi ste, oni su.'
+      },
+      {
+        topic:'Vokabular',
+        sr:'Koji od ovih odgovora znači „family"?',
+        en:'Which of these means "family"?',
+        opts:['posao','grad','porodica','hrana'],
+        ans:2,
+        exp_sr:'Porodica = family. Posao = work/job. Grad = city. Hrana = food.',
+        exp_en:'Porodica = family. Posao = work/job. Grad = city. Hrana = food.'
+      },
+      {
+        topic:'Prezent',
+        sr:'Koji je tačan oblik glagola „imati" za lice „ti" u prezentu?\n„Ti ___ brata."',
+        en:'Choose the correct present tense form of "imati" (to have) for "ti" (you):\n"Ti ___ brata." (You have a brother.)',
+        opts:['imam','ima','imaš','imamo'],
+        ans:2,
+        exp_sr:'Glagol „imati" u prezentu: ja IMAM, ti IMAŠ, on/ona ima, mi imamo, vi imate, oni imaju.',
+        exp_en:'Verb "imati" (to have): ja IMAM (I have), ti IMAŠ (you have), on/ona ima (he/she has), mi imamo (we have).'
+      }
+    ]
+  },
+
+  // ══════════════════════════════════════════════
+  // A2 — OSNOVNO
+  // ══════════════════════════════════════════════
+  {
+    id:'A2', srName:'Osnovno', enName:'Elementary',
+    intro_sr:'Prezent glagola, negacija, padežne osnove i prošlo vreme u nastajanju.',
+    intro_en:'Present tense verbs, negation, basic cases and introduction to past tense.',
+    topics:['Prezent','Negacija','Genitiv broja','Prošlo vreme','Vokabular'],
+    pass: 5,
+    questions:[
+      {
+        topic:'Prezent',
+        sr:'Koji je tačan oblik glagola „govoriti" za „ja" u prezentu?\n„Ja ___ srpski svaki dan."',
+        en:'Choose the correct present form of "govoriti" (to speak) for "ja":\n"Ja ___ srpski svaki dan." (I speak Serbian every day.)',
+        opts:['govori','govorim','govoriš','govore'],
+        ans:1,
+        exp_sr:'Glagol „govoriti" u prezentu: ja GOVORIM, ti govoriš, on/ona govori, mi govorimo, vi govorite, oni govore.',
+        exp_en:'Verb "govoriti" (to speak): ja GOVORIM (I speak), ti govoriš (you speak), on/ona govori (he/she speaks).'
+      },
+      {
+        topic:'Negacija',
+        sr:'Izaberi tačnu negaciju:\n„Ja ___ kafu." (I do not drink coffee.)',
+        en:'Choose the correct negation:\n"Ja ___ kafu." (I do not drink coffee.)',
+        opts:['ne piti','pijem ne','nisam piti','ne pijem'],
+        ans:3,
+        exp_sr:'Negacija se gradi rečcom „ne" direktno ispred glagola: pijem → NE PIJEM. „Ne" uvek prethodi glagolu i piše se odvojeno.',
+        exp_en:'Negation is formed by placing "ne" directly before the verb: pijem → NE PIJEM. "Ne" always precedes the verb and is written as a separate word.'
+      },
+      {
+        topic:'Genitiv broja',
+        sr:'Koji je tačan oblik?\n„Imam ___ brata." (I have two brothers.)',
+        en:'Choose the correct form:\n"Imam ___ brata." (I have two brothers.)',
+        opts:['dva brat','dva bratovi','dva braće','dva brata'],
+        ans:3,
+        exp_sr:'Posle brojeva 2, 3, 4 imenica ide u genitivu jednine: jedan brat → dva BRATA, tri brata, četiri brata. Posle 5+: pet braće (genitiv množine).',
+        exp_en:'After numbers 2, 3, 4 the noun takes genitive singular: jedan brat → dva BRATA (two brothers). After 5+: pet braće (genitive plural).'
+      },
+      {
+        topic:'Prezent',
+        sr:'Koji je tačan oblik glagola „ići" za „ja" u prezentu?\n„Ja ___ u školu svaki dan."',
+        en:'Choose the correct present form of "ići" (to go) for "ja":\n"Ja ___ u školu svaki dan." (I go to school every day.)',
+        opts:['idi','ideš','ide','idem'],
+        ans:3,
+        exp_sr:'Glagol „ići" u prezentu: ja IDEM, ti ideš, on/ona ide, mi idemo, vi idete, oni idu.',
+        exp_en:'Verb "ići" (to go): ja IDEM (I go), ti ideš (you go), on/ona ide (he/she goes), mi idemo (we go).'
+      },
+      {
+        topic:'Vokabular',
+        sr:'Šta znači: „Koliko košta?"',
+        en:'What does "Koliko košta?" mean?',
+        opts:['Where is it?','What is it?','How much does it cost?','When does it open?'],
+        ans:2,
+        exp_sr:'„Koliko košta?" = How much does it cost? Korisno u kupovini. „Koliko" = how much/many. „Koštati" = to cost.',
+        exp_en:'"Koliko košta?" = How much does it cost? Useful when shopping. "Koliko" = how much/many. "Koštati" = to cost.'
+      },
+      {
+        topic:'Prošlo vreme',
+        sr:'Izaberi tačno prošlo vreme (perfekat) za „ja" (muški rod):\n„Ja ___ u bioskopu juče." — glagol: biti',
+        en:'Choose the correct past tense (perfect) for "ja" (masculine):\n"Ja ___ u bioskopu juče." (I was at the cinema yesterday.) — verb: biti',
+        opts:['sam bio','bio sam','je bio','bio je'],
+        ans:0,
+        exp_sr:'Perfekat od „biti" za „ja" (muški rod): JA SAM BIO. Alternativni redosled: „Bio sam" je takođe tačan, ali enklitika „sam" se preferira iza subjekta. Oba oblika su prihvatljiva.',
+        exp_en:'Perfect tense of "biti" for "ja" (masculine): SAM BIO. The order "Bio sam" is also correct — both are acceptable. The clitic "sam" typically follows the subject directly.'
+      },
+      {
+        topic:'Negacija',
+        sr:'Kako se negira glagol „biti" u prezentu?\n„Ona ___ kod kuće." (She is not at home.)',
+        en:'How do you negate "biti" in present tense?\n"Ona ___ kod kuće." (She is not at home.)',
+        opts:['ne je','nije','ni je','nisi'],
+        ans:1,
+        exp_sr:'Negacija glagola „biti" je posebna — koristi se sažeti oblik: NISAM, NISI, NIJE, NISMO, NISTE, NISU. Za „ona": NIJE (ne + je = nije).',
+        exp_en:'Negation of "biti" uses contracted forms: NISAM, NISI, NIJE, NISMO, NISTE, NISU. For "ona" (she): NIJE (= ne + je contracted).'
+      }
+    ]
+  },
+
+  // ══════════════════════════════════════════════
+  // B1 — SREDNJI NIVO
+  // ══════════════════════════════════════════════
+  {
+    id:'B1', srName:'Srednji nivo', enName:'Intermediate',
+    intro_sr:'Perfekat, imperfekat, padeži (akuzativ, dativ) i poređenje prideva.',
+    intro_en:'Perfect tense, imperfect, cases (accusative, dative) and adjective comparison.',
+    topics:['Perfekat','Imperfekat','Akuzativ','Dativ','Komparativ','Glagoli'],
+    pass: 5,
+    questions:[
+      {
+        topic:'Perfekat',
+        sr:'Pretvori u prošlo vreme (perfekat), ženski rod:\n„Ona ___ knjigu." — glagol: čitati',
+        en:'Put into past tense (perfect), feminine:\n"Ona ___ knjigu." (She read the book.) — verb: čitati (to read)',
+        opts:['je čitala','čitala je','je čitati','čitala'],
+        ans:0,
+        exp_sr:'Perfekat za ženski rod: glagolski pridev radni + pomoćni glagol „biti". Ona JE ČITALA. Enklitika „je" dolazi ispred participa u standardnom redosledu.',
+        exp_en:'Perfect tense (feminine): past active participle + auxiliary "biti". Ona JE ČITALA. The clitic "je" precedes the participle in standard Serbian word order.'
+      },
+      {
+        topic:'Akuzativ',
+        sr:'Koji padež zahteva glagol kretanja + „u"?\n„Idem u ___." — oblik reči „grad"',
+        en:'Which case does a motion verb + "u" require?\n"Idem u ___." (I am going to the city.) — form of "grad" (city)',
+        opts:['lokativ: gradu','genitiv: grada','nominativ: grad — Idem u grad.','instrumental: gradom'],
+        ans:2,
+        exp_sr:'Glagoli kretanja + „u/na" zahtevaju AKUZATIV. „Grad" je muškog roda neživo — akuzativ = nominativ: GRAD. „Idem u grad."',
+        exp_en:'Motion verbs + "u/na" require the ACCUSATIVE case. "Grad" (masculine inanimate) has identical nominative and accusative: GRAD. "Idem u grad" = I am going to the city.'
+      },
+      {
+        topic:'Komparativ',
+        sr:'Napravi komparativ prideva „visok":\n„Marko je ___ od Nikole."',
+        en:'Form the comparative of "visok" (tall):\n"Marko je ___ od Nikole." (Marko is taller than Nikola.)',
+        opts:['više visok','visoki','viši','najviši'],
+        ans:2,
+        exp_sr:'Komparativ od „visok" je VIŠI. „Od" + genitiv = than. Superlativ je NAJVIŠI. Za kratke pridevne osnove ne koristimo „više + pozitiv".',
+        exp_en:'Comparative of "visok" (tall) is VIŠI (taller). "Od" + genitive = than. Superlative: NAJVIŠI (tallest). Short adjectives use inflected forms, not "više + adjective".'
+      },
+      {
+        topic:'Dativ',
+        sr:'Koji padež koristimo uz glagol „dati nekome"?\n„Dao sam knjigu ___." — dativ od „on"',
+        en:'Which case does "dati nekome" (to give to someone) require?\n"Dao sam knjigu ___." (I gave the book to him.) — dative of "on"',
+        opts:['njega','njemu','njim','on'],
+        ans:1,
+        exp_sr:'Glagol „dati nekome" zahteva DATIV (indirektni objekat). Dativ zamenice „on": duga forma NJEMU, kratka (enklitička) forma MU. „Dao sam mu/njemu knjigu."',
+        exp_en:'The verb "dati nekome" (to give to someone) requires the DATIVE case (indirect object). Dative of "on" (he): long form NJEMU, short clitic form MU. "Dao sam mu/njemu knjigu."'
+      },
+      {
+        topic:'Perfekat',
+        sr:'Pretvori u prošlo vreme, muški rod:\n„On ___ u Beograd prošle godine." — glagol: otići',
+        en:'Put into past tense, masculine:\n"On ___ u Beograd prošle godine." (He went to Belgrade last year.) — verb: otići (to go away)',
+        opts:['je otišao','otišao je','je otići','ode je'],
+        ans:0,
+        exp_sr:'Perfekat svršenog glagola „otići" za muški rod: JE OTIŠAO. Alternativno: „Otišao je" je takođe tačno — oba reda reči su prihvatljiva u srpskom.',
+        exp_en:'Perfect tense of perfective verb "otići" (masculine): JE OTIŠAO. Alternatively: "Otišao je" is also correct — both word orders are accepted in Serbian.'
+      },
+      {
+        topic:'Imperfekat',
+        sr:'Koji oblik opisuje radnju koja se odvijala u prošlosti (trajala je)?\n„Dok sam bila dete, ___ mnogo knjiga." — glagol: čitati',
+        en:'Which form describes an ongoing/repeated past action?\n"Dok sam bila dete, ___ mnogo knjiga." (When I was a child, I used to read many books.)',
+        opts:['pročitala sam','sam čitala','čitala sam','čitam'],
+        ans:2,
+        exp_sr:'Za radnju koja se ponavljala ili trajala u prošlosti koristimo nesvršeni glagol u perfektu: ČITALA SAM (imperfektivni perfekat). „Pročitala sam" bi značilo jednu završenu radnju.',
+        exp_en:'For a repeated or ongoing past action, use the imperfective verb in perfect tense: ČITALA SAM. "Pročitala sam" would mean a single completed action (perfective perfect).'
+      },
+      {
+        topic:'Glagoli',
+        sr:'Izaberi tačan oblik za treće lice množine prezenta:\n„Deca ___ u parku." — glagol: igrati se',
+        en:'Choose the correct third person plural present form:\n"Deca ___ u parku." (The children are playing in the park.) — verb: igrati se (to play)',
+        opts:['igraju se','igra se','igraj se','igramo se'],
+        ans:0,
+        exp_sr:'Glagol „igrati se": ja se igram, ti se igraš, on/ona se igra, mi se igramo, vi se igrate, oni/deca se IGRAJU. „Deca" (children) gramatički zahteva množinu.',
+        exp_en:'Verb "igrati se" (to play): ja se igram, ti se igraš, on/ona se igra, mi se igramo, vi se igrate, oni/deca se IGRAJU. "Deca" (children) grammatically requires plural agreement.'
+      }
+    ]
+  },
+
+  // ══════════════════════════════════════════════
+  // B2 — VIŠI SREDNJI
+  // ══════════════════════════════════════════════
+  {
+    id:'B2', srName:'Viši srednji', enName:'Upper-Intermediate',
+    intro_sr:'Futur I i II, kondicional, složenije padežne konstrukcije.',
+    intro_en:'Future I & II, conditional sentences, complex case constructions.',
+    topics:['Futur I','Futur II','Kondicional','Padeži','Zamenice','Složene rečenice'],
+    pass: 5,
+    questions:[
+      {
+        topic:'Futur I',
+        sr:'Koji je tačan Futur I?\n„Ona ___ u Beograd sutra." (She will go to Belgrade tomorrow.)',
+        en:'Choose the correct Future I:\n"Ona ___ u Beograd sutra." (She will go to Belgrade tomorrow.)',
+        opts:['hoće ići','ići će','ide će','će ići'],
+        ans:3,
+        exp_sr:'Futur I: kratki oblik glagola „hteti" + infinitiv. Za „ona": ĆE IĆI. Kratki oblici: ću, ćeš, će, ćemo, ćete, će — uvek ispred infinitiva.',
+        exp_en:'Future I: short form of "hteti" + infinitive. For "ona": ĆE IĆI. Short forms: ću, ćeš, će, ćemo, ćete, će — always before the infinitive.'
+      },
+      {
+        topic:'Futur II',
+        sr:'Koji oblik izražava radnju koja će biti završena pre neke buduće radnje (Futur II)?\n„Kad ___ domaći zadatak, moći ću da izađem." — glagol: završiti',
+        en:'Which form expresses an action that will be completed before another future action (Future II)?\n"Kad ___ domaći zadatak, moći ću da izađem." (Once I finish my homework, I will be able to go out.)',
+        opts:['ću završiti','završiću','budem završila','završim'],
+        ans:2,
+        exp_sr:'Futur II se gradi od: prezenta glagola „biti" (budem, budeš, bude...) + glagolski pridev radni: BUDEM ZAVRŠILA. Koristi se u vremenskim i uslovnim klauzama za buduću završenu radnju.',
+        exp_en:'Future II is formed with: present of "biti" (budem, budeš, bude...) + past active participle: BUDEM ZAVRŠILA. Used in time/conditional clauses for a future completed action.'
+      },
+      {
+        topic:'Kondicional',
+        sr:'Izaberi tačnu hipotetičnu rečenicu:\n(If I had more time, I would learn Serbian.)',
+        en:'Choose the correct hypothetical/conditional sentence:\n(If I had more time, I would learn Serbian.)',
+        opts:['Ako imam više vremena, učim srpski.','Kada bih imala više vremena, učila bih srpski.','Ako bih imala više vremena, učiti bih srpski.','Kada imam više vremena, učila bi srpski.'],
+        ans:1,
+        exp_sr:'Kondicional I (hipotetična sadašnjost/budućnost): „kada bih + glagolski pridev radni" u obema klauzama. „Kada bih imala... učila bih." „Ako + prezent" = realna mogućnost, ne hipoteza.',
+        exp_en:'Conditional I (unreal present/future): "kada bih + past active participle" in both clauses. "Kada bih imala... učila bih." "Ako + present" = real possibility, not a hypothesis.'
+      },
+      {
+        topic:'Zamenice',
+        sr:'Popuni tačnom enklitičkom zamenicom u dativu:\n„Rekla sam ___ da dođe." — dativ od „ona"',
+        en:'Fill in with the correct dative clitic:\n"Rekla sam ___ da dođe." (I told her to come.) — dative of "ona"',
+        opts:['je','nju','njoj','joj'],
+        ans:3,
+        exp_sr:'Glagol „reći nekome" zahteva dativ. Dativ od „ona": kratka (enklitička) forma JOJ, duga forma NJOJ. Kratka forma „joj" koristi se uz glagol bez predloga.',
+        exp_en:'Verb "reći nekome" (to tell someone) requires the dative. Dative of "ona": short clitic JOJ, long form NJOJ. The short form "joj" is used without a preposition.'
+      },
+      {
+        topic:'Padeži',
+        sr:'Koji padež zahteva predlog „o" (about)?\n„Pričamo ___ putovanju."',
+        en:'Which case does the preposition "o" (about) require?\n"Pričamo ___ putovanju." (We are talking about the trip.)',
+        opts:['akuzativ: putovanje','genitiv: putovanja','lokativ: putovanju','instrumental: putovanjem'],
+        ans:2,
+        exp_sr:'Predlog „o" (about/concerning) zahteva LOKATIV: o putovanju, o knjizi, o životu. Lokativ nikada ne stoji bez predloga.',
+        exp_en:'The preposition "o" (about) always requires the LOCATIVE case: o putovanju (about the trip), o knjizi (about the book). The locative is never used without a preposition.'
+      },
+      {
+        topic:'Složene rečenice',
+        sr:'Izaberi tačan oblik zavisne upitne rečenice:\n„Ne znam ___ ona živi." (I don\'t know where she lives.)',
+        en:'Choose the correct indirect question form:\n"Ne znam ___ ona živi." (I don\'t know where she lives.)',
+        opts:['gde','gdje','kada','šta'],
+        ans:0,
+        exp_sr:'Zavisna upitna rečenica sa „gde" (where). U standardnom srpskom (ekavica) piše se „gde"; u ijekavici „gdje". U zavisnoj rečenici red reči je: upitna reč + subjekat + glagol.',
+        exp_en:'Indirect question with "gde" (where). Standard Serbian (Ekavian) uses "gde"; Ijekavian uses "gdje". In indirect questions, word order is: question word + subject + verb.'
+      },
+      {
+        topic:'Futur I',
+        sr:'Koji je tačan oblik za „mi" u futuru I?\n„Mi ___ na more ove godine." (We will go to the seaside this year.)',
+        en:'Choose the correct Future I form for "mi" (we):\n"Mi ___ na more ove godine." (We will go to the seaside this year.)',
+        opts:['ćemo ići','hoćemo ići','idemo ćemo','ići ćemo'],
+        ans:0,
+        exp_sr:'Futur I za „mi": ĆEMO IĆI (kratki oblik + infinitiv). Kratki oblici hteti: ću, ćeš, će, ĆEMO, ćete, će.',
+        exp_en:'Future I for "mi" (we): ĆEMO IĆI (short form + infinitive). Short forms of hteti: ću, ćeš, će, ĆEMO, ćete, će.'
+      }
+    ]
+  },
+
+  // ══════════════════════════════════════════════
+  // C1 — NAPREDNI
+  // ══════════════════════════════════════════════
+  {
+    id:'C1', srName:'Napredni', enName:'Advanced',
+    intro_sr:'Glagolski vid, red enklitika, pasiv, aorist i složene rečenične strukture.',
+    intro_en:'Verbal aspect, clitic order, passive voice, aorist and complex sentence structures.',
+    topics:['Glagolski vid','Enklitike','Pasiv','Aorist','Složene rečenice','Stil'],
+    pass: 5,
+    questions:[
+      {
+        topic:'Glagolski vid',
+        sr:'Koji glagol je tačan za svakodnevnu, ponovljenu radnju?\n„Svaki dan ___ kafu." (Every day I drink coffee.)',
+        en:'Which verb correctly expresses a habitual, repeated daily action?\n"Svaki dan ___ kafu."',
+        opts:['popijem','popiti','pijem','popivši'],
+        ans:2,
+        exp_sr:'NESVRŠENI vid = radnja se ponavlja ili traje: PIJEM (svaki dan). SVRŠENI vid = radnja je jednom završena: „popijem" se koristi za svršenu buduću radnju, npr. „Kad popijem kafu, krećem."',
+        exp_en:'IMPERFECTIVE aspect = repeated or ongoing action: PIJEM (every day). PERFECTIVE aspect = one-time completed action: "popijem" is used for a completed future action, e.g. "Kad popijem kafu, krećem."'
+      },
+      {
+        topic:'Enklitike',
+        sr:'Pronađi grešku u rečenici:\n„Knjiga koju sam je pročitao bila je odlična."',
+        en:'Find the grammatical error in this sentence:\n"Knjiga koju sam je pročitao bila je odlična." (The book I had read was excellent.)',
+        opts:['Nema greške.','Treba „je sam" umesto „sam je".','Enklitika „je" ne stoji između „sam" i participa. Tačno: „Knjiga koju sam pročitao bila je odlična."','Treba „čitao" umesto „pročitao".'],
+        ans:2,
+        exp_sr:'Srpski ima strogi redosled enklitika. Pomoćno „je" od glagola „biti" ne može stati između „sam" i glagolskog prideva radnog. Tačno: „...koju sam pročitao..."',
+        exp_en:'Serbian has strict clitic sequencing. The auxiliary "je" (from "biti") cannot be inserted between "sam" and the past participle. Correct: "...koju sam pročitao..."'
+      },
+      {
+        topic:'Pasiv',
+        sr:'Koji oblik ispravno izražava pasivnu prošlost (neuter rod)?\n„Pismo ___ juče." (The letter was written yesterday.) — glagol: napisati',
+        en:'Which form correctly expresses the passive past (neuter gender)?\n"Pismo ___ juče." (The letter was written yesterday.) — verb: napisati',
+        opts:['napisalo je','je napisano','je pisano','napisavši'],
+        ans:1,
+        exp_sr:'Pasiv: „biti" + trpni glagolski pridev. „Pismo" je sr. roda → nastavak -o: NAPISANO. „Pismo JE NAPISANO." „Pisano" bi (nesvršeni vid) sugerisalo radnju u toku, ne završenu.',
+        exp_en:'Passive: "biti" + passive participle. "Pismo" (letter) is neuter → ending -o: NAPISANO. "Pismo JE NAPISANO." Using "pisano" (imperfective) would suggest the action was ongoing, not completed.'
+      },
+      {
+        topic:'Aorist',
+        sr:'Koji oblik je aorist glagola „doći" za lice „ja"?\n(Aorist = prošlo vreme direktnog iskustva, književni stil)',
+        en:'Which form is the aorist of "doći" (to come/arrive) for "ja"?\n(Aorist = past tense of direct experience, literary style)',
+        opts:['dolazio sam','sam došao','dođoh','dođe'],
+        ans:2,
+        exp_sr:'Aorist glagola „doći" za „ja": DOĐOH. Aorist je prosto prošlo vreme koje izražava neposredno prošlu radnju. Oblici: ja DOĐOH, ti dođe, on dođe, mi dođosmo, vi dođoste, oni dođoše.',
+        exp_en:'Aorist of "doći" for "ja": DOĐOH. The aorist is a simple past tense expressing a directly experienced past action. Forms: ja DOĐOH, ti dođe, on dođe, mi dođosmo, vi dođoste, oni dođoše.'
+      },
+      {
+        topic:'Glagolski vid',
+        sr:'Izaberi svršeni glagol (perfective verb) u paru:\n„pisati / napisati"',
+        en:'Identify the perfective verb in the pair:\n"pisati / napisati"',
+        opts:['pisati — svršeni','napisati — svršeni','oba su svršeni','nijedan nije svršeni'],
+        ans:1,
+        exp_sr:'U srpskom, glagoli idu u parovima: NESVRŠENI (imperfektivni) i SVRŠENI (perfektivni). „Pisati" = pisanje u toku (nesvršeni). „Napisati" = pisanje je završeno (svršeni). Prefiksi često tvore svršene glagole.',
+        exp_en:'Serbian verbs come in aspect pairs: IMPERFECTIVE (ongoing) and PERFECTIVE (completed). "Pisati" = writing in progress (imperfective). "Napisati" = writing completed (perfective). Prefixes often form perfective verbs.'
+      },
+      {
+        topic:'Složene rečenice',
+        sr:'Koji je tačan oblik kondicionala II (nerealna prošlost)?\n(If I had studied more, I would have passed the exam.)',
+        en:'Choose the correct Conditional II (unreal past):\n(If I had studied more, I would have passed the exam.)',
+        opts:[
+          'Kada bih učila više, položila bih ispit.',
+          'Kada sam učila više, položila sam ispit.',
+          'Da sam učila više, bila bih položila ispit.',
+          'Ako učim više, položiću ispit.'
+        ],
+        ans:2,
+        exp_sr:'Kondicional II (nerealna prošlost): „da + perfekat" u uslovnoj klauzi, „biti bih + glagolski pridev radni" u glavnoj klauzi: „Da sam učila više, BILA BIH POLOŽILA ispit."',
+        exp_en:'Conditional II (unreal past): "da + perfect" in the conditional clause, "biti bih + past participle" in the main clause: "Da sam učila više, BILA BIH POLOŽILA ispit." = If I had studied more, I would have passed.'
+      },
+      {
+        topic:'Stil',
+        sr:'Koja rečenica je stilski i gramatički ispravna (formalni registar)?',
+        en:'Which sentence is stylistically and grammatically correct (formal register)?',
+        opts:[
+          'Molim Vas da mi javite kada ćete stići.',
+          'Molim te da mi se javiš kad stigneš ti.',
+          'Hoćete li mi reći kad ste stigli?',
+          'Recite mi kad dolazite, molim.'
+        ],
+        ans:0,
+        exp_sr:'„Molim Vas da mi javite kada ćete stići." — ispravna forma obraćanja sa „Vi" (formalno), tačan red reči, jasna futurska klauza. Ostali odgovori imaju mešanje registara ili neuobičajen red reči.',
+        exp_en:'"Molim Vas da mi javite kada ćete stići." — correct formal "Vi" address, proper word order, clear future clause. Other options mix registers or have unnatural word order for formal Serbian.'
+      }
+    ]
+  }
+];
+
+// ═══════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════
+let state = { lvIdx:0, qIdx:0, phase:'intro', selected:null, lvResults:[], lvPassed:[], allLog:[] };
+
+function reset() {
+  state = { lvIdx:0, qIdx:0, phase:'intro', selected:null, lvResults:[], lvPassed:[], allLog:[] };
+}
+
+// ═══════════════════════════════════════
+// STRIP
+// ═══════════════════════════════════════
+function renderStrip() {
+  const strip = document.getElementById('levelStrip');
+  strip.innerHTML = '';
+  LEVELS.forEach((lv, i) => {
+    const d = document.createElement('div');
+    d.className = 'lvl-dot';
+    if (i === state.lvIdx && state.phase !== 'done') d.classList.add('active');
+    else if (i < state.lvIdx || state.phase === 'done') {
+      d.classList.add(state.lvPassed[i] ? 'done' : 'stopped');
+    }
+    d.textContent = lv.id;
+    strip.appendChild(d);
+  });
+}
+
+function setProgress(pct) {
+  document.getElementById('progressBar').style.width = pct + '%';
+}
+
+// ═══════════════════════════════════════
+// MINI PROGRESS DOTS (within level)
+// ═══════════════════════════════════════
+function buildMiniProgress(lvResults, total, currentQ) {
+  let html = '<div class="mini-progress">';
+  for (let i = 0; i < total; i++) {
+    if (i < lvResults.length) {
+      html += `<div class="mini-dot ${lvResults[i] ? 'done-ok' : 'done-no'}"></div>`;
+    } else if (i === currentQ) {
+      html += `<div class="mini-dot current"></div>`;
+    } else {
+      html += `<div class="mini-dot"></div>`;
+    }
+  }
+  html += '</div>';
+  return html;
+}
+
+// ═══════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════
+function render() {
+  renderStrip();
+  const main = document.getElementById('mainArea');
+  const rWrap = document.getElementById('resultsWrap');
+  main.style.display = 'block';
+  rWrap.style.display = 'none';
+
+  if (state.phase === 'done') { showResults(); return; }
+
+  const lv = LEVELS[state.lvIdx];
+  const totalQ = LEVELS.reduce((a,l) => a + l.questions.length, 0);
+  const doneQ = LEVELS.slice(0, state.lvIdx).reduce((a,l) => a + l.questions.length, 0) + state.qIdx;
+  setProgress(Math.round((doneQ / totalQ) * 100));
+
+  if (state.phase === 'intro') {
+    const chips = lv.topics.map(t => `<span class="topic-chip">${t}</span>`).join('');
+    main.innerHTML = `
+      <div class="level-intro">
+        <div class="level-tag">${lv.id} — ${lv.srName} · ${lv.enName}</div>
+        <h2>${lv.id}: ${lv.srName}</h2>
+        <p>${lv.intro_sr}<br><em style="font-size:0.85rem;color:#bbb;">${lv.intro_en}</em></p>
+        <div class="topics-wrap">${chips}</div>
+        <button class="btn-start" onclick="startLevel()">Počni ▶&nbsp;&nbsp;/&nbsp;&nbsp;Start ▶</button>
+      </div>`;
+    return;
+  }
+
+  if (state.phase === 'question') {
+    const q = lv.questions[state.qIdx];
+    const letters = ['A','B','C','D'];
+    const optsHTML = q.opts.map((opt, i) =>
+      `<button class="opt-btn" id="ob${i}" onclick="pick(${i})"><span class="opt-letter">${letters[i]}</span>${opt}</button>`
+    ).join('');
+    const qSr = q.sr.replace(/\n/g,'<br>');
+    const qEn = q.en.replace(/\n/g,'<br>');
+    const miniProg = buildMiniProgress(state.lvResults[state.lvIdx] || [], lv.questions.length, state.qIdx);
+    main.innerHTML = `
+      <div class="q-card">
+        ${miniProg}
+        <div class="q-meta">
+          <span class="q-level-tag">${lv.id}</span>
+          <span class="q-topic-tag">${q.topic}</span>
+          <span class="q-count">${state.qIdx+1} / ${lv.questions.length}</span>
+        </div>
+        <div class="q-text">${qSr}</div>
+        <div class="q-hint">${qEn}</div>
+        <div class="options">${optsHTML}</div>
+        <button class="btn-next" id="btnNext" disabled onclick="nextQ()">
+          ${state.qIdx < lv.questions.length-1 ? 'Sledeće pitanje →' : 'Završi nivo →'}
+        </button>
+      </div>`;
+    return;
+  }
+
+  if (state.phase === 'transition') {
+    const prevLv = LEVELS[state.lvIdx - 1];
+    const passed = state.lvPassed[state.lvIdx - 1];
+    const score = state.lvResults[state.lvIdx - 1].filter(Boolean).length;
+    const isLast = state.lvIdx >= LEVELS.length;
+    const nextLv = !isLast ? LEVELS[state.lvIdx] : null;
+    main.innerHTML = `
+      <div class="transition-card">
+        <div class="big-icon">${passed ? '✅' : '🛑'}</div>
+        <h3>${prevLv.id}: ${score}/${prevLv.questions.length} — ${passed ? 'Prošao/la!' : 'Ovde stajemo.'}</h3>
+        <p>${passed && nextLv
+          ? `Prelazimo na nivo <strong>${nextLv.id} – ${nextLv.srName}</strong>.<br><em style="font-size:0.85rem;">${nextLv.enName} level next.</em>`
+          : `Dostignut je tvoj nivo. Pogledaj detalje ispod.<br><em style="font-size:0.85rem;">Your level has been reached. See results below.</em>`
+        }</p>
+        <button class="btn-continue" onclick="advance()">
+          ${passed && nextLv ? 'Nastavi → / Continue →' : 'Vidi rezultate / See results'}
+        </button>
+      </div>`;
+  }
+}
+
+// ═══════════════════════════════════════
+// INTERACTIONS
+// ═══════════════════════════════════════
+function startLevel() {
+  state.qIdx = 0;
+  state.lvResults[state.lvIdx] = [];
+  state.selected = null;
+  state.phase = 'question';
+  render();
+}
+
+function pick(i) {
+  state.selected = i;
+  document.querySelectorAll('.opt-btn').forEach((b,idx) => b.classList.toggle('selected', idx===i));
+  document.getElementById('btnNext').disabled = false;
+}
+
+function nextQ() {
+  const lv = LEVELS[state.lvIdx];
+  const q = lv.questions[state.qIdx];
+  const ok = state.selected === q.ans;
+  state.lvResults[state.lvIdx].push(ok);
+  state.allLog.push({ lvId: lv.id, q, userAns: state.selected, ok });
+  state.qIdx++;
+  state.selected = null;
+
+  if (state.qIdx >= lv.questions.length) {
+    const passed = state.lvResults[state.lvIdx].filter(Boolean).length >= lv.pass;
+    state.lvPassed[state.lvIdx] = passed;
+    state.lvIdx++;
+    state.phase = 'transition';
+  } else {
+    state.phase = 'question';
+  }
+  render();
+}
+
+function advance() {
+  const passed = state.lvPassed[state.lvIdx - 1];
+  if (passed && state.lvIdx < LEVELS.length) { state.phase = 'intro'; }
+  else { state.phase = 'done'; }
+  render();
+}
+
+// ═══════════════════════════════════════
+// RESULTS
+// ═══════════════════════════════════════
+function showResults() {
+  document.getElementById('mainArea').style.display = 'none';
+  const rWrap = document.getElementById('resultsWrap');
+  rWrap.style.display = 'block';
+  setProgress(100);
+  renderStrip();
+
+  const lastPassed = state.lvPassed.lastIndexOf(true);
+  const levelLabels = [
+    {id:'A1', sr:'Početnik', en:'Beginner – A1'},
+    {id:'A2', sr:'Osnovno znanje', en:'Elementary – A2'},
+    {id:'B1', sr:'Srednji nivo', en:'Intermediate – B1'},
+    {id:'B2', sr:'Viši srednji', en:'Upper-Intermediate – B2'},
+    {id:'C1', sr:'Napredni', en:'Advanced – C1'}
+  ];
+  const final = lastPassed >= 0 ? levelLabels[lastPassed] : {id:'Ispod A1', sr:'Početnik', en:'Beginner (below A1)'};
+  const totalOk = state.allLog.filter(r => r.ok).length;
+
+  document.getElementById('rLevel').textContent = final.id;
+  document.getElementById('rScore').textContent = totalOk + '/' + state.allLog.length;
+  document.getElementById('rDesc').textContent = final.sr + ' · ' + final.en;
+
+  // level summary chips
+  const sumDiv = document.getElementById('rSummary');
+  sumDiv.innerHTML = '';
+  LEVELS.forEach((lv, i) => {
+    if (state.lvResults[i]) {
+      const ok = state.lvResults[i].filter(Boolean).length;
+      const d = document.createElement('div');
+      d.className = 'lv-chip ' + (state.lvPassed[i] ? 'passed' : 'failed');
+      d.textContent = `${lv.id}: ${ok}/${lv.questions.length}`;
+      sumDiv.appendChild(d);
+    }
+  });
+
+  // review
+  const rc = document.getElementById('reviewContent');
+  rc.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  let lastLvId = null;
+
+  state.allLog.forEach(r => {
+    if (r.lvId !== lastLvId) {
+      const h = document.createElement('h3');
+      h.className = 'review-section';
+      h.textContent = `Nivo ${r.lvId}`;
+      rc.appendChild(h);
+      lastLvId = r.lvId;
+    }
+    const q = r.q;
+    const userLabel = r.userAns !== null ? `${letters[r.userAns]}) ${q.opts[r.userAns]}` : '—';
+    const corrLabel = `${letters[q.ans]}) ${q.opts[q.ans]}`;
+
+    const div = document.createElement('div');
+    div.className = 'review-item';
+    div.innerHTML = `
+      <div class="review-top">
+        <span class="review-icon">${r.ok ? '✅' : '❌'}</span>
+        <div>
+          <div style="font-size:0.7rem;color:var(--muted);font-weight:600;margin-bottom:3px;">${q.topic}</div>
+          <div class="review-q">${q.sr.replace(/\n/g,'<br>')}</div>
+        </div>
+      </div>
+      <div class="ans-row ${r.ok ? 'ans-ok' : 'ans-wrong'}">
+        ${r.ok ? '✓ Tačno / Correct: ' : '✗ Tvoj odgovor / Your answer: '}<em>${userLabel}</em>
+      </div>
+      ${!r.ok ? `<div class="ans-row ans-right">✓ Tačan odgovor / Correct answer: <em>${corrLabel}</em></div>` : ''}
+      <div class="exp-box ${r.ok ? 'exp-ok' : 'exp-nok'}">
+        <strong>🇷🇸</strong> ${q.exp_sr}<br><br>
+        <strong>🇬🇧</strong> ${q.exp_en}
+      </div>`;
+    rc.appendChild(div);
+  });
+}
+
+function restart() {
+  reset();
+  document.getElementById('resultsWrap').style.display = 'none';
+  document.getElementById('mainArea').style.display = 'block';
+  render();
+}
+
+render();
+</script>
+</body>
+</html>
