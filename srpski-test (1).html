@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Srpski jezik – Adaptivni test</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f7f4ef;
+  --card: #ffffff;
+  --primary: #b5451b;
+  --primary-light: #f9ede8;
+  --dark: #1e2b3a;
+  --text: #1e2b3a;
+  --muted: #8a8f99;
+  --border: #e2ddd6;
+  --correct: #1a7a4a;
+  --correct-bg: #edf7f2;
+  --wrong: #b5451b;
+  --wrong-bg: #fdf0ec;
+  --shadow: 0 2px 20px rgba(0,0,0,0.07);
+  --radius: 14px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+header { background: var(--dark); padding: 28px 24px 24px; text-align: center; }
+header h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.1rem; font-weight: 700; color: #fff; letter-spacing: 0.5px; }
+header p { color: rgba(255,255,255,0.55); font-size: 0.88rem; margin-top: 4px; font-weight: 300; }
+
+.progress-outer { background: #2e3d4f; height: 4px; }
+.progress-inner { height: 4px; background: var(--primary); transition: width 0.5s ease; width: 0%; }
+
+.level-strip { display: flex; justify-content: center; gap: 6px; padding: 14px 16px; background: var(--dark); border-top: 1px solid rgba(255,255,255,0.07); }
+.lvl-dot { width: 32px; height: 32px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.4); font-size: 0.7rem; font-weight: 700; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+.lvl-dot.active { border-color: var(--primary); color: #fff; background: var(--primary); }
+.lvl-dot.done { border-color: #1a7a4a; color: #1a7a4a; }
+.lvl-dot.stopped { border-color: rgba(255,255,255,0.15); color: rgba(255,255,255,0.25); }
+
+main { max-width: 680px; margin: 0 auto; padding: 28px 16px 60px; }
+
+/* ── REGISTRATION PAGE ── */
+.reg-wrap { max-width: 680px; margin: 0 auto; padding: 28px 16px 60px; animation: fadeUp 0.5s ease; }
+.reg-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px 28px; box-shadow: var(--shadow); }
+.reg-card h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+.reg-card .reg-sub { color: var(--muted); font-size: 0.88rem; margin-bottom: 24px; font-style: italic; }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 14px; }
+.form-group.full { grid-column: 1 / -1; }
+.form-group label { font-size: 0.82rem; font-weight: 600; color: var(--dark); letter-spacing: 0.2px; }
+.form-group label span.en { font-weight: 400; color: var(--muted); font-style: italic; }
+.form-group input,
+.form-group select,
+.form-group textarea {
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 13px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.92rem;
+  color: var(--text);
+  background: var(--bg);
+  transition: border-color 0.15s;
+  width: 100%;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus { outline: none; border-color: var(--primary); background: #fff; }
+.form-group textarea { resize: vertical; min-height: 72px; }
+.form-group select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%238a8f99' d='M1 1l5 5 5-5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
+.radio-group { display: flex; gap: 12px; flex-wrap: wrap; }
+.radio-group label { display: flex; align-items: center; gap: 6px; font-size: 0.9rem; font-weight: 400; cursor: pointer; padding: 8px 14px; border: 2px solid var(--border); border-radius: 8px; transition: all 0.15s; }
+.radio-group label:has(input:checked) { border-color: var(--primary); background: var(--primary-light); color: var(--primary); font-weight: 600; }
+.radio-group input[type=radio] { accent-color: var(--primary); }
+.required-star { color: var(--primary); margin-left: 2px; }
+
+.section-divider { border: none; border-top: 2px solid var(--border); margin: 22px 0 18px; }
+.section-title { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 700; color: var(--muted); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 14px; }
+
+.btn-start-test { margin-top: 24px; width: 100%; background: var(--primary); color: #fff; border: none; border-radius: 10px; padding: 15px; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background 0.2s, transform 0.15s; box-shadow: 0 4px 14px rgba(181,69,27,0.3); letter-spacing: 0.3px; }
+.btn-start-test:hover { background: #952f10; transform: translateY(-1px); }
+
+.error-msg { color: var(--wrong); font-size: 0.8rem; margin-top: 4px; display: none; }
+.field-error input, .field-error select, .field-error textarea { border-color: var(--wrong) !important; }
+.field-error .error-msg { display: block; }
+
+/* ── TEST ── */
+.level-intro { text-align: center; padding: 36px 24px 28px; animation: fadeUp 0.5s ease; }
+.level-tag { display: inline-block; background: var(--primary); color: #fff; padding: 6px 18px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 14px; }
+.level-intro h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; font-weight: 600; color: var(--dark); margin-bottom: 8px; }
+.level-intro p { color: var(--muted); font-size: 0.9rem; line-height: 1.6; }
+.btn-start { margin-top: 22px; background: var(--dark); color: #fff; border: none; border-radius: 10px; padding: 13px 36px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 500; cursor: pointer; transition: background 0.2s, transform 0.15s; }
+.btn-start:hover { background: var(--primary); transform: translateY(-1px); }
+
+.q-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 26px 24px; box-shadow: var(--shadow); animation: fadeUp 0.4s ease; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+
+.q-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.q-level-tag { background: var(--primary-light); color: var(--primary); padding: 3px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; }
+.q-count { color: var(--muted); font-size: 0.82rem; }
+.q-text { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; line-height: 1.45; color: var(--dark); margin-bottom: 6px; }
+.q-hint { font-size: 0.82rem; color: var(--muted); margin-bottom: 18px; font-style: italic; line-height: 1.5; }
+
+.options { display: flex; flex-direction: column; gap: 9px; }
+.opt-btn { display: flex; align-items: center; gap: 13px; background: var(--bg); border: 2px solid var(--border); border-radius: 10px; padding: 12px 16px; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; color: var(--text); transition: all 0.16s; text-align: left; width: 100%; }
+.opt-btn:hover:not(:disabled) { border-color: var(--primary); background: var(--primary-light); }
+.opt-btn.selected { border-color: var(--dark); background: #edf0f5; }
+.opt-letter { width: 26px; height: 26px; background: #e8e4de; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0; color: var(--dark); }
+.opt-btn.selected .opt-letter { background: var(--dark); color: #fff; }
+
+.btn-next { margin-top: 20px; width: 100%; background: var(--primary); color: #fff; border: none; border-radius: 10px; padding: 14px; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 500; cursor: pointer; transition: background 0.2s, transform 0.15s; box-shadow: 0 4px 14px rgba(181,69,27,0.3); }
+.btn-next:hover { background: #952f10; transform: translateY(-1px); }
+.btn-next:disabled { background: var(--border); color: var(--muted); box-shadow: none; cursor: not-allowed; transform: none; }
+
+.transition-card { text-align: center; padding: 36px 24px; background: var(--card); border-radius: var(--radius); border: 1px solid var(--border); box-shadow: var(--shadow); animation: fadeUp 0.4s ease; }
+.big-icon { font-size: 3rem; margin-bottom: 12px; }
+.transition-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 700; margin-bottom: 8px; color: var(--dark); }
+.transition-card p { color: var(--muted); font-size: 0.92rem; line-height: 1.6; }
+.btn-continue { margin-top: 22px; background: var(--dark); color: #fff; border: none; border-radius: 10px; padding: 13px 36px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 500; cursor: pointer; transition: background 0.2s; }
+.btn-continue:hover { background: var(--primary); }
+
+/* RESULTS */
+.results-wrap { max-width: 680px; margin: 0 auto; padding: 28px 16px 60px; display: none; animation: fadeUp 0.6s ease; }
+.score-hero { background: var(--dark); border-radius: var(--radius); padding: 36px 24px; text-align: center; margin-bottom: 28px; color: #fff; }
+.final-level-label { font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; color: rgba(255,255,255,0.5); text-transform: uppercase; margin-bottom: 6px; }
+.score-hero h2 { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 700; color: #f5d76e; line-height: 1; margin-bottom: 6px; }
+.score-hero .sub { color: rgba(255,255,255,0.65); font-size: 0.92rem; }
+.level-desc-badge { margin-top: 16px; display: inline-block; background: var(--primary); color: #fff; padding: 7px 22px; border-radius: 20px; font-size: 0.9rem; font-weight: 500; }
+
+.email-notice { background: var(--correct-bg); border: 1px solid var(--correct); border-radius: 10px; padding: 14px 18px; margin-bottom: 20px; font-size: 0.88rem; color: #1a4a30; display: flex; gap: 10px; align-items: flex-start; }
+.email-notice.sending { background: #fff8e8; border-color: #e6a817; color: #7a5010; }
+.email-notice.error { background: var(--wrong-bg); border-color: var(--wrong); color: #5a1a0a; }
+
+.review-section h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 700; margin: 24px 0 14px; color: var(--dark); padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+.review-item { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 12px; box-shadow: var(--shadow); }
+.review-top { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px; }
+.review-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+.review-q { font-weight: 600; font-size: 0.95rem; color: var(--dark); line-height: 1.4; }
+.ans-row { font-size: 0.88rem; margin: 3px 0; }
+.ans-wrong { color: var(--wrong); }
+.ans-right { color: var(--correct); font-weight: 600; }
+.ans-ok { color: var(--correct); font-weight: 600; }
+.exp-box { margin-top: 10px; border-radius: 8px; padding: 10px 14px; font-size: 0.85rem; line-height: 1.65; }
+.exp-ok { background: var(--correct-bg); border-left: 3px solid var(--correct); color: #1a4a30; }
+.exp-nok { background: var(--wrong-bg); border-left: 3px solid var(--wrong); color: #5a1a0a; }
+
+.btn-restart { display: block; margin: 28px auto 0; background: transparent; border: 2px solid var(--dark); color: var(--dark); padding: 12px 36px; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; cursor: pointer; transition: all 0.2s; }
+.btn-restart:hover { background: var(--dark); color: #fff; }
+
+@media(max-width:480px) {
+  header h1 { font-size: 1.5rem; }
+  .q-text { font-size: 1.1rem; }
+  .q-card { padding: 20px 16px; }
+  .form-row { grid-template-columns: 1fr; }
+  .reg-card { padding: 24px 18px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Srpski jezik – Provera znanja</h1>
+  <p>Serbian Language Placement Test</p>
+</header>
+<div class="progress-outer"><div class="progress-inner" id="progressBar"></div></div>
+<div class="level-strip" id="levelStrip"></div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- PAGE 1 — REGISTRATION FORM               -->
+<!-- ══════════════════════════════════════════ -->
+<div class="reg-wrap" id="regWrap">
+  <div class="reg-card">
+    <h2>Prijavni obrazac <span style="font-size:1rem;font-weight:400;color:var(--muted)">· Registration</span></h2>
+    <p class="reg-sub">Molimo popunite obrazac pre početka testa. · Please fill in the form before starting the test.</p>
+
+    <div class="section-title">Lični podaci · Personal Info</div>
+
+    <div class="form-row">
+      <div class="form-group" id="fg-ime">
+        <label>Ime i prezime <span class="required-star">*</span><br><span class="en">Full name</span></label>
+        <input type="text" id="f-ime" placeholder="npr. Ana Marković" autocomplete="name">
+        <span class="error-msg">Unesite ime i prezime · Please enter your full name</span>
+      </div>
+      <div class="form-group" id="fg-mail">
+        <label>Email <span class="required-star">*</span></label>
+        <input type="email" id="f-mail" placeholder="vas@email.com" autocomplete="email">
+        <span class="error-msg">Unesite ispravan email · Enter a valid email</span>
+      </div>
+      <div class="form-group" id="fg-grad">
+        <label>Grad <span class="required-star">*</span><br><span class="en">City</span></label>
+        <input type="text" id="f-grad" placeholder="npr. Beograd">
+        <span class="error-msg">Unesite grad · Enter your city</span>
+      </div>
+      <div class="form-group" id="fg-godine">
+        <label>Godine <span class="required-star">*</span><br><span class="en">Age</span></label>
+        <input type="number" id="f-godine" placeholder="npr. 28" min="5" max="99">
+        <span class="error-msg">Unesite godine · Enter your age</span>
+      </div>
+    </div>
+
+    <div class="form-group" id="fg-pol">
+      <label>Pol · <span class="en">Gender</span></label>
+      <div class="radio-group">
+        <label><input type="radio" name="pol" value="Ženski"> Ženski · Female</label>
+        <label><input type="radio" name="pol" value="Muški"> Muški · Male</label>
+        <label><input type="radio" name="pol" value="Drugo"> Drugo · Other</label>
+      </div>
+    </div>
+
+    <hr class="section-divider">
+    <div class="section-title">Jezici · Languages</div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Maternji jezik · <span class="en">Native language</span></label>
+        <input type="text" id="f-maternji" placeholder="npr. engleski / English">
+      </div>
+      <div class="form-group">
+        <label>Ostali jezici · <span class="en">Other languages</span></label>
+        <input type="text" id="f-ostali" placeholder="npr. nemački, španskil">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Jezik sporazumevanja — engleski? · <span class="en">Communication language — English?</span></label>
+      <div class="radio-group">
+        <label><input type="radio" name="eng" value="Da"> Da · Yes</label>
+        <label><input type="radio" name="eng" value="Ne"> Ne · No</label>
+        <label><input type="radio" name="eng" value="Delimično"> Delimično · Partially</label>
+      </div>
+    </div>
+
+    <hr class="section-divider">
+    <div class="section-title">O učenju · About Learning</div>
+
+    <div class="form-group">
+      <label>Razlog učenja srpskog · <span class="en">Reason for learning Serbian</span></label>
+      <select id="f-razlog">
+        <option value="">— Izaberi / Choose —</option>
+        <option>Porodica / Family</option>
+        <option>Posao / Work</option>
+        <option>Preseljenje / Relocation</option>
+        <option>Putovanje / Travel</option>
+        <option>Kultura i umetnost / Culture & Arts</option>
+        <option>Lični interes / Personal interest</option>
+        <option>Studije / Studies</option>
+        <option>Drugo / Other</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Vreme nedeljno · <span class="en">Weekly study time</span></label>
+        <select id="f-vreme">
+          <option value="">— Izaberi / Choose —</option>
+          <option>Do 1 sat / Up to 1h</option>
+          <option>1–2 sata / 1–2h</option>
+          <option>3–5 sati / 3–5h</option>
+          <option>5+ sati / 5h+</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Online / Offline</label>
+        <div class="radio-group" style="margin-top:4px">
+          <label><input type="radio" name="nacin" value="Online"> Online</label>
+          <label><input type="radio" name="nacin" value="Offline"> Offline</label>
+          <label><input type="radio" name="nacin" value="Oboje"> Oboje · Both</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Domaći zadaci? · <span class="en">Homework?</span></label>
+        <div class="radio-group" style="margin-top:4px">
+          <label><input type="radio" name="domaci" value="Da"> Da · Yes</label>
+          <label><input type="radio" name="domaci" value="Ne"> Ne · No</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Najbolji period za čas · <span class="en">Best time for lessons</span></label>
+        <select id="f-period">
+          <option value="">— Izaberi / Choose —</option>
+          <option>Jutro (7–12h) / Morning</option>
+          <option>Popodne (12–17h) / Afternoon</option>
+          <option>Veče (17–21h) / Evening</option>
+          <option>Vikend / Weekend</option>
+          <option>Fleksibilno / Flexible</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Dodatni komentar · <span class="en">Additional comment</span></label>
+      <textarea id="f-komentar" placeholder="Bilo koje napomene ili pitanja... / Any notes or questions..."></textarea>
+    </div>
+
+    <button class="btn-start-test" onclick="startTest()">Počni test ▶ &nbsp;·&nbsp; Start test ▶</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- PAGE 2 — TEST                            -->
+<!-- ══════════════════════════════════════════ -->
+<main id="mainArea" style="display:none"></main>
+<div class="results-wrap" id="resultsWrap">
+  <div id="gistNotice" class="email-notice sending">
+    ⏳ Čuvamo rezultate… · Saving results…
+  </div>
+  <div class="score-hero">
+    <div class="final-level-label" id="rLevel">—</div>
+    <h2 id="rScore">0/0</h2>
+    <div class="sub">Ukupan rezultat · Total score</div>
+    <div class="level-desc-badge" id="rDesc">—</div>
+  </div>
+  <div id="reviewContent"></div>
+  <button class="btn-restart" onclick="restart()">↺ Ponovi test / Restart</button>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════
+// GITHUB GIST CONFIG
+// Uputstvo / Instructions:
+// 1. Idite na https://github.com/settings/tokens
+//    → Generate new token (classic)
+//    → Označite samo "gist" scope
+//    → Kopirajte token ovde
+// 2. Kreirajte novi Gist na https://gist.github.com
+//    → Dodajte fajl npr. "rezultati.json" sa sadržajem: []
+//    → Sačuvajte kao Secret Gist
+//    → Iz URL-a kopirajte ID (deo posle gist.github.com/vaskorisnickoime/)
+// ═══════════════════════════════════════════════
+const GIST_TOKEN = 'YOUR_GITHUB_TOKEN';   // ← nalepite vaš GitHub token
+const GIST_ID    = 'YOUR_GIST_ID';        // ← nalepite ID vašeg Gist-a
+const GIST_FILE  = 'rezultati.json';      // ← naziv fajla unutar Gist-a
+
+// ═══════════════════════════════════════════════
+// QUESTIONS — verified, accurate Serbian grammar
+// ═══════════════════════════════════════════════
+const LEVELS = [
+  {
+    id:'A1', srName:'Početnik', enName:'Beginner',
+    intro_sr:'Počinjemo od osnova — svakodnevni vokabular i prve rečenice.',
+    intro_en:'Starting with the basics — everyday vocabulary and first sentences.',
+    questions:[
+      {
+        sr:'Šta znači: „Kako se zoveš?"',
+        en:'What does "Kako se zoveš?" mean?',
+        opts:['Where do you live?','What is your name?','How old are you?','Where are you from?'],
+        ans:1,
+        exp_sr:'„Kako se zoveš?" bukvalno znači „Kako se nazivaš?" — standardni srpski način da se pita za nečije ime.',
+        exp_en:'"Kako se zoveš?" literally means "How do you call yourself?" — it is the standard Serbian way to ask someone\'s name.'
+      },
+      {
+        sr:'Dopuni rečenicu ispravnim oblikom glagola BITI:\n„Ja ___ iz Nemačke."',
+        en:'Fill in with the correct form of the verb BITI (to be):\n"Ja ___ iz Nemačke." (I am from Germany.)',
+        opts:['si','je','sam','smo'],
+        ans:2,
+        exp_sr:'Glagol „biti" u prezentu: ja SAM, ti si, on/ona je, mi smo, vi ste, oni su. Za lice „ja" uvek koristimo „sam".',
+        exp_en:'Verb "biti" (to be) in present tense: ja SAM (I am), ti si (you are), on/ona je (he/she is). First person singular is always "sam".'
+      },
+      {
+        sr:'Šta znači reč „prijatelj"?',
+        en:'What does the word "prijatelj" mean?',
+        opts:['family','city','teacher','friend'],
+        ans:3,
+        exp_sr:'„Prijatelj" znači friend. Srodne reči: prijateljica (female friend), drugar/drugarica (school friend/mate).',
+        exp_en:'"Prijatelj" means friend. Related: prijateljica (female friend), drugar/drugarica (school friend).'
+      }
+    ]
+  },
+  {
+    id:'A2', srName:'Osnovno', enName:'Elementary',
+    intro_sr:'Dobro! Sada proveravamo sadašnje vreme glagola, negaciju i broj imenica.',
+    intro_en:'Good! Now we check present tense verbs, negation and noun numbers.',
+    questions:[
+      {
+        sr:'Koji je tačan oblik glagola „govoriti" za lice „ja" u prezentu?\n„Ja ___ srpski."',
+        en:'Choose the correct present tense form of "govoriti" (to speak) for "ja":\n"Ja ___ srpski." (I speak Serbian.)',
+        opts:['govori','govorim','govoriš','govore'],
+        ans:1,
+        exp_sr:'Glagol „govoriti" u prezentu: ja GOVORIM, ti govoriš, on/ona govori, mi govorimo, vi govorite, oni govore.',
+        exp_en:'Verb "govoriti" (to speak) in present tense: ja GOVORIM (I speak), ti govoriš (you speak), on/ona govori (he/she speaks).'
+      },
+      {
+        sr:'Izaberi tačnu negaciju:\n„Ja ___ kafu." (I do not drink coffee.)',
+        en:'Choose the correct negation:\n"Ja ___ kafu." (I do not drink coffee.)',
+        opts:['nisam piti kafu','pijem ne','ne pijem','ne piti'],
+        ans:2,
+        exp_sr:'Negacija se gradi dodavanjem rečce „ne" direktno ispred glagola: pijem → NE PIJEM. „Ne" uvek prethodi glagolu i piše se odvojeno.',
+        exp_en:'Negation is formed by placing "ne" directly before the verb: pijem → NE PIJEM. "Ne" always precedes the verb and is written separately.'
+      },
+      {
+        sr:'Kako se kaže „I have two brothers" — koji je tačan oblik?\n(brat = brother)',
+        en:'Choose the correct sentence for "I have two brothers".\n(brat = brother)',
+        opts:['Imam dva brat.','Imam dva bratovi.','Imam dva braće.','Imam dva brata.'],
+        ans:3,
+        exp_sr:'Posle brojeva 2, 3, 4 imenica ide u genitivu jednine: jedan brat → dva BRATA. Posle 5 i više ide genitiv množine: pet braće.',
+        exp_en:'After the numbers 2, 3, 4 the noun takes genitive singular: jedan brat (one brother) → dva BRATA (two brothers). After 5+: pet braće.'
+      }
+    ]
+  },
+  {
+    id:'B1', srName:'Srednji nivo', enName:'Intermediate',
+    intro_sr:'Odlično! Prelazimo na prošlo vreme, padeže i poređenje prideva.',
+    intro_en:'Excellent! Moving to past tense, noun cases and adjective comparison.',
+    questions:[
+      {
+        sr:'Pretvori u prošlo vreme (perfekat):\n„Ona ___ knjigu." — glagol: čitati (to read)',
+        en:'Put into past tense (perfect):\n"Ona ___ knjigu." — verb: čitati (to read)',
+        opts:['je čitala','čitala je','je čitati','čitala'],
+        ans:0,
+        exp_sr:'Perfekat: pomoćni glagol „biti" + glagolski pridev radni. Ona JE ČITALA (ženski rod, nastavak -la). Enklitika „je" dolazi ispred participa.',
+        exp_en:'Perfect tense: auxiliary "biti" + past active participle. Ona JE ČITALA (feminine, ending -la). The auxiliary "je" comes before the participle.'
+      },
+      {
+        sr:'Koji padež zahteva predlog „u" uz glagol kretanja?\n„Idem u ___." — oblik reči „grad" (city)',
+        en:'Which case does "u" require with motion verbs?\n"Idem u ___." — form of "grad" (city)',
+        opts:['nominativ: grad — Idem u grad.','lokativ: gradu — Idem u gradu.','genitiv: grada — Idem u grada.','instrumental: gradom — Idem u gradom.'],
+        ans:0,
+        exp_sr:'Glagoli kretanja prema cilju (ići, doći, otići) + „u/na" zahtevaju AKUZATIV. „Grad" je muškog roda neživo — akuzativ je isti kao nominativ: „grad". „Idem u grad."',
+        exp_en:'Verbs of motion toward a goal + "u/na" require the ACCUSATIVE case. "Grad" (masculine inanimate) has the same form in accusative as nominative: "grad". "Idem u grad" = I am going to the city.'
+      },
+      {
+        sr:'Napravi komparativ (comparative) prideva „visok":\n„Marko je ___ od Nikole."',
+        en:'Form the comparative of "visok" (tall):\n"Marko je ___ od Nikole." (Marko is taller than Nikola.)',
+        opts:['više visok','visoki','viši','najviši'],
+        ans:2,
+        exp_sr:'Komparativ prideva „visok" je „VIŠI". „Od" + genitiv = than. Superlativ je „NAJVIŠI". Komparativ nikada nije „više + pozitiv" za jednosložne pridevne osnove.',
+        exp_en:'Comparative of "visok" (tall) is "VIŠI" (taller). "Od" + genitive = than. Superlative is "NAJVIŠI" (tallest). Short adjectives typically use inflected forms, not "više + adjective".'
+      }
+    ]
+  },
+  {
+    id:'B2', srName:'Viši srednji', enName:'Upper-Intermediate',
+    intro_sr:'Sjajno! Sada proveravamo futur, kondicional i dativne zamenice.',
+    intro_en:'Great! Now checking future tense, conditional sentences and dative pronouns.',
+    questions:[
+      {
+        sr:'Koji je tačan futur I?\n„Ona ___ u Beograd sutra." (She will go to Belgrade tomorrow.)',
+        en:'Choose the correct Future I:\n"Ona ___ u Beograd sutra." (She will go to Belgrade tomorrow.)',
+        opts:['hoće ići','ići će','će ići','ide će'],
+        ans:2,
+        exp_sr:'Futur I: kratki oblik glagola „hteti" + infinitiv. Za „ona": ĆE IĆI. Kratki oblici (ću, ćeš, će, ćemo, ćete, će) uvek stoje ispred infinitiva.',
+        exp_en:'Future I: short form of "hteti" + infinitive. For "ona" (she): ĆE IĆI. Short forms (ću, ćeš, će, ćemo, ćete, će) always precede the infinitive.'
+      },
+      {
+        sr:'Izaberi tačnu hipotetičnu rečenicu:\n(If I had more time, I would study Serbian.)',
+        en:'Choose the correct hypothetical/conditional sentence:\n(If I had more time, I would study Serbian.)',
+        opts:['Ako imam više vremena, učim srpski.','Kada bih imala više vremena, učila bih srpski.','Ako bih imala više vremena, učiti bih srpski.','Kada imam više vremena, učila bi srpski.'],
+        ans:1,
+        exp_sr:'Kondicional I (hipotetična sadašnjost): „kada/kad bih + glagolski pridev radni" u obema klauzama. „Kada bih imala... učila bih." Pažnja: „ako + prezent" izražava realnu mogućnost, ne hipotezu.',
+        exp_en:'Conditional I (unreal present): "kada bih + past active participle" in both clauses. "Kada bih imala... učila bih" = If I had... I would study. Note: "ako + present" expresses a real possibility, not a hypothesis.'
+      },
+      {
+        sr:'Popuni rečenicu ispravnom enklitičkom zamenicom u dativu:\n„Rekla sam ___ da dođe." (I told her to come.)',
+        en:'Fill in with the correct dative clitic pronoun:\n"Rekla sam ___ da dođe." (I told her to come.)',
+        opts:['je','nju','njoj','joj'],
+        ans:3,
+        exp_sr:'Glagol „reći nekome" zahteva dativ. Dativ zamenice „ona" ima kratku (enklitičku) formu JOJ i dugu NJOJ. Kratka forma „joj" koristi se bez predloga u rečenici.',
+        exp_en:'The verb "reći nekome" (to tell someone) requires the dative case. The dative of "ona" has a short (clitic) form JOJ and long form NJOJ. The short form "joj" is used without a preposition.'
+      }
+    ]
+  },
+  {
+    id:'C1', srName:'Napredni', enName:'Advanced',
+    intro_sr:'Poslednji nivo! Proveravamo glagolski vid, red enklitika i trpni pridev.',
+    intro_en:'Final level! Checking verbal aspect, clitic order and passive participles.',
+    questions:[
+      {
+        sr:'Koji glagol je tačan za svakodnevnu, ponovljenu radnju?\n„Svaki dan ___ kafu." (Every day I drink coffee.)',
+        en:'Which verb correctly expresses a habitual, repeated daily action?\n"Svaki dan ___ kafu."',
+        opts:['popijem','popiti','pijem','popivši'],
+        ans:2,
+        exp_sr:'NESVRŠENI vid (imperfektiv) = radnja koja se ponavlja ili traje: PIJEM (svaki dan). SVRŠENI vid (perfektiv) = radnja koja je završena jedanput: „popijem" se koristi za svršenu buduću radnju, npr. „Kad popijem kafu, krećem."',
+        exp_en:'IMPERFECTIVE aspect = repeated or ongoing action: PIJEM (every day). PERFECTIVE aspect = a completed, one-time action: "popijem" is used for a completed future action, e.g. "Kad popijem kafu, krećem" (Once I finish my coffee, I leave).'
+      },
+      {
+        sr:'Pronađi grešku u rečenici:\n„Knjiga koju sam je pročitao bila je odlična."',
+        en:'Find the error in this sentence:\n"Knjiga koju sam je pročitao bila je odlična." (The book I had read was excellent.)',
+        opts:['Nema greške.','Treba „je sam" umesto „sam je".','Enklitika „je" ne sme stajati između „sam" i participa. Tačno: „Knjiga koju sam pročitao bila je odlična."','Treba koristiti „čitao" umesto „pročitao".'],
+        ans:2,
+        exp_sr:'U srpskom postoji strogi redosled enklitika. Pomoćni glagol „je" od glagola „biti" ne stoji između „sam" i glagolskog prideva radnog. Tačno: „...koju sam pročitao..." — enklitike se ne razdvajaju na ovaj način.',
+        exp_en:'Serbian has strict clitic sequencing rules. The auxiliary "je" (from "biti") cannot be inserted between "sam" and the past participle. Correct: "...koju sam pročitao..." — clitics must follow the fixed ordering and cannot be split this way.'
+      },
+      {
+        sr:'Koji oblik ispravno izražava pasivnu prošlost?\n„Pismo ___ juče." (The letter was written yesterday.) — napisati',
+        en:'Which form correctly expresses the passive past?\n"Pismo ___ juče." (The letter was written yesterday.) — verb: napisati',
+        opts:['napisalo je','je napisano','je pisano','napisavši'],
+        ans:1,
+        exp_sr:'Pasiv: glagol „biti" + trpni glagolski pridev. „Pismo" je sr. roda → nastavak -o: NAPISANO. Dakle: „Pismo JE NAPISANO." „Pisano" (nesvršeni vid) bi sugerisalo da je pisanje bilo u toku, a ne završeno.',
+        exp_en:'Passive voice: "biti" + passive participle. "Pismo" (letter) is neuter gender → ending -o: NAPISANO. So: "Pismo JE NAPISANO." Using "pisano" (imperfective) would imply the writing was still in progress, not completed.'
+      }
+    ]
+  }
+];
+
+// ═══════════════════════════════════════════════
+// STUDENT PROFILE (filled from registration)
+// ═══════════════════════════════════════════════
+let profile = {};
+
+function getVal(id) { return (document.getElementById(id)||{}).value || ''; }
+function getRadio(name) {
+  const el = document.querySelector(`input[name="${name}"]:checked`);
+  return el ? el.value : '—';
+}
+
+function startTest() {
+  // Validate required fields
+  let ok = true;
+  const required = [
+    { id:'f-ime',    fg:'fg-ime' },
+    { id:'f-mail',   fg:'fg-mail' },
+    { id:'f-grad',   fg:'fg-grad' },
+    { id:'f-godine', fg:'fg-godine' }
+  ];
+  required.forEach(r => {
+    const el = document.getElementById(r.id);
+    const fg = document.getElementById(r.fg);
+    const val = el ? el.value.trim() : '';
+    if (!val || (r.id === 'f-mail' && !val.includes('@'))) {
+      fg.classList.add('field-error'); ok = false;
+    } else {
+      fg.classList.remove('field-error');
+    }
+  });
+  if (!ok) { document.getElementById('fg-ime').scrollIntoView({behavior:'smooth'}); return; }
+
+  profile = {
+    ime:      getVal('f-ime'),
+    mail:     getVal('f-mail'),
+    grad:     getVal('f-grad'),
+    godine:   getVal('f-godine'),
+    pol:      getRadio('pol'),
+    maternji: getVal('f-maternji') || '—',
+    ostali:   getVal('f-ostali')   || '—',
+    engleski: getRadio('eng'),
+    razlog:   getVal('f-razlog')   || '—',
+    vreme:    getVal('f-vreme')    || '—',
+    nacin:    getRadio('nacin'),
+    domaci:   getRadio('domaci'),
+    period:   getVal('f-period')   || '—',
+    komentar: getVal('f-komentar') || '—',
+    datum:    new Date().toLocaleString('sr-RS')
+  };
+
+  document.getElementById('regWrap').style.display = 'none';
+  document.getElementById('mainArea').style.display = 'block';
+  render();
+}
+
+// ═══════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════
+let state = {
+  lvIdx: 0,
+  qIdx: 0,
+  phase: 'intro',
+  selected: null,
+  lvResults: [],
+  lvPassed: [],
+  allLog: []
+};
+
+function reset() {
+  state = { lvIdx:0, qIdx:0, phase:'intro', selected:null, lvResults:[], lvPassed:[], allLog:[] };
+}
+
+// ═══════════════════════════════════════════════
+// RENDER STRIP
+// ═══════════════════════════════════════════════
+function renderStrip() {
+  const strip = document.getElementById('levelStrip');
+  strip.innerHTML = '';
+  LEVELS.forEach((lv, i) => {
+    const d = document.createElement('div');
+    d.className = 'lvl-dot';
+    if (i === state.lvIdx && state.phase !== 'done') d.classList.add('active');
+    else if (i < state.lvIdx || state.phase === 'done') {
+      d.classList.add(state.lvPassed[i] ? 'done' : 'stopped');
+    }
+    d.textContent = lv.id;
+    strip.appendChild(d);
+  });
+}
+
+function setProgress(pct) {
+  document.getElementById('progressBar').style.width = pct + '%';
+}
+
+// ═══════════════════════════════════════════════
+// RENDER MAIN
+// ═══════════════════════════════════════════════
+function render() {
+  renderStrip();
+  const main = document.getElementById('mainArea');
+  const rWrap = document.getElementById('resultsWrap');
+  main.style.display = 'block';
+  rWrap.style.display = 'none';
+
+  if (state.phase === 'done') { showResults(); return; }
+
+  const lv = LEVELS[state.lvIdx];
+  const totalQ = LEVELS.reduce((a,l) => a + l.questions.length, 0);
+  let doneQ = LEVELS.slice(0, state.lvIdx).reduce((a,l) => a + l.questions.length, 0) + state.qIdx;
+  setProgress(Math.round((doneQ / totalQ) * 100));
+
+  if (state.phase === 'intro') {
+    main.innerHTML = `
+      <div class="level-intro">
+        <div class="level-tag">${lv.id} — ${lv.srName} · ${lv.enName}</div>
+        <h2>${lv.id}: ${lv.srName}</h2>
+        <p>${lv.intro_sr}<br><em style="font-size:0.85rem;color:#bbb;">${lv.intro_en}</em></p>
+        <button class="btn-start" onclick="startLevel()">Počni ▶&nbsp;&nbsp;/&nbsp;&nbsp;Start ▶</button>
+      </div>`;
+    return;
+  }
+
+  if (state.phase === 'question') {
+    const q = lv.questions[state.qIdx];
+    const letters = ['A','B','C','D'];
+    let optsHTML = q.opts.map((opt, i) =>
+      `<button class="opt-btn" id="ob${i}" onclick="pick(${i})"><span class="opt-letter">${letters[i]}</span>${opt}</button>`
+    ).join('');
+    const qSr = q.sr.replace(/\n/g,'<br>');
+    const qEn = q.en.replace(/\n/g,'<br>');
+    main.innerHTML = `
+      <div class="q-card">
+        <div class="q-meta">
+          <span class="q-level-tag">${lv.id}</span>
+          <span class="q-count">Pitanje ${state.qIdx+1} / ${lv.questions.length}</span>
+        </div>
+        <div class="q-text">${qSr}</div>
+        <div class="q-hint">${qEn}</div>
+        <div class="options">${optsHTML}</div>
+        <button class="btn-next" id="btnNext" disabled onclick="nextQ()">
+          ${state.qIdx < lv.questions.length-1 ? 'Sledeće pitanje →' : 'Završi nivo →'}
+        </button>
+      </div>`;
+    return;
+  }
+
+  if (state.phase === 'transition') {
+    const prevLv = LEVELS[state.lvIdx - 1];
+    const passed = state.lvPassed[state.lvIdx - 1];
+    const score = state.lvResults[state.lvIdx - 1].filter(Boolean).length;
+    const isLast = state.lvIdx >= LEVELS.length;
+    const nextLv = !isLast ? LEVELS[state.lvIdx] : null;
+
+    main.innerHTML = `
+      <div class="transition-card">
+        <div class="big-icon">${passed ? '✅' : '🛑'}</div>
+        <h3>${prevLv.id}: ${score}/3 — ${passed ? 'Prošao/la!' : 'Ovde stajemo.'}</h3>
+        <p>${passed && nextLv
+          ? `Prelazimo na nivo <strong>${nextLv.id} – ${nextLv.srName}</strong>.<br><em style="font-size:0.85rem;">${nextLv.enName} level next.</em>`
+          : `Dostignut je tvoj nivo. Pogledaj detalje ispod.<br><em style="font-size:0.85rem;">Your level has been reached. See the results below.</em>`
+        }</p>
+        <button class="btn-continue" onclick="advance()">
+          ${passed && nextLv ? 'Nastavi → / Continue →' : 'Vidi rezultate / See results'}
+        </button>
+      </div>`;
+  }
+}
+
+// ═══════════════════════════════════════════════
+// INTERACTIONS
+// ═══════════════════════════════════════════════
+function startLevel() {
+  state.qIdx = 0;
+  state.lvResults[state.lvIdx] = [];
+  state.selected = null;
+  state.phase = 'question';
+  render();
+}
+
+function pick(i) {
+  state.selected = i;
+  document.querySelectorAll('.opt-btn').forEach((b,idx) => b.classList.toggle('selected', idx===i));
+  document.getElementById('btnNext').disabled = false;
+}
+
+function nextQ() {
+  const lv = LEVELS[state.lvIdx];
+  const q = lv.questions[state.qIdx];
+  const ok = state.selected === q.ans;
+  state.lvResults[state.lvIdx].push(ok);
+  state.allLog.push({ lvId: lv.id, q, userAns: state.selected, ok });
+  state.qIdx++;
+  state.selected = null;
+
+  if (state.qIdx >= lv.questions.length) {
+    const passed = state.lvResults[state.lvIdx].filter(Boolean).length >= 2;
+    state.lvPassed[state.lvIdx] = passed;
+    state.lvIdx++;
+    state.phase = 'transition';
+  } else {
+    state.phase = 'question';
+  }
+  render();
+}
+
+function advance() {
+  const passed = state.lvPassed[state.lvIdx - 1];
+  if (passed && state.lvIdx < LEVELS.length) {
+    state.phase = 'intro';
+  } else {
+    state.phase = 'done';
+  }
+  render();
+}
+
+// ═══════════════════════════════════════════════
+// RESULTS
+// ═══════════════════════════════════════════════
+function showResults() {
+  document.getElementById('mainArea').style.display = 'none';
+  const rWrap = document.getElementById('resultsWrap');
+  rWrap.style.display = 'block';
+  setProgress(100);
+  renderStrip();
+
+  const lastPassed = state.lvPassed.lastIndexOf(true);
+  const levelLabels = [
+    {id:'A1', sr:'Početnik', en:'Beginner – A1'},
+    {id:'A2', sr:'Osnovno znanje', en:'Elementary – A2'},
+    {id:'B1', sr:'Srednji nivo', en:'Intermediate – B1'},
+    {id:'B2', sr:'Viši srednji', en:'Upper-Intermediate – B2'},
+    {id:'C1', sr:'Napredni', en:'Advanced – C1'}
+  ];
+  const final = lastPassed >= 0 ? levelLabels[lastPassed] : {id:'Ispod A1', sr:'Početnik', en:'Beginner (below A1)'};
+  const totalOk = state.allLog.filter(r => r.ok).length;
+
+  document.getElementById('rLevel').textContent = final.id;
+  document.getElementById('rScore').textContent = totalOk + '/' + state.allLog.length;
+  document.getElementById('rDesc').textContent = final.sr + ' · ' + final.en;
+
+  // Build review
+  const rc = document.getElementById('reviewContent');
+  rc.innerHTML = '';
+  let lastLvId = null;
+  const letters = ['A','B','C','D'];
+
+  state.allLog.forEach(r => {
+    if (r.lvId !== lastLvId) {
+      const h = document.createElement('h3');
+      h.className = 'review-section';
+      h.textContent = `Nivo ${r.lvId}`;
+      rc.appendChild(h);
+      lastLvId = r.lvId;
+    }
+    const q = r.q;
+    const userLabel = r.userAns !== null ? `${letters[r.userAns]}) ${q.opts[r.userAns]}` : '—';
+    const corrLabel = `${letters[q.ans]}) ${q.opts[q.ans]}`;
+
+    const div = document.createElement('div');
+    div.className = 'review-item';
+    div.innerHTML = `
+      <div class="review-top">
+        <span class="review-icon">${r.ok ? '✅' : '❌'}</span>
+        <div class="review-q">${q.sr.replace(/\n/g,'<br>')}</div>
+      </div>
+      <div class="ans-row ${r.ok ? 'ans-ok' : 'ans-wrong'}">
+        ${r.ok ? '✓ Tačno / Correct: ' : '✗ Tvoj odgovor / Your answer: '}<em>${userLabel}</em>
+      </div>
+      ${!r.ok ? `<div class="ans-row ans-right">✓ Tačan odgovor / Correct answer: <em>${corrLabel}</em></div>` : ''}
+      <div class="exp-box ${r.ok ? 'exp-ok' : 'exp-nok'}">
+        <strong>🇷🇸</strong> ${q.exp_sr}<br><br>
+        <strong>🇬🇧</strong> ${q.exp_en}
+      </div>`;
+    rc.appendChild(div);
+  });
+
+  // Save to GitHub Gist
+  saveToGist(final, totalOk);
+}
+
+// ═══════════════════════════════════════════════
+// SAVE TO GITHUB GIST
+// ═══════════════════════════════════════════════
+async function saveToGist(final, totalOk) {
+  const notice = document.getElementById('gistNotice');
+
+  const answers = state.allLog.map(r => ({
+    level: r.lvId,
+    question_sr: r.q.sr.replace(/\n/,' '),
+    user_answer: r.userAns !== null ? r.q.opts[r.userAns] : null,
+    correct_answer: r.q.opts[r.q.ans],
+    correct: r.ok
+  }));
+
+  const newEntry = {
+    timestamp: new Date().toISOString(),
+    student: profile,
+    result: {
+      final_level: final.id,
+      final_level_label: final.sr + ' · ' + final.en,
+      score: totalOk,
+      total: state.allLog.length
+    },
+    answers
+  };
+
+  if (GIST_TOKEN === 'YOUR_GITHUB_TOKEN') {
+    notice.className = 'email-notice';
+    notice.innerHTML = `ℹ️ <strong>Gist nije konfigurisan.</strong> Dodajte GitHub token i Gist ID u kod da bi se rezultati čuvali automatski.<br>
+      <em style="font-size:0.81rem">Gist not configured. Add your GitHub token and Gist ID to the script to enable automatic saving.</em>`;
+    return;
+  }
+
+  try {
+    // 1. Fetch current Gist content
+    const getRes = await fetch(`https://api.github.com/gists/${GIST_ID}`, {
+      headers: {
+        'Authorization': `token ${GIST_TOKEN}`,
+        'Accept': 'application/vnd.github.v3+json'
+      }
+    });
+    if (!getRes.ok) throw new Error('Ne mogu da pročitam Gist. / Cannot read Gist. Status: ' + getRes.status);
+
+    const gistData = await getRes.json();
+    const raw = gistData.files[GIST_FILE]?.content || '[]';
+    let existing = [];
+    try { existing = JSON.parse(raw); } catch(e) { existing = []; }
+    if (!Array.isArray(existing)) existing = [];
+
+    // 2. Append new entry
+    existing.push(newEntry);
+
+    // 3. Update Gist
+    const patchRes = await fetch(`https://api.github.com/gists/${GIST_ID}`, {
+      method: 'PATCH',
+      headers: {
+        'Authorization': `token ${GIST_TOKEN}`,
+        'Accept': 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        files: {
+          [GIST_FILE]: { content: JSON.stringify(existing, null, 2) }
+        }
+      })
+    });
+    if (!patchRes.ok) throw new Error('Ne mogu da upišem u Gist. / Cannot write to Gist. Status: ' + patchRes.status);
+
+    notice.className = 'email-notice';
+    notice.innerHTML = `✅ Rezultati sačuvani. Ukupno prijavljenih: <strong>${existing.length}</strong>. · Results saved to Gist (${existing.length} total entries).`;
+
+  } catch(err) {
+    notice.className = 'email-notice error';
+    notice.innerHTML = `❌ Greška pri čuvanju: ${err.message} · Error saving results: ${err.message}`;
+    console.error(err);
+  }
+}
+
+function restart() {
+  reset();
+  profile = {};
+  document.getElementById('resultsWrap').style.display = 'none';
+  document.getElementById('mainArea').style.display = 'none';
+  document.getElementById('regWrap').style.display = 'block';
+  // Clear form
+  ['f-ime','f-mail','f-grad','f-godine','f-maternji','f-ostali','f-razlog','f-vreme','f-period','f-komentar']
+    .forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+  document.querySelectorAll('input[type=radio]').forEach(r => r.checked = false);
+}
+
+// INIT — show registration, hide test
+document.getElementById('mainArea').style.display = 'none';
+</script>
+</body>
+</html>
