@@ -1,0 +1,1953 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Тест нивоа знања српског језика | LearnSerbian</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+  :root {
+    --bg: #0f0d0b;
+    --surface: #1a1714;
+    --surface2: #221f1b;
+    --border: #333028;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --gold-dim: rgba(201,168,76,0.15);
+    --red: #9e3535;
+    --red-light: #c44a4a;
+    --text: #e8e0d0;
+    --text-dim: #9a9080;
+    --text-faint: #5a5448;
+    --correct: #3d7a5a;
+    --correct-bg: rgba(61,122,90,0.15);
+    --wrong: #9e3535;
+    --wrong-bg: rgba(158,53,53,0.12);
+    --a1: #4a7c6f;
+    --a2: #5a6e8a;
+    --b1: #7a6a8a;
+    --b2: #8a5a6a;
+    --c1: #9e3535;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 400;
+    min-height: 100vh;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.04em;
+  }
+  .header-brand span {
+    color: var(--text-dim);
+    font-weight: 400;
+    font-size: 0.85rem;
+    margin-left: 10px;
+    font-family: 'Source Sans 3', sans-serif;
+  }
+
+  /* ── PROGRESS BAR ── */
+  .progress-strip {
+    height: 3px;
+    background: var(--border);
+    width: 100%;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    transition: width 0.5s ease;
+    width: 0%;
+  }
+
+  /* ── PHASE INDICATOR ── */
+  .phase-nav {
+    display: flex;
+    gap: 0;
+    padding: 14px 24px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+  }
+  .phase-dot {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    border-radius: 2px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    position: relative;
+    white-space: nowrap;
+    transition: color 0.3s;
+  }
+  .phase-dot::after {
+    content: '›';
+    color: var(--text-faint);
+    margin-left: 8px;
+    font-size: 1.1rem;
+  }
+  .phase-dot:last-child::after { display: none; }
+  .phase-dot.active { color: var(--gold); }
+  .phase-dot.done { color: var(--text-dim); }
+  .phase-badge {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    background: var(--border);
+    color: var(--text-faint);
+    transition: all 0.3s;
+  }
+  .phase-dot.active .phase-badge {
+    background: var(--gold);
+    color: var(--bg);
+  }
+  .phase-dot.done .phase-badge {
+    background: var(--correct);
+    color: white;
+  }
+
+  /* ── MAIN CONTAINER ── */
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* ── WELCOME SCREEN ── */
+  .welcome {
+    text-align: center;
+    padding: 60px 0 40px;
+  }
+  .welcome-ornament {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    display: block;
+  }
+  .welcome h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 5vw, 2.6rem);
+    font-weight: 700;
+    color: var(--gold-light);
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+  .welcome h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--text-dim);
+    margin-bottom: 32px;
+  }
+  .welcome-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 28px 32px;
+    text-align: left;
+    margin-bottom: 28px;
+  }
+  .welcome-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--gold);
+    margin-bottom: 14px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: var(--text-dim);
+  }
+  .info-item .icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+  .info-item strong { color: var(--text); display: block; font-size: 0.8rem; font-weight: 600; }
+
+  .level-pills {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 32px;
+  }
+  .level-pill {
+    padding: 5px 14px;
+    border-radius: 2px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 1px solid;
+  }
+  .pill-a1 { color: var(--a1); border-color: var(--a1); background: rgba(74,124,111,0.1); }
+  .pill-a2 { color: var(--a2); border-color: var(--a2); background: rgba(90,110,138,0.1); }
+  .pill-b1 { color: var(--b1); border-color: var(--b1); background: rgba(122,106,138,0.1); }
+  .pill-b2 { color: var(--b2); border-color: var(--b2); background: rgba(138,90,106,0.1); }
+  .pill-c1 { color: var(--c1); border-color: var(--c1); background: rgba(158,53,53,0.1); }
+
+  /* ── EMAIL GATE ── */
+  .email-gate {
+    background: var(--surface);
+    border: 1px solid var(--gold);
+    border-radius: 4px;
+    padding: 32px;
+    margin-bottom: 28px;
+    text-align: left;
+  }
+  .email-gate h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--gold-light);
+    margin-bottom: 6px;
+  }
+  .email-gate p {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    margin-bottom: 20px;
+  }
+  .gate-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .gate-field-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 5px;
+    display: block;
+  }
+  .gate-input {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 12px 16px;
+    font-size: 1rem;
+    font-family: 'Source Sans 3', sans-serif;
+    border-radius: 3px;
+    width: 100%;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  .gate-input:focus { border-color: var(--gold); }
+  .gate-input.error { border-color: var(--red-light); }
+  .gate-error {
+    font-size: 0.8rem;
+    color: var(--red-light);
+    margin-top: 4px;
+    display: none;
+  }
+  .gate-error.show { display: block; }
+  .gate-note {
+    font-size: 0.78rem;
+    color: var(--text-faint);
+    margin-top: 6px;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--bg);
+    border: none;
+    padding: 14px 42px;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: 'Source Sans 3', sans-serif;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  .btn-secondary {
+    background: transparent;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    padding: 11px 32px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-family: 'Source Sans 3', sans-serif;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { background: var(--gold-dim); }
+
+  /* ── PHASE HEADER ── */
+  .phase-header {
+    margin-bottom: 32px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .phase-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .phase-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .phase-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--text-dim);
+  }
+  .phase-meta {
+    display: flex;
+    gap: 20px;
+    margin-top: 14px;
+  }
+  .phase-meta-item {
+    font-size: 0.8rem;
+    color: var(--text-faint);
+  }
+  .phase-meta-item strong { color: var(--text-dim); }
+
+  /* ── QUESTION ── */
+  .question-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 24px 26px;
+    margin-bottom: 16px;
+    transition: border-color 0.2s;
+  }
+  .question-block.answered { border-color: #2a2720; }
+  .question-block.correct { border-color: var(--correct); background: var(--correct-bg); }
+  .question-block.wrong { border-color: var(--wrong); background: var(--wrong-bg); }
+
+  .q-number {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 8px;
+  }
+  .q-type-tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 2px;
+    background: var(--gold-dim);
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .q-text {
+    font-size: 1rem;
+    color: var(--text);
+    margin-bottom: 6px;
+    line-height: 1.55;
+  }
+  .q-translation {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    font-style: italic;
+    margin-bottom: 18px;
+    padding-left: 10px;
+    border-left: 2px solid var(--border);
+  }
+
+  /* ── OPTIONS ── */
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+  .option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 15px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.15s;
+    background: var(--surface2);
+    font-size: 0.95rem;
+    color: var(--text);
+    text-align: left;
+    width: 100%;
+    position: relative;
+  }
+  .option:hover:not(:disabled) {
+    border-color: var(--gold);
+    background: var(--gold-dim);
+    color: var(--gold-light);
+  }
+  .option:disabled { cursor: default; }
+  .option.selected { border-color: var(--gold); background: var(--gold-dim); color: var(--gold-light); }
+  .option.correct { border-color: var(--correct); background: var(--correct-bg); color: #6fcfa0; }
+  .option.wrong { border-color: var(--wrong); background: var(--wrong-bg); color: #e07070; }
+  .option.reveal-correct { border-color: var(--correct); background: var(--correct-bg); color: #6fcfa0; }
+  .opt-letter {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--border);
+    color: var(--text-dim);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.78rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    transition: all 0.15s;
+  }
+  .option.selected .opt-letter { background: var(--gold); color: var(--bg); }
+  .option.correct .opt-letter { background: var(--correct); color: white; }
+  .option.wrong .opt-letter { background: var(--wrong); color: white; }
+  .option.reveal-correct .opt-letter { background: var(--correct); color: white; }
+
+  /* ── TEXT INPUT (fill-in) ── */
+  .fill-input {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 11px 15px;
+    font-size: 1rem;
+    font-family: 'Source Sans 3', sans-serif;
+    border-radius: 3px;
+    width: 100%;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  .fill-input:focus { border-color: var(--gold); }
+  .fill-input.correct { border-color: var(--correct); color: #6fcfa0; }
+  .fill-input.wrong { border-color: var(--wrong); color: #e07070; }
+
+  /* ── EXPLANATION ── */
+  .explanation {
+    margin-top: 12px;
+    padding: 10px 14px;
+    border-radius: 3px;
+    background: rgba(201,168,76,0.06);
+    border: 1px solid rgba(201,168,76,0.2);
+    font-size: 0.83rem;
+    color: var(--text-dim);
+    display: none;
+  }
+  .explanation.show { display: block; }
+  .explanation .exp-label {
+    font-weight: 700;
+    color: var(--gold);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  /* ── PASSAGE (reading) ── */
+  .passage-box {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    padding: 18px 20px;
+    margin-bottom: 20px;
+    border-radius: 0 3px 3px 0;
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: var(--text);
+  }
+  .passage-box em {
+    color: var(--gold-light);
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  /* ── SECTION DIVIDER ── */
+  .section-div {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 28px 0 22px;
+  }
+  .section-div::before, .section-div::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .section-div-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    white-space: nowrap;
+  }
+
+  /* ── PHASE RESULT ── */
+  .phase-result {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 32px;
+    text-align: center;
+    margin-top: 32px;
+  }
+  .phase-result.pass { border-color: var(--correct); }
+  .phase-result.fail { border-color: var(--gold); }
+  .phase-result-icon { font-size: 2.8rem; margin-bottom: 16px; display: block; }
+  .phase-result h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    margin-bottom: 6px;
+    color: var(--gold-light);
+  }
+  .phase-result p { color: var(--text-dim); font-size: 0.95rem; margin-bottom: 22px; }
+  .score-display {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .score-label { font-size: 0.8rem; color: var(--text-faint); letter-spacing: 0.1em; text-transform: uppercase; }
+
+  /* ── FINAL RESULT ── */
+  .final-result {
+    text-align: center;
+    padding: 40px 0;
+  }
+  .level-badge-big {
+    display: inline-block;
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    padding: 20px 40px;
+    border: 3px solid var(--gold);
+    border-radius: 4px;
+    color: var(--gold);
+    margin: 24px 0;
+    background: var(--gold-dim);
+    letter-spacing: 0.1em;
+  }
+  .result-detail {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 24px;
+    margin-top: 28px;
+    text-align: left;
+  }
+  .result-detail h4 {
+    font-family: 'Playfair Display', serif;
+    color: var(--gold);
+    font-size: 1.05rem;
+    margin-bottom: 16px;
+  }
+  .level-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.88rem;
+  }
+  .level-row:last-child { border-bottom: none; }
+  .level-row .lbl { font-weight: 700; width: 36px; color: var(--gold); }
+  .level-row .bar { flex: 1; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .level-row .bar-fill { height: 100%; border-radius: 3px; transition: width 1s ease; }
+  .level-row .pct { width: 42px; text-align: right; color: var(--text-dim); font-size: 0.82rem; }
+
+  /* ── EMAIL SEND STATUS ── */
+  .email-status {
+    margin-top: 16px;
+    padding: 12px 16px;
+    border-radius: 3px;
+    font-size: 0.85rem;
+    display: none;
+  }
+  .email-status.sending {
+    display: block;
+    background: rgba(201,168,76,0.08);
+    border: 1px solid rgba(201,168,76,0.3);
+    color: var(--gold);
+  }
+  .email-status.sent {
+    display: block;
+    background: var(--correct-bg);
+    border: 1px solid var(--correct);
+    color: #6fcfa0;
+  }
+  .email-status.error {
+    display: block;
+    background: var(--wrong-bg);
+    border: 1px solid var(--wrong);
+    color: #e07070;
+  }
+
+  /* ── ACTIONS ── */
+  .actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+
+  /* ── SCREENS ── */
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  /* ── SUBMIT ROW ── */
+  .submit-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 28px;
+  }
+
+  @media (max-width: 540px) {
+    .container { padding: 24px 16px 60px; }
+    .info-grid { grid-template-columns: 1fr; }
+    .phase-header { margin-bottom: 24px; }
+    .welcome-card { padding: 20px; }
+    .email-gate { padding: 20px; }
+    .question-block { padding: 18px 16px; }
+    .phase-nav { padding: 10px 12px; }
+    .actions { flex-direction: column; align-items: center; }
+    .header { padding: 14px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-brand">LearnSerbian <span>@jasnosajasnom</span></div>
+  <div style="font-size:0.78rem;color:var(--text-faint);letter-spacing:0.06em">ТЕСТ РАЗМЕШТАЈА</div>
+</div>
+<div class="progress-strip"><div class="progress-fill" id="progressFill"></div></div>
+
+<div class="phase-nav" id="phaseNav">
+  <div class="phase-dot" id="nav-welcome"><div class="phase-badge">★</div> Uvod</div>
+  <div class="phase-dot" id="nav-a1"><div class="phase-badge">1</div> A1</div>
+  <div class="phase-dot" id="nav-a2"><div class="phase-badge">2</div> A2</div>
+  <div class="phase-dot" id="nav-b1"><div class="phase-badge">3</div> B1</div>
+  <div class="phase-dot" id="nav-b2"><div class="phase-badge">4</div> B2</div>
+  <div class="phase-dot" id="nav-c1"><div class="phase-badge">5</div> C1</div>
+  <div class="phase-dot" id="nav-result"><div class="phase-badge">✓</div> Результат</div>
+</div>
+
+<div class="container">
+
+<!-- ═══ WELCOME SCREEN ═══ -->
+<div class="screen active" id="screen-welcome">
+  <div class="welcome">
+    <span class="welcome-ornament">📖</span>
+    <h1>Тест знања српског језика</h1>
+    <h2>Тест знання сербської мови для носіїв російської мови</h2>
+
+    <div class="welcome-card">
+      <h3>📋 О тесту / О тесте</h3>
+      <div class="info-grid">
+        <div class="info-item"><span class="icon">🎯</span><div><strong>Цель теста</strong>Определить ваш текущий уровень сербского языка (A1–C1) по системе CEFR.</div></div>
+        <div class="info-item"><span class="icon">⏱</span><div><strong>Время</strong>Примерно 25–40 минут. Спешить не нужно.</div></div>
+        <div class="info-item"><span class="icon">⬆</span><div><strong>Как работает</strong>Тест начинается с A1. Если вы наберёте ≥70%, он автоматически переходит к следующему уровню.</div></div>
+        <div class="info-item"><span class="icon">🔤</span><div><strong>Кириллица и латиница</strong>В тесте используются оба сербских алфавита — это нормально.</div></div>
+        <div class="info-item"><span class="icon">💡</span><div><strong>Совет</strong>Отвечайте так, как знаете, не угадывая. Это поможет точно определить ваш уровень.</div></div>
+        <div class="info-item"><span class="icon">✅</span><div><strong>После теста</strong>Вы получите подробный результат по каждому уровню и рекомендации.</div></div>
+      </div>
+    </div>
+
+    <div class="level-pills">
+      <span class="level-pill pill-a1">A1 — Начинающий</span>
+      <span class="level-pill pill-a2">A2 — Элементарный</span>
+      <span class="level-pill pill-b1">B1 — Средний</span>
+      <span class="level-pill pill-b2">B2 — Выше среднего</span>
+      <span class="level-pill pill-c1">C1 — Продвинутый</span>
+    </div>
+
+    <!-- ═══ EMAIL GATE ═══ -->
+    <div class="email-gate">
+      <h3>Prije nego počnemo / Прежде чем начать</h3>
+      <p>Unesite ime i email adresu da biste pristupili testu. / Введите имя и email для доступа к тесту.</p>
+      <div class="gate-fields">
+        <div>
+          <label class="gate-field-label" for="gateFirstName">Ime / Имя *</label>
+          <input class="gate-input" id="gateFirstName" type="text" placeholder="Vaše ime / Ваше имя" autocomplete="given-name">
+          <div class="gate-error" id="errName">Unesite ime. / Введите имя.</div>
+        </div>
+        <div>
+          <label class="gate-field-label" for="gateEmail">Email adresa *</label>
+          <input class="gate-input" id="gateEmail" type="email" placeholder="vas@email.com" autocomplete="email">
+          <div class="gate-error" id="errEmail">Unesite validnu email adresu. / Введите корректный email.</div>
+        </div>
+      </div>
+      <p class="gate-note">🔒 Vaši podaci se koriste samo za slanje rezultata testa. / Ваши данные используются только для отправки результатов.</p>
+    </div>
+
+    <button class="btn-primary" id="startBtn" onclick="validateAndStart()">Počni test / Начать тест →</button>
+  </div>
+</div>
+
+<!-- ═══ A1 SCREEN ═══ -->
+<div class="screen" id="screen-a1">
+  <div class="phase-header">
+    <div class="phase-label">Уровень A1 · Početnički nivo</div>
+    <div class="phase-title">Osnove srpskog</div>
+    <div class="phase-subtitle">Базовый уровень — приветствия, числа, базовые существительные, настоящее время</div>
+    <div class="phase-meta">
+      <div class="phase-meta-item"><strong>12</strong> питања / вопросов</div>
+      <div class="phase-meta-item">Проходной балл: <strong>70%</strong></div>
+    </div>
+  </div>
+
+  <div class="section-div"><div class="section-div-label">Dio 1 · Vocabulario / Лексика</div></div>
+
+  <!-- Q1 -->
+  <div class="question-block" id="qblock-a1-1">
+    <div class="q-number">Питање 1 / Вопрос 1</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">Šta znači reč <em>„hleb"</em>?</div>
+    <div class="q-translation">Что означает слово «хлеб»?</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('a1','1','A',false,this)"><span class="opt-letter">A</span>вода</button>
+      <button class="option" onclick="answerMC('a1','1','B',true,this)"><span class="opt-letter">B</span>хлеб</button>
+      <button class="option" onclick="answerMC('a1','1','C',false,this)"><span class="opt-letter">C</span>молоко</button>
+      <button class="option" onclick="answerMC('a1','1','D',false,this)"><span class="opt-letter">D</span>мясо</button>
+    </div>
+    <div class="explanation" id="exp-a1-1"><span class="exp-label">Објашњење / Пояснение</span>«Хлеб» по-сербски — <strong>hleb</strong>. Слова очень похожи из-за общего славянского корня.</div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="question-block" id="qblock-a1-2">
+    <div class="q-number">Питање 2 / Вопрос 2</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">Odaberite tačan pozdrav: <em>Kako se kaže „Добро утро" на српском?</em></div>
+    <div class="q-translation">Выберите правильное приветствие: Как сказать «Доброе утро» по-сербски?</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('a1','2','A',false,this)"><span class="opt-letter">A</span>Dobro veče</button>
+      <button class="option" onclick="answerMC('a1','2','B',false,this)"><span class="opt-letter">B</span>Laku noć</button>
+      <button class="option" onclick="answerMC('a1','2','C',true,this)"><span class="opt-letter">C</span>Dobro jutro</button>
+      <button class="option" onclick="answerMC('a1','2','D',false,this)"><span class="opt-letter">D</span>Dobar dan</button>
+    </div>
+    <div class="explanation" id="exp-a1-2"><span class="exp-label">Пояснение</span><strong>Dobro jutro</strong> = Доброе утро. Dobar dan = Добрый день. Dobro veče = Добрый вечер. Laku noć = Спокойной ночи.</div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="question-block" id="qblock-a1-3">
+    <div class="q-number">Питање 3 / Вопрос 3</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">Koji broj je <em>„petnaest"</em>?</div>
+    <div class="q-translation">Какое это число — «петнаест»?</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('a1','3','A',false,this)"><span class="opt-letter">A</span>50</button>
+      <button class="option" onclick="answerMC('a1','3','B',false,this)"><span class="opt-letter">B</span>5</button>
+      <button class="option" onclick="answerMC('a1','3','C',true,this)"><span class="opt-letter">C</span>15</button>
+      <button class="option" onclick="answerMC('a1','3','D',false,this)"><span class="opt-letter">D</span>51</button>
+    </div>
+    <div class="explanation" id="exp-a1-3"><span class="exp-label">Пояснение</span><strong>Petnaest</strong> = 15. Pet = 5, pedeset = 50. Суффикс -naest соответствует русскому -надцать.</div>
+  </div>
+
+  <div class="section-div"><div class="section-div-label">Dio 2 · Glagoli u sadašnjem vremenu / Глаголы в настоящем времени</div></div>
+
+  <!-- Q4 -->
+  <div class="question-block" id="qblock-a1-4">
+    <div class="q-number">Питање 4 / Вопрос 4</div>
+    <div class="q-type-tag">Попуни / Заполни</div>
+    <div class="q-text">Dopunite rečenicu: <em>Ja _______ srpski.</em><br><small style="color:var(--text-dim)">(glagol: učiti — учити, ja)</small></div>
+    <div class="q-translation">Заполните предложение: Я _______ сербский. (глагол: учить, я)</div>
+    <input class="fill-input" id="fill-a1-4" placeholder="Укуцајте одговор / Введите ответ" oninput="this.value=this.value.toLowerCase()">
+    <div class="explanation" id="exp-a1-4"><span class="exp-label">Пояснение</span>Ja <strong>učim</strong> srpski. Спряжение učiti: ja učim, ti učiš, on/ona uči, mi učimo, vi učite, oni uče.</div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="question-block" id="qblock-a1-5">
+    <div class="q-number">Питање 5 / Вопрос 5</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">Šta znači: <em>„Ona ima brata."</em></div>
+    <div class="q-translation">Что означает: «Она има брата.»</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('a1','5','A',false,this)"><span class="opt-letter">A</span>У неё есть сестра.</button>
+      <button class="option" onclick="answerMC('a1','5','B',true,this)"><span class="opt-letter">B</span>У неё есть брат.</button>
+      <button class="option" onclick="answerMC('a1','5','C',false,this)"><span class="opt-letter">C</span>Она хочет братa.</button>
+      <button class="option" onclick="answerMC('a1','5','D',false,this)"><span class="opt-letter">D</span>Её зовут Бирта.</button>
+    </div>
+    <div class="explanation" id="exp-a1-5"><span class="exp-label">Пояснение</span><strong>Ima</strong> = имеет/есть. <strong>Brat</strong> = брат. Форма <em>brata</em> — генитив (существительное после «имеет»).</div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="question-block" id="qblock-a1-6">
+    <div class="q-number">Питање 6 / Вопрос 6</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">Odaberite tačnu formu: <em>Ti _______ kafu.</em> (пити)</div>
+    <div class="q-translation">Выберите правильную форму: Ты _______ кофе. (пить)</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('a1','6','A',false,this)"><span class="opt-letter">A</span>pije</button>
+      <button class="option" onclick="answerMC('a1','6','B',false,this)"><span class="opt-letter">B</span>pijem</button>
+      <button class="option" onclick="answerMC('a1','6','C',true,this)"><span class="opt-letter">C</span>piješ</button>
+      <button class="option" onclick="answerMC('a1','6','D',false,this)"><span class="opt-letter">D</span>pijemo</button>
+    </div>
+    <div class="explanation" id="exp-a1-6"><span class="exp-label">Пояснение</span>Спряжение piti: ja pijem, <strong>ti piješ</strong>, on/ona pije, mi pijemo, vi pijete, oni piju.</div>
+  </div>
+
+  <div class="section-div"><div class="section-div-label">Dio 3 · Imenice i rod / Существительные и род</div></div>
+
+  <!-- Q7 -->
+  <div class="question-block" id="qblock-a1-7">
+    <div class="q-number">Питање 7 / Вопрос 7</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">Koji je rod imenice <em>„prozor"</em>? (прозор = окно)</div>
+    <div class="q-translation">Какой род у существительного «прозор»? (окно)</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('a1','7','A',true,this)"><span class="opt-letter">A</span>Muški (мужской)</button>
+      <button class="option" onclick="answerMC('a1','7','B',false,this)"><span class="opt-letter">B</span>Ženski (женский)</button>
+      <button class="option" onclick="answerMC('a1','7','C',false,this)"><span class="opt-letter">C</span>Srednji (средний)</button>
+    </div>
+    <div class="explanation" id="exp-a1-7"><span class="exp-label">Пояснение</span>Существительные мужского рода обычно оканчиваются на согласный: <strong>prozor</strong>, grad, brat, sto.</div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="question-block" id="qblock-a1-8">
+    <div class="q-number">Питање 8 / Вопрос 8</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">Šta znači: <em>„Gde je toalet?"</em></div>
+    <div class="q-translation">Что означает: «Где је тоалет?»</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('a1','8','A',false,this)"><span class="opt-letter">A</span>Как вас зовут?</button>
+      <button class="option" onclick="answerMC('a1','8','B',false,this)"><span class="opt-letter">B</span>Сколько это стоит?</button>
+      <button class="option" onclick="answerMC('a1','8','C',true,this)"><span class="opt-letter">C</span>Где туалет?</button>
+      <button class="option" onclick="answerMC('a1','8','D',false,this)"><span class="opt-letter">D</span>Когда открыто?</button>
+    </div>
+    <div class="explanation" id="exp-a1-8"><span class="exp-label">Пояснение</span><strong>Gde</strong> = где. <strong>Je</strong> = есть/является. <strong>Toalet</strong> — международное слово.</div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="question-block" id="qblock-a1-9">
+    <div class="q-number">Питање 9 / Вопрос 9</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">Odaberite tačan prevod: <em>„Volim kafa."</em> — šta je gramatički pogrešno?</div>
+    <div class="q-translation">Что грамматически неверно в предложении «Волим кафа»?</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('a1','9','A',false,this)"><span class="opt-letter">A</span>Glagol voliti je pogrešan / Глагол неверный</button>
+      <button class="option" onclick="answerMC('a1','9','B',true,this)"><span class="opt-letter">B</span>Kafu treba biti u akuzativu / Нужен винительный падеж</button>
+      <button class="option" onclick="answerMC('a1','9','C',false,this)"><span class="opt-letter">C</span>Volim se ne koristi / Этот глагол не используется</button>
+      <button class="option" onclick="answerMC('a1','9','D',false,this)"><span class="opt-letter">D</span>Ništa nije pogrešno / Всё верно</button>
+    </div>
+    <div class="explanation" id="exp-a1-9"><span class="exp-label">Пояснение</span>После переходных глаголов (voleti, jesti, piti...) существительное ставится в <strong>акузатив</strong>: Volim <strong>kafu</strong>. Кафа → кафу (ж.р., акузатив).</div>
+  </div>
+
+  <div class="section-div"><div class="section-div-label">Dio 4 · Razumevanje / Понимание</div></div>
+
+  <!-- Q10 -->
+  <div class="question-block" id="qblock-a1-10">
+    <div class="q-number">Питање 10 / Вопрос 10</div>
+    <div class="q-type-tag">Попуни / Заполни</div>
+    <div class="q-text">Napišite na srpskom: <em>„меня зовут"</em> (Ja se _____ / Moje _____ je)</div>
+    <div class="q-translation">Напишите по-сербски: «меня зовут»</div>
+    <input class="fill-input" id="fill-a1-10" placeholder="Ja se ... / Moje ... je" oninput="this.value=this.value.toLowerCase()">
+    <div class="explanation" id="exp-a1-10"><span class="exp-label">Пояснение</span>По-сербски можно сказать: <strong>Ja se zovem</strong> Марко. ИЛИ: <strong>Moje ime je</strong> Марко. Первый вариант разговорнее.</div>
+  </div>
+
+  <!-- Q11 -->
+  <div class="question-block" id="qblock-a1-11">
+    <div class="q-number">Питање 11 / Вопрос 11</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">Šta znači: <em>„Koliko košta?"</em></div>
+    <div class="q-translation">Что означает: «Колико кошта?»</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('a1','11','A',false,this)"><span class="opt-letter">A</span>Как вас зовут?</button>
+      <button class="option" onclick="answerMC('a1','11','B',false,this)"><span class="opt-letter">B</span>Где это?</button>
+      <button class="option" onclick="answerMC('a1','11','C',true,this)"><span class="opt-letter">C</span>Сколько стоит?</button>
+      <button class="option" onclick="answerMC('a1','11','D',false,this)"><span class="opt-letter">D</span>Как дойти?</button>
+    </div>
+    <div class="explanation" id="exp-a1-11"><span class="exp-label">Пояснение</span><strong>Koliko</strong> = сколько. <strong>Koštati</strong> = стоить. Важная фраза для магазина или кафе.</div>
+  </div>
+
+  <!-- Q12 -->
+  <div class="question-block" id="qblock-a1-12">
+    <div class="q-number">Питање 12 / Вопрос 12</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">Odaberite tačnu negaciju: <em>Ja _______ ručam kod kuće.</em></div>
+    <div class="q-translation">Выберите правильное отрицание: Я _______ обедаю дома.</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('a1','12','A',false,this)"><span class="opt-letter">A</span>ne ne</button>
+      <button class="option" onclick="answerMC('a1','12','B',true,this)"><span class="opt-letter">B</span>ne</button>
+      <button class="option" onclick="answerMC('a1','12','C',false,this)"><span class="opt-letter">C</span>nije</button>
+      <button class="option" onclick="answerMC('a1','12','D',false,this)"><span class="opt-letter">D</span>nema</button>
+    </div>
+    <div class="explanation" id="exp-a1-12"><span class="exp-label">Пояснение</span>Отрицание глагола образуется частицей <strong>ne</strong> перед глаголом: Ja <strong>ne</strong> ručam. <em>Nije</em> = не есть/не является (для biti). <em>Nema</em> = нет/отсутствует.</div>
+  </div>
+
+  <div class="submit-row">
+    <button class="btn-primary" onclick="submitPhase('a1')">Predaj odgovore / Сдать ответы →</button>
+  </div>
+</div>
+
+<!-- ═══ A2 SCREEN ═══ -->
+<div class="screen" id="screen-a2">
+  <div class="phase-header">
+    <div class="phase-label">Уровень A2 · Osnovni nivo</div>
+    <div class="phase-title">Elementarni srpski</div>
+    <div class="phase-subtitle">Прошедшее время, падежи, бытовые ситуации, описание людей и мест</div>
+    <div class="phase-meta">
+      <div class="phase-meta-item"><strong>12</strong> питања / вопросов</div>
+      <div class="phase-meta-item">Проходной балл: <strong>70%</strong></div>
+    </div>
+  </div>
+
+  <div class="section-div"><div class="section-div-label">Dio 1 · Perfekat / Прошедшее время</div></div>
+
+  <div class="question-block" id="qblock-a2-1">
+    <div class="q-number">Питање 1 / Вопрос 1</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">Dopunite: <em>Ona _______ u Beogradu juče.</em> (biti)</div>
+    <div class="q-translation">Она _______ в Белграде вчера. (быть)</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('a2','1','A',false,this)"><span class="opt-letter">A</span>bila sam</button>
+      <button class="option" onclick="answerMC('a2','1','B',false,this)"><span class="opt-letter">B</span>bio je</button>
+      <button class="option" onclick="answerMC('a2','1','C',false,this)"><span class="opt-letter">C</span>bila su</button>
+      <button class="option" onclick="answerMC('a2','1','D',true,this)"><span class="opt-letter">D</span>je bila</button>
+    </div>
+    <div class="explanation" id="exp-a2-1"><span class="exp-label">Пояснение</span>Перфект глагола biti: вспом. глагол + причастие. Она (ж.р., ед.ч.): <strong>je bila</strong>. Порядок: enklitika <em>je</em> + причастие <em>bila</em>. Bio je — мужской род. Bila sam — 1 лицо ед.ч. Bila su — мн.ч. ср.р.</div>
+  </div>
+
+  <div class="question-block" id="qblock-a2-2">
+    <div class="q-number">Питање 2 / Вопрос 2</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">Koji je tačan prevod: <em>„Я иду в кино"</em>?</div>
+    <div class="q-translation">Какой правильный перевод: «Я иду в кино»?</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('a2','2','A',false,this)"><span class="opt-letter">A</span>Ja sam u bioskopu.</button>
+      <button class="option" onclick="answerMC('a2','2','B',true,this)"><span class="opt-letter">B</span>Idem u bioskop.</button>
+      <button class="option" onclick="answerMC('a2','2','C',false,this)"><span class="opt-letter">C</span>Idem u bioskopu.</button>
+      <button class="option" onclick="answerMC('a2','2','D',false,this)"><span class="opt-letter">D</span>Ja idim u bioskop.</button>
+    </div>
+    <div class="explanation" id="exp-a2-2"><span class="exp-label">Пояснение</span>Движение «куда» требует <strong>акузатива</strong>: u bioskop (акузатив). U bioskopu = локатив (нахождение). Ja idem — 1л.ед.ч. правильно.</div>
+  </div>
+
+  <div class="question-block" id="qblock-a2-3">
+    <div class="q-number">Питање 3 / Вопрос 3</div>
+    <div class="q-type-tag">Попуни / Заполни</div>
+    <div class="q-text">Tvorba perfekta: <em>Mi _______ (raditi) ceo dan.</em></div>
+    <div class="q-translation">Мы _______ (работать) весь день. (прошедшее время)</div>
+    <input class="fill-input" id="fill-a2-3" placeholder="прошедшее время (работать)" oninput="this.value=this.value.toLowerCase()">
+    <div class="explanation" id="exp-a2-3"><span class="exp-label">Пояснение</span>Mi <strong>smo radili</strong>. Мн.ч. причастия мужского рода: radili. Вспом. глагол: smo.</div>
+  </div>
+
+  <div class="section-div"><div class="section-div-label">Dio 2 · Padeži / Падежи</div></div>
+
+  <div class="question-block" id="qblock-a2-4">
+    <div class="q-number">Питање 4 / Вопрос 4</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">Koji padež se koristi u: <em>„Idem KOD prijatelja."</em>?</div>
+    <div class="q-translation">Какой падеж используется в «Идем КОД пријатеља»?</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('a2','4','A',false,this)"><span class="opt-letter">A</span>Akuzativ</button>
+      <button class="option" onclick="answerMC('a2','4','B',true,this)"><span class="opt-letter">B</span>Genitiv</button>
+      <button class="option" onclick="answerMC('a2','4','C',false,this)"><span class="opt-letter">C</span>Dativ</button>
+      <button class="option" onclick="answerMC('a2','4','D',false,this)"><span class="opt-letter">D</span>Lokativ</button>
+    </div>
+    <div class="explanation" id="exp-a2-4"><span class="exp-label">Пояснение</span>Предлог <strong>kod</strong> всегда требует <strong>генитива</strong>: kod prijatelja, kod kuće, kod doktora.</div>
+  </div>
+
+  <div class="question-block" id="qblock-a2-5">
+    <div class="q-number">Питање 5 / Вопрос 5</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">Odaberite tačan oblik: <em>Pišem pismo _______ (mama).</em></div>
+    <div class="q-translation">Я пишу письмо _______ (мама). (кому? — дательный)</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('a2','5','A',false,this)"><span class="opt-letter">A</span>mama</button>
+      <button class="option" onclick="answerMC('a2','5','B',false,this)"><span class="opt-letter">B</span>mamu</button>
+      <button class="option" onclick="answerMC('a2','5','C',true,this)"><span class="opt-letter">C</span>mami</button>
+      <button class="option" onclick="answerMC('a2','5','D',false,this)"><span class="opt-letter">D</span>mame</button>
+    </div>
+    <div class="explanation" id="exp-a2-5"><span class="exp-label">Пояснение</span>Датив (кому?) от <em>mama</em> → <strong>mami</strong>. Mamu = акузатив. Mame = генитив. Датив ж.р. на -a → -i.</div>
+  </div>
+
+  <div class="question-block" id="qblock-a2-6">
+    <div class="q-number">Питање 6 / Вопрос 6</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">Šta označava instrumental padež u: <em>„Putujem autobusom."</em>?</div>
+    <div class="q-translation">Что означает творительный падеж в «Путујем аутобусом»?</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('a2','6','A',false,this)"><span class="opt-letter">A</span>Место путешествия</button>
+      <button class="option" onclick="answerMC('a2','6','B',true,this)"><span class="opt-letter">B</span>Средство передвижения</button>
+      <button class="option" onclick="answerMC('a2','6','C',false,this)"><span class="opt-letter">C</span>Время путешествия</button>
+      <button class="option" onclick="answerMC('a2','6','D',false,this)"><span class="opt-letter">D</span>Цель путешествия</button>
+    </div>
+    <div class="explanation" id="exp-a2-6"><span class="exp-label">Пояснение</span>Инструментал часто выражает <strong>средство/способ</strong>: autobusom, vozom, avionom. Это аналог русского тв.п.: автобусом, поездом.</div>
+  </div>
+
+  <div class="section-div"><div class="section-div-label">Dio 3 · Opis i komunikacija / Описание и общение</div></div>
+
+  <div class="question-block" id="qblock-a2-7">
+    <div class="q-number">Питање 7 / Вопрос 7</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">Kako se kaže <em>„высокий мужчина"</em> na srpskom?</div>
+    <div class="q-translation">Как сказать «высокий мужчина» по-сербски?</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('a2','7','A',true,this)"><span class="opt-letter">A</span>visok muškarac</button>
+      <button class="option" onclick="answerMC('a2','7','B',false,this)"><span class="opt-letter">B</span>visoka muškarac</button>
+      <button class="option" onclick="answerMC('a2','7','C',false,this)"><span class="opt-letter">C</span>visoko muškarac</button>
+      <button class="option" onclick="answerMC('a2','7','D',false,this)"><span class="opt-letter">D</span>visokii muškarac</button>
+    </div>
+    <div class="explanation" id="exp-a2-7"><span class="exp-label">Пояснение</span>Прилагательные согласуются по роду. Мужской род: <strong>visok</strong>. Женский: visoka. Средний: visoko.</div>
+  </div>
+
+  <div class="question-block" id="qblock-a2-8">
+    <div class="q-number">Питање 8 / Вопрос 8</div>
+    <div class="q-type-tag">Попуни / Заполни</div>
+    <div class="q-text">Prevedite: <em>„У меня болит голова."</em></div>
+    <div class="q-translation">Переведите: «У меня болит голова.»</div>
+    <input class="fill-input" id="fill-a2-8" placeholder="Boli me ..." oninput="this.value=this.value.toLowerCase()">
+    <div class="explanation" id="exp-a2-8"><span class="exp-label">Пояснение</span><strong>Boli me glava.</strong> Важное отличие: в сербском «болит меня голова» (boli + me/te/ga + часть тела). Нет конструкции «у меня».</div>
+  </div>
+
+  <div class="question-block" id="qblock-a2-9">
+    <div class="q-number">Питање 9 / Вопрос 9</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">Odaberite tačan odgovor na: <em>„Koji je danas datum?"</em> — 15. april</div>
+    <div class="q-translation">Выберите правильный ответ на «Какое сегодня число?» — 15 апреля</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('a2','9','A',false,this)"><span class="opt-letter">A</span>Danas je petnaesta april.</button>
+      <button class="option" onclick="answerMC('a2','9','B',true,this)"><span class="opt-letter">B</span>Danas je petnaesti april.</button>
+      <button class="option" onclick="answerMC('a2','9','C',false,this)"><span class="opt-letter">C</span>Danas je petnaest april.</button>
+      <button class="option" onclick="answerMC('a2','9','D',false,this)"><span class="opt-letter">D</span>Danas je petnajsti april.</button>
+    </div>
+    <div class="explanation" id="exp-a2-9"><span class="exp-label">Пояснение</span>Дата: порядковое числительное в именительном: <strong>petnaesti</strong> (15-й). Месяц — именительный: april.</div>
+  </div>
+
+  <div class="question-block" id="qblock-a2-10">
+    <div class="q-number">Питање 10 / Вопрос 10</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">Šta znači: <em>„Možeš li mi pomoći?"</em></div>
+    <div class="q-translation">Что означает: «Можеш ли ми помоћи?»</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('a2','10','A',false,this)"><span class="opt-letter">A</span>Ты хочешь мне помочь?</button>
+      <button class="option" onclick="answerMC('a2','10','B',true,this)"><span class="opt-letter">B</span>Можешь ли ты мне помочь?</button>
+      <button class="option" onclick="answerMC('a2','10','C',false,this)"><span class="opt-letter">C</span>Ты должен мне помочь.</button>
+      <button class="option" onclick="answerMC('a2','10','D',false,this)"><span class="opt-letter">D</span>Помоги мне!</button>
+    </div>
+    <div class="explanation" id="exp-a2-10"><span class="exp-label">Пояснение</span><strong>Možeš li</strong> = можешь ли (вопрос с modalni glagol). <strong>Mi</strong> = мне (дат. 1л.ед.ч.). <strong>Pomoći</strong> = помочь.</div>
+  </div>
+
+  <div class="question-block" id="qblock-a2-11">
+    <div class="q-number">Питање 11 / Вопрос 11</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">Koji je tačan oblik prisvojne zamenice: <em>Ovo je _______ knjiga.</em> (моя)</div>
+    <div class="q-translation">Какая правильная форма притяжательного местоимения: Это _______ книга. (моя)</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('a2','11','A',false,this)"><span class="opt-letter">A</span>moj</button>
+      <button class="option" onclick="answerMC('a2','11','B',true,this)"><span class="opt-letter">B</span>moja</button>
+      <button class="option" onclick="answerMC('a2','11','C',false,this)"><span class="opt-letter">C</span>moje</button>
+      <button class="option" onclick="answerMC('a2','11','D',false,this)"><span class="opt-letter">D</span>mojem</button>
+    </div>
+    <div class="explanation" id="exp-a2-11"><span class="exp-label">Пояснение</span><em>Knjiga</em> — женский род. Притяж. мест. согласуется: moj (м.р.), <strong>moja</strong> (ж.р.), moje (ср.р.).</div>
+  </div>
+
+  <div class="question-block" id="qblock-a2-12">
+    <div class="q-number">Питање 12 / Вопрос 12</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">Šta je antonim reči <em>„star"</em>? (staro = старый)</div>
+    <div class="q-translation">Каков антоним слова «стар» (старый)?</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('a2','12','A',true,this)"><span class="opt-letter">A</span>mlad</button>
+      <button class="option" onclick="answerMC('a2','12','B',false,this)"><span class="opt-letter">B</span>nov</button>
+      <button class="option" onclick="answerMC('a2','12','C',false,this)"><span class="opt-letter">C</span>lep</button>
+      <button class="option" onclick="answerMC('a2','12','D',false,this)"><span class="opt-letter">D</span>mali</button>
+    </div>
+    <div class="explanation" id="exp-a2-12"><span class="exp-label">Пояснение</span>Star (старый о людях) ↔ <strong>mlad</strong> (молодой). Nov ↔ star о предметах (новый/старый). Lep = красивый, mali = маленький.</div>
+  </div>
+
+  <div class="submit-row">
+    <button class="btn-primary" onclick="submitPhase('a2')">Predaj odgovore →</button>
+  </div>
+</div>
+
+<!-- ═══ B1 SCREEN ═══ -->
+<div class="screen" id="screen-b1">
+  <div class="phase-header">
+    <div class="phase-label">Уровень B1 · Srednji nivo</div>
+    <div class="phase-title">Srpski za slobodnu komunikaciju</div>
+    <div class="phase-subtitle">Будущее время, сослагательное, вид глагола, сложные предложения</div>
+    <div class="phase-meta">
+      <div class="phase-meta-item"><strong>12</strong> питања / вопросов</div>
+      <div class="phase-meta-item">Проходной балл: <strong>70%</strong></div>
+    </div>
+  </div>
+
+  <div class="section-div"><div class="section-div-label">Dio 1 · Vid glagola / Вид глагола</div></div>
+
+  <div class="question-block" id="qblock-b1-1">
+    <div class="q-number">Питање 1 / Вопрос 1</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">Koja rečenica je tačna kada je radnja <strong>završena</strong>?</div>
+    <div class="q-translation">Какое предложение верно, когда действие <strong>завершено</strong>?</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('b1','1','A',false,this)"><span class="opt-letter">A</span>Juče sam čitao ceo dan.</button>
+      <button class="option" onclick="answerMC('b1','1','B',true,this)"><span class="opt-letter">B</span>Juče sam pročitao tu knjigu.</button>
+      <button class="option" onclick="answerMC('b1','1','C',false,this)"><span class="opt-letter">C</span>Juče sam čitao tu knjigu.</button>
+      <button class="option" onclick="answerMC('b1','1','D',false,this)"><span class="opt-letter">D</span>Juče čitam tu knjigu.</button>
+    </div>
+    <div class="explanation" id="exp-b1-1"><span class="exp-label">Пояснение</span><strong>Pročitao</strong> — совершенный вид (pročitao = дочитал до конца). Čitao — несовершенный (процесс). Вид глагола в сербском — ключевое грамматическое явление.</div>
+  </div>
+
+  <div class="question-block" id="qblock-b1-2">
+    <div class="q-number">Питање 2 / Вопрос 2</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">Odaberite svršeni vid: para: <em>pisati — ?</em></div>
+    <div class="q-translation">Выберите совершенный вид: пара: писати — ?</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('b1','2','A',false,this)"><span class="opt-letter">A</span>zapisivati</button>
+      <button class="option" onclick="answerMC('b1','2','B',true,this)"><span class="opt-letter">B</span>napisati</button>
+      <button class="option" onclick="answerMC('b1','2','C',false,this)"><span class="opt-letter">C</span>prepisivati</button>
+      <button class="option" onclick="answerMC('b1','2','D',false,this)"><span class="opt-letter">D</span>pisati više</button>
+    </div>
+    <div class="explanation" id="exp-b1-2"><span class="exp-label">Пояснение</span>Pisati (несов.) → <strong>napisati</strong> (сов.). Префикс na- часто образует сов. вид. Zapisivati — несов. вид от zapisati.</div>
+  </div>
+
+  <div class="section-div"><div class="section-div-label">Dio 2 · Futur i kondicional / Будущее и сослагательное</div></div>
+
+  <div class="question-block" id="qblock-b1-3">
+    <div class="q-number">Питање 3 / Вопрос 3</div>
+    <div class="q-type-tag">Попуни / Заполни</div>
+    <div class="q-text">Napravite futur I: <em>Sutra _______ (otići) u inostranstvo.</em></div>
+    <div class="q-translation">Образуйте будущее время I: Завтра _______ (уйти/уехать) за границу.</div>
+    <input class="fill-input" id="fill-b1-3" placeholder="ću otići / otićiću ..." oninput="this.value=this.value.toLowerCase()">
+    <div class="explanation" id="exp-b1-3"><span class="exp-label">Пояснение</span><strong>Ću otići</strong> (ja ću otići). Futur I = enklitika ću/ćeš/će... + infinitiv. ИЛИ разговорный: otićiću (слитная форма).</div>
+  </div>
+
+  <div class="question-block" id="qblock-b1-4">
+    <div class="q-number">Питање 4 / Вопрос 4</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">Odaberite tačan uslovni iskaz: <em>„Если бы у меня было время, я бы пришёл."</em></div>
+    <div class="q-translation">Выберите верное условное предложение: «Если бы у меня было время, я бы пришёл.»</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('b1','4','A',false,this)"><span class="opt-letter">A</span>Ako imam vremena, dođem.</button>
+      <button class="option" onclick="answerMC('b1','4','B',false,this)"><span class="opt-letter">B</span>Ako bih imao vremena, dolazim.</button>
+      <button class="option" onclick="answerMC('b1','4','C',true,this)"><span class="opt-letter">C</span>Kad bih imao vremena, došao bih.</button>
+      <button class="option" onclick="answerMC('b1','4','D',false,this)"><span class="opt-letter">D</span>Kada imam vrema, doći ću.</button>
+    </div>
+    <div class="explanation" id="exp-b1-4"><span class="exp-label">Пояснение</span>Нереальное условие: <strong>kad bih + gl.prid.radni + bih</strong>. Kad bih imao → došao bih. Конструкция аналогична русскому «если бы — то бы».</div>
+  </div>
+
+  <div class="section-div"><div class="section-div-label">Dio 3 · Složene rečenice / Сложные предложения</div></div>
+
+  <div class="question-block" id="qblock-b1-5">
+    <div class="q-number">Питање 5 / Вопрос 5</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">Koji veznik se koristi za suprotnost: <em>„Volim kafu, _______ je ne pijem uveče."</em></div>
+    <div class="q-translation">Какой союз используется для противопоставления: «Люблю кофе, _______ не пью его вечером.»</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('b1','5','A',false,this)"><span class="opt-letter">A</span>i</button>
+      <button class="option" onclick="answerMC('b1','5','B',false,this)"><span class="opt-letter">B</span>jer</button>
+      <button class="option" onclick="answerMC('b1','5','C',true,this)"><span class="opt-letter">C</span>ali</button>
+      <button class="option" onclick="answerMC('b1','5','D',false,this)"><span class="opt-letter">D</span>pa</button>
+    </div>
+    <div class="explanation" id="exp-b1-5"><span class="exp-label">Пояснение</span><strong>Ali</strong> = но/однако (противопоставление). I = и (соединение). Jer = потому что (причина). Pa = и/а потом (следствие/последовательность).</div>
+  </div>
+
+  <div class="question-block" id="qblock-b1-6">
+    <div class="q-number">Питање 6 / Вопрос 6</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">Šta znači glagolski pridev trpni u: <em>„Pismo je napisano."</em>?</div>
+    <div class="q-translation">Что означает пассивное причастие в «Писмо је написано.»?</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('b1','6','A',false,this)"><span class="opt-letter">A</span>Письмо пишут.</button>
+      <button class="option" onclick="answerMC('b1','6','B',true,this)"><span class="opt-letter">B</span>Письмо написано (пассив).</button>
+      <button class="option" onclick="answerMC('b1','6','C',false,this)"><span class="opt-letter">C</span>Письмо будет написано.</button>
+      <button class="option" onclick="answerMC('b1','6','D',false,this)"><span class="opt-letter">D</span>Письмо написал.</button>
+    </div>
+    <div class="explanation" id="exp-b1-6"><span class="exp-label">Пояснение</span>Pismo je <strong>napisano</strong> — пассивная конструкция (trpni glagolski pridev + je). Аналог русского страдательного причастия прошедшего времени.</div>
+  </div>
+
+  <div class="section-div"><div class="section-div-label">Dio 4 · Tekst za razumevanje / Понимание текста</div></div>
+
+  <div class="passage-box">
+    Marija živi u Novom Sadu već pet godina. Studirala je arhitekturu i sada radi u jednoj privatnoj firmi. Svake subote ide na pijacu gde kupuje sveže povrće i voće. Voli da kuva, posebno <em>srpska jela</em> kao što su sarma i gibanica. Njena porodica živi u Beogradu i posećuje ih jednom mesečno.
+  </div>
+
+  <div class="question-block" id="qblock-b1-7">
+    <div class="q-number">Питање 7 / Вопрос 7</div>
+    <div class="q-type-tag">Разумевање / Понимание</div>
+    <div class="q-text">Koliko dugo Marija živi u Novom Sadu?</div>
+    <div class="q-translation">Сколько лет Мария живёт в Нови-Саде?</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('b1','7','A',false,this)"><span class="opt-letter">A</span>Три года</button>
+      <button class="option" onclick="answerMC('b1','7','B',true,this)"><span class="opt-letter">B</span>Пять лет</button>
+      <button class="option" onclick="answerMC('b1','7','C',false,this)"><span class="opt-letter">C</span>Десять лет</button>
+      <button class="option" onclick="answerMC('b1','7','D',false,this)"><span class="opt-letter">D</span>Два года</button>
+    </div>
+    <div class="explanation" id="exp-b1-7"><span class="exp-label">Пояснение</span>«...živi u Novom Sadu već <strong>pet godina</strong>» — уже пять лет.</div>
+  </div>
+
+  <div class="question-block" id="qblock-b1-8">
+    <div class="q-number">Питање 8 / Вопрос 8</div>
+    <div class="q-type-tag">Разумевање / Понимание</div>
+    <div class="q-text">Šta Marija radi svake subote?</div>
+    <div class="q-translation">Что Мария делает каждую субботу?</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('b1','8','A',false,this)"><span class="opt-letter">A</span>Посещает семью в Белграде</button>
+      <button class="option" onclick="answerMC('b1','8','B',true,this)"><span class="opt-letter">B</span>Ходит на рынок за овощами и фруктами</button>
+      <button class="option" onclick="answerMC('b1','8','C',false,this)"><span class="opt-letter">C</span>Готовит сарму</button>
+      <button class="option" onclick="answerMC('b1','8','D',false,this)"><span class="opt-letter">D</span>Работает в фирме</button>
+    </div>
+    <div class="explanation" id="exp-b1-8"><span class="exp-label">Пояснение</span>«Svake subote ide na pijacu gde kupuje sveže povrće i voće.» — Каждую субботу ходит на рынок.</div>
+  </div>
+
+  <div class="question-block" id="qblock-b1-9">
+    <div class="q-number">Питање 9 / Вопрос 9</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">Šta znači izraz <em>„jednom mesečno"</em>?</div>
+    <div class="q-translation">Что означает выражение «jednom mesečno»?</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('b1','9','A',false,this)"><span class="opt-letter">A</span>Каждую неделю</button>
+      <button class="option" onclick="answerMC('b1','9','B',true,this)"><span class="opt-letter">B</span>Один раз в месяц</button>
+      <button class="option" onclick="answerMC('b1','9','C',false,this)"><span class="opt-letter">C</span>Раз в год</button>
+      <button class="option" onclick="answerMC('b1','9','D',false,this)"><span class="opt-letter">D</span>Каждый месяц по несколько раз</button>
+    </div>
+    <div class="explanation" id="exp-b1-9"><span class="exp-label">Пояснение</span><strong>Jednom</strong> = один раз. <strong>Mesečno</strong> = в месяц/ежемесячно. → Один раз в месяц.</div>
+  </div>
+
+  <div class="question-block" id="qblock-b1-10">
+    <div class="q-number">Питање 10 / Вопрос 10</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">Odaberite tačnu formu: <em>„Rekao sam mu da _______ (doći) sutra."</em></div>
+    <div class="q-translation">Выберите верную форму: «Я сказал ему, чтобы он _______ (прийти) завтра.»</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('b1','10','A',false,this)"><span class="opt-letter">A</span>dode</button>
+      <button class="option" onclick="answerMC('b1','10','B',true,this)"><span class="opt-letter">B</span>dođe</button>
+      <button class="option" onclick="answerMC('b1','10','C',false,this)"><span class="opt-letter">C</span>dolazi</button>
+      <button class="option" onclick="answerMC('b1','10','D',false,this)"><span class="opt-letter">D</span>doći</button>
+    </div>
+    <div class="explanation" id="exp-b1-10"><span class="exp-label">Пояснение</span>Nakon «rekao sam da» используется презент: da <strong>dođe</strong>. Это особенность сербского — нет инфинитива в таких конструкциях.</div>
+  </div>
+
+  <div class="question-block" id="qblock-b1-11">
+    <div class="q-number">Питање 11 / Вопрос 11</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">Koji je tačan prevod: <em>„несмотря на то что"</em>?</div>
+    <div class="q-translation">Какой правильный перевод союза «несмотря на то что»?</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('b1','11','A',false,this)"><span class="opt-letter">A</span>zato što</button>
+      <button class="option" onclick="answerMC('b1','11','B',false,this)"><span class="opt-letter">B</span>ako i</button>
+      <button class="option" onclick="answerMC('b1','11','C',true,this)"><span class="opt-letter">C</span>iako / mada</button>
+      <button class="option" onclick="answerMC('b1','11','D',false,this)"><span class="opt-letter">D</span>čim</button>
+    </div>
+    <div class="explanation" id="exp-b1-11"><span class="exp-label">Пояснение</span><strong>Iako / mada / premda</strong> = хотя/несмотря на то что (уступительные союзы). Zato što = потому что. Čim = как только.</div>
+  </div>
+
+  <div class="question-block" id="qblock-b1-12">
+    <div class="q-number">Питање 12 / Вопрос 12</div>
+    <div class="q-type-tag">Попуни / Заполни</div>
+    <div class="q-text">Prevedite: <em>„Мне нравится этот город."</em></div>
+    <div class="q-translation">Переведите: «Мне нравится этот город.»</div>
+    <input class="fill-input" id="fill-b1-12" placeholder="Sviđa mi se ..." oninput="this.value=this.value.toLowerCase()">
+    <div class="explanation" id="exp-b1-12"><span class="exp-label">Пояснение</span><strong>Sviđa mi se ovaj grad.</strong> Структура: sviđa se + датив. Это ключевое отличие от русского «нравится».</div>
+  </div>
+
+  <div class="submit-row">
+    <button class="btn-primary" onclick="submitPhase('b1')">Predaj odgovore →</button>
+  </div>
+</div>
+
+<!-- ═══ B2 SCREEN ═══ -->
+<div class="screen" id="screen-b2">
+  <div class="phase-header">
+    <div class="phase-label">Уровень B2 · Viši srednji nivo</div>
+    <div class="phase-title">Napredna gramatika i stil</div>
+    <div class="phase-subtitle">Стилистика, сложная синтаксис, идиомы, тонкости вида и времени</div>
+    <div class="phase-meta">
+      <div class="phase-meta-item"><strong>10</strong> питања / вопросов</div>
+      <div class="phase-meta-item">Проходной балл: <strong>70%</strong></div>
+    </div>
+  </div>
+
+  <div class="section-div"><div class="section-div-label">Dio 1 · Idiomi i frazeologija / Идиомы</div></div>
+
+  <div class="question-block" id="qblock-b2-1">
+    <div class="q-number">Питање 1 / Вопрос 1</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">Šta znači izraz <em>„Pao mu je mrak na oči."</em>?</div>
+    <div class="q-translation">Что означает выражение «Пао му је мрак на очи.»?</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('b2','1','A',false,this)"><span class="opt-letter">A</span>Он потерял сознание.</button>
+      <button class="option" onclick="answerMC('b2','1','B',false,this)"><span class="opt-letter">B</span>Он ничего не видит.</button>
+      <button class="option" onclick="answerMC('b2','1','C',true,this)"><span class="opt-letter">C</span>Он пришёл в ярость / потемнело в глазах от злости.</button>
+      <button class="option" onclick="answerMC('b2','1','D',false,this)"><span class="opt-letter">D</span>Он заснул.</button>
+    </div>
+    <div class="explanation" id="exp-b2-1"><span class="exp-label">Пояснение</span>«Pao mu je mrak na oči» — фразеологизм, означает вспышку ярости/помутнение рассудка от гнева. Дословно: «на него упала тьма в глаза».</div>
+  </div>
+
+  <div class="question-block" id="qblock-b2-2">
+    <div class="q-number">Питање 2 / Вопрос 2</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">Odaberite stilski ispravnu rečenicu za <strong>formalni</strong> pisani tekst:</div>
+    <div class="q-translation">Выберите стилистически верное предложение для <strong>официального</strong> письменного текста:</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('b2','2','A',false,this)"><span class="opt-letter">A</span>Super, hajde da uradimo taj posao zajedno.</button>
+      <button class="option" onclick="answerMC('b2','2','B',true,this)"><span class="opt-letter">B</span>Predlažemo saradnju u realizaciji navedenog projekta.</button>
+      <button class="option" onclick="answerMC('b2','2','C',false,this)"><span class="opt-letter">C</span>Ej, šta kažeš za taj projekat?</button>
+      <button class="option" onclick="answerMC('b2','2','D',false,this)"><span class="opt-letter">D</span>Treba da završimo posao, vidiš valjda.</button>
+    </div>
+    <div class="explanation" id="exp-b2-2"><span class="exp-label">Пояснение</span>Официальный стиль: пассивные конструкции, книжная лексика, отсутствие разговорных частиц (ej, hajde, valjda, super). <strong>Predlažemo saradnju...</strong> — типичная деловая формулировка.</div>
+  </div>
+
+  <div class="section-div"><div class="section-div-label">Dio 2 · Sintaksa / Синтаксис</div></div>
+
+  <div class="question-block" id="qblock-b2-3">
+    <div class="q-number">Питање 3 / Вопрос 3</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">Šta je <em>glagolska imenica</em> od glagola „putovati"?</div>
+    <div class="q-translation">Что такое отглагольное существительное от «путовати» (путешествовать)?</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('b2','3','A',false,this)"><span class="opt-letter">A</span>putovan</button>
+      <button class="option" onclick="answerMC('b2','3','B',true,this)"><span class="opt-letter">B</span>putovanje</button>
+      <button class="option" onclick="answerMC('b2','3','C',false,this)"><span class="opt-letter">C</span>putovao</button>
+      <button class="option" onclick="answerMC('b2','3','D',false,this)"><span class="opt-letter">D</span>putujući</button>
+    </div>
+    <div class="explanation" id="exp-b2-3"><span class="exp-label">Пояснение</span>Glagolske imenice образуются суффиксом <strong>-nje/-anje/-enje</strong>: putovati → <strong>putovanje</strong>. Putujući = деепричастие.</div>
+  </div>
+
+  <div class="question-block" id="qblock-b2-4">
+    <div class="q-number">Питање 4 / Вопрос 4</div>
+    <div class="q-type-tag">Попуни / Заполни</div>
+    <div class="q-text">Prevedite bez doslovnog prevoda: <em>„Это не моё дело."</em></div>
+    <div class="q-translation">Переведите нелитерально: «Это не моё дело.»</div>
+    <input class="fill-input" id="fill-b2-4" placeholder="To nije moja stvar. / To me se ne tiče." oninput="this.value=this.value.toLowerCase()">
+    <div class="explanation" id="exp-b2-4"><span class="exp-label">Пояснение</span>Возможные варианты: <strong>To nije moja stvar.</strong> / <strong>To me se ne tiče.</strong> / <strong>Nije moja briga.</strong> — все идиоматичны и естественны.</div>
+  </div>
+
+  <div class="question-block" id="qblock-b2-5">
+    <div class="q-number">Питање 5 / Вопрос 5</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">U kojoj rečenici je <em>genitiv množine</em> tačan?</div>
+    <div class="q-translation">В каком предложении верно употреблён <em>родительный падеж множественного числа</em>?</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('b2','5','A',false,this)"><span class="opt-letter">A</span>Ima mnogo studentova ovde.</button>
+      <button class="option" onclick="answerMC('b2','5','B',true,this)"><span class="opt-letter">B</span>Ima mnogo studenata ovde.</button>
+      <button class="option" onclick="answerMC('b2','5','C',false,this)"><span class="opt-letter">C</span>Ima mnogo studenti ovde.</button>
+      <button class="option" onclick="answerMC('b2','5','D',false,this)"><span class="opt-letter">D</span>Ima mnogo studentima ovde.</button>
+    </div>
+    <div class="explanation" id="exp-b2-5"><span class="exp-label">Пояснение</span>После «mnogo, malo, nekoliko...» — <strong>генитив мн.ч.</strong>: studenata (student → studenti → studenata).</div>
+  </div>
+
+  <div class="section-div"><div class="section-div-label">Dio 3 · Nijanse i registar / Нюансы и регистр</div></div>
+
+  <div class="question-block" id="qblock-b2-6">
+    <div class="q-number">Питање 6 / Вопрос 6</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">Razlika između <em>„smeti"</em> i <em>„moći"</em>: šta je tačno?</div>
+    <div class="q-translation">В чём разница между «смети» и «моћи»?</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('b2','6','A',false,this)"><span class="opt-letter">A</span>Они синонимы.</button>
+      <button class="option" onclick="answerMC('b2','6','B',true,this)"><span class="opt-letter">B</span>Smeti = иметь право/разрешение. Moći = быть способным/физически мочь.</button>
+      <button class="option" onclick="answerMC('b2','6','C',false,this)"><span class="opt-letter">C</span>Smeti = физически мочь. Moći = иметь право.</button>
+      <button class="option" onclick="answerMC('b2','6','D',false,this)"><span class="opt-letter">D</span>Smeti — устаревшее слово.</button>
+    </div>
+    <div class="explanation" id="exp-b2-6"><span class="exp-label">Пояснение</span><strong>Smeti</strong> = иметь право (Ne smeš pušiti — нельзя курить). <strong>Moći</strong> = быть в состоянии (Ne mogu trčati — не могу бежать).</div>
+  </div>
+
+  <div class="question-block" id="qblock-b2-7">
+    <div class="q-number">Питање 7 / Вопрос 7</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">Koja je razlika: <em>„gledam film"</em> vs <em>„vidim film"</em>?</div>
+    <div class="q-translation">В чём разница между «gledam film» и «vidim film»?</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('b2','7','A',false,this)"><span class="opt-letter">A</span>Нет разницы, это синонимы.</button>
+      <button class="option" onclick="answerMC('b2','7','B',true,this)"><span class="opt-letter">B</span>Gledam = смотрю намеренно. Vidim = вижу (восприятие).</button>
+      <button class="option" onclick="answerMC('b2','7','C',false,this)"><span class="opt-letter">C</span>Gledam — устаревшее.</button>
+      <button class="option" onclick="answerMC('b2','7','D',false,this)"><span class="opt-letter">D</span>Vidim = смотрю намеренно. Gledam = вижу.</button>
+    </div>
+    <div class="explanation" id="exp-b2-7"><span class="exp-label">Пояснение</span><strong>Gledati</strong> (смотреть = направленное действие) vs <strong>videti</strong> (видеть = перцептивное состояние). Аналог: слушать vs слышать.</div>
+  </div>
+
+  <div class="question-block" id="qblock-b2-8">
+    <div class="q-number">Питање 8 / Вопрос 8</div>
+    <div class="q-type-tag">Попуни / Заполни</div>
+    <div class="q-text">Napravite pasivnu rečenicu od: <em>„Vlada je donela novu odluku."</em></div>
+    <div class="q-translation">Образуйте пассивную конструкцию от: «Правительство приняло новое решение.»</div>
+    <input class="fill-input" id="fill-b2-8" placeholder="Nova odluka je doneta ..." oninput="this.value=this.value.toLowerCase()">
+    <div class="explanation" id="exp-b2-8"><span class="exp-label">Пояснение</span><strong>Nova odluka je doneta (od strane vlade).</strong> Trpni pridev: donet/doneta/doneto. Конструкция «od strane + генитив» для указания деятеля в пассиве.</div>
+  </div>
+
+  <div class="question-block" id="qblock-b2-9">
+    <div class="q-number">Питање 9 / Вопрос 9</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">Koji je tačan oblik: <em>„Što pre, _______ bolje."</em></div>
+    <div class="q-translation">Какая верная форма: «Чем скорее, _______ лучше.»</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('b2','9','A',false,this)"><span class="opt-letter">A</span>više</button>
+      <button class="option" onclick="answerMC('b2','9','B',true,this)"><span class="opt-letter">B</span>to</button>
+      <button class="option" onclick="answerMC('b2','9','C',false,this)"><span class="opt-letter">C</span>tako</button>
+      <button class="option" onclick="answerMC('b2','9','D',false,this)"><span class="opt-letter">D</span>još</button>
+    </div>
+    <div class="explanation" id="exp-b2-9"><span class="exp-label">Пояснение</span>Компаративная конструкция: <strong>Što + komparativ... to + komparativ</strong>: Što pre, <strong>to</strong> bolje. Аналог русского «чем..., тем...».</div>
+  </div>
+
+  <div class="question-block" id="qblock-b2-10">
+    <div class="q-number">Питање 10 / Вопрос 10</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">Šta znači: <em>„Ne pada mi na pamet."</em></div>
+    <div class="q-translation">Что означает: «Не пада ми на памет.»</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('b2','10','A',false,this)"><span class="opt-letter">A</span>Я не помню.</button>
+      <button class="option" onclick="answerMC('b2','10','B',false,this)"><span class="opt-letter">B</span>Мне не нравится.</button>
+      <button class="option" onclick="answerMC('b2','10','C',true,this)"><span class="opt-letter">C</span>Мне это даже в голову не приходит / и в мыслях нет.</button>
+      <button class="option" onclick="answerMC('b2','10','D',false,this)"><span class="opt-letter">D</span>Я это не понимаю.</button>
+    </div>
+    <div class="explanation" id="exp-b2-10"><span class="exp-label">Пояснение</span>«Ne pada mi na pamet» — идиоматическое выражение: мне это даже в голову не приходит. Дословно: «не падает мне на память».</div>
+  </div>
+
+  <div class="submit-row">
+    <button class="btn-primary" onclick="submitPhase('b2')">Predaj odgovore →</button>
+  </div>
+</div>
+
+<!-- ═══ C1 SCREEN ═══ -->
+<div class="screen" id="screen-c1">
+  <div class="phase-header">
+    <div class="phase-label">Уровень C1 · Napredni nivo</div>
+    <div class="phase-title">Visokonivovski srpski</div>
+    <div class="phase-subtitle">Стиль, аргументация, редкие конструкции, литературный язык</div>
+    <div class="phase-meta">
+      <div class="phase-meta-item"><strong>8</strong> питања / вопросов</div>
+      <div class="phase-meta-item">Проходной балл: <strong>70%</strong></div>
+    </div>
+  </div>
+
+  <div class="passage-box">
+    Jezička politika u Srbiji danas odražava složenu istorijsku nasleđenu situaciju. Srpski standardni jezik, koji se zasniva na novoštokavskom dijalektu, rezultat je dugotrajnih normativnih procesa iz 19. veka, pre svega reformi Vuka Stefanovića Karadžića. Debate o upotrebi <em>ekavskog</em> nasuprot <em>ijekavskom izgovoru</em>, o primatu ćirilice nad latinicom, kao i o statusu manjinskih jezika — sve to čini dinamičan sociolingvistički pejzaž koji lingviste i govorce jednako intrigira.
+  </div>
+
+  <div class="question-block" id="qblock-c1-1">
+    <div class="q-number">Питање 1 / Вопрос 1</div>
+    <div class="q-type-tag">Разумевање / Понимание</div>
+    <div class="q-text">Na osnovu teksta: koji je glavni osnov srpskog standardnog jezika?</div>
+    <div class="q-translation">По тексту: какова главная основа сербского стандартного языка?</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('c1','1','A',false,this)"><span class="opt-letter">A</span>Косовский диалект</button>
+      <button class="option" onclick="answerMC('c1','1','B',true,this)"><span class="opt-letter">B</span>Новоштокавский диалект</button>
+      <button class="option" onclick="answerMC('c1','1','C',false,this)"><span class="opt-letter">C</span>Кайкавский диалект</button>
+      <button class="option" onclick="answerMC('c1','1','D',false,this)"><span class="opt-letter">D</span>Чакавский диалект</button>
+    </div>
+    <div class="explanation" id="exp-c1-1"><span class="exp-label">Пояснение</span>«...koji se zasniva na <strong>novoštokavskom dijalektu</strong>» — прямо указано в тексте.</div>
+  </div>
+
+  <div class="question-block" id="qblock-c1-2">
+    <div class="q-number">Питање 2 / Вопрос 2</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">Koji je antonim reči <em>„nasleđen"</em> u akademskom tekstu?</div>
+    <div class="q-translation">Каков антоним слова «наслеђен» (унаследованный) в академическом тексте?</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('c1','2','A',false,this)"><span class="opt-letter">A</span>primljen</button>
+      <button class="option" onclick="answerMC('c1','2','B',false,this)"><span class="opt-letter">B</span>nov</button>
+      <button class="option" onclick="answerMC('c1','2','C',true,this)"><span class="opt-letter">C</span>stečen / novoformirani</button>
+      <button class="option" onclick="answerMC('c1','2','D',false,this)"><span class="opt-letter">D</span>zaboravljen</button>
+    </div>
+    <div class="explanation" id="exp-c1-2"><span class="exp-label">Пояснение</span>«Nasleđen» (унаследованный) ↔ «stečen» (приобретённый) или «novoformirani» в контексте языковой политики.</div>
+  </div>
+
+  <div class="question-block" id="qblock-c1-3">
+    <div class="q-number">Питање 3 / Вопрос 3</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">U rečenici: <em>„...pejzaž koji lingviste i govorce jednako intrigira"</em> — šta je subjekat glagola „intrigira"?</div>
+    <div class="q-translation">В предложении «...пејзаж који лингвисте и говорцеједнако интригира» — что является подлежащим глагола «intrigira»?</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('c1','3','A',false,this)"><span class="opt-letter">A</span>lingviste i govorce</button>
+      <button class="option" onclick="answerMC('c1','3','B',true,this)"><span class="opt-letter">B</span>pejzaž (koji)</button>
+      <button class="option" onclick="answerMC('c1','3','C',false,this)"><span class="opt-letter">C</span>sve to</button>
+      <button class="option" onclick="answerMC('c1','3','D',false,this)"><span class="opt-letter">D</span>debate</button>
+    </div>
+    <div class="explanation" id="exp-c1-3"><span class="exp-label">Пояснение</span>«Koji» — относительное местоимение, относится к «pejzaž». Именно «pejzaž» является подлежащим «intrigira». Lingviste i govorce — дополнение.</div>
+  </div>
+
+  <div class="section-div"><div class="section-div-label">Dio 2 · Napredna gramatika / Продвинутая грамматика</div></div>
+
+  <div class="question-block" id="qblock-c1-4">
+    <div class="q-number">Питање 4 / Вопрос 4</div>
+    <div class="q-type-tag">Попуни / Заполни</div>
+    <div class="q-text">Prevedite i upotrebite adekvatnu konstrukciju: <em>„Несмотря на усталость, он продолжил работать."</em></div>
+    <div class="q-translation">Переведите с адекватной грамматической конструкцией: «Несмотря на усталость, он продолжил работать.»</div>
+    <input class="fill-input" id="fill-c1-4" placeholder="Iako je bio umoran, nastavio je da radi." oninput="this.value=this.value.toLowerCase()">
+    <div class="explanation" id="exp-c1-4"><span class="exp-label">Пояснение</span>Варианты: <strong>Iako je bio umoran, nastavio je da radi.</strong> / <strong>Uprkos umoru, nastavio je da radi.</strong> Предлог «uprkos» + дат. = несмотря на.</div>
+  </div>
+
+  <div class="question-block" id="qblock-c1-5">
+    <div class="q-number">Питање 5 / Вопрос 5</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">Koji je stilski efekat: <em>„Ne zna se ko je kriv, ne zna se ni ko je žrtva."</em>?</div>
+    <div class="q-translation">Какой стилистический эффект в «Не зна се ко је крив, не зна се ни ко је жртва»?</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('c1','5','A',false,this)"><span class="opt-letter">A</span>Метафора</button>
+      <button class="option" onclick="answerMC('c1','5','B',false,this)"><span class="opt-letter">B</span>Гипербола</button>
+      <button class="option" onclick="answerMC('c1','5','C',true,this)"><span class="opt-letter">C</span>Анафора (повтор «ne zna se»)</button>
+      <button class="option" onclick="answerMC('c1','5','D',false,this)"><span class="opt-letter">D</span>Оксюморон</button>
+    </div>
+    <div class="explanation" id="exp-c1-5"><span class="exp-label">Пояснение</span>Повтор одинаковой конструкции в начале частей: <strong>anafora</strong>. «Ne zna se...» повторяется для создания ритма и усиления неопределённости.</div>
+  </div>
+
+  <div class="question-block" id="qblock-c1-6">
+    <div class="q-number">Питање 6 / Вопрос 6</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">Odaberite rečenicu u kojoj je <em>aorist</em> pravilno upotrebljen:</div>
+    <div class="q-translation">Выберите предложение, в котором <em>аорист</em> употреблён правильно:</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('c1','6','A',false,this)"><span class="opt-letter">A</span>Juče sam otišao u grad.</button>
+      <button class="option" onclick="answerMC('c1','6','B',true,this)"><span class="opt-letter">B</span>Upravo ode iz prostorije.</button>
+      <button class="option" onclick="answerMC('c1','6','C',false,this)"><span class="opt-letter">C</span>On je otišao ranije.</button>
+      <button class="option" onclick="answerMC('c1','6','D',false,this)"><span class="opt-letter">D</span>Sutra otide na put.</button>
+    </div>
+    <div class="explanation" id="exp-c1-6"><span class="exp-label">Пояснение</span>Аорист — прошедшее с оттенком только что совершённого: <strong>Upravo ode</strong> (только что ушёл). В современном разговорном языке аорист вытеснен перфектом, но в письменном используется.</div>
+  </div>
+
+  <div class="question-block" id="qblock-c1-7">
+    <div class="q-number">Питање 7 / Вопрос 7</div>
+    <div class="q-type-tag">Попуни / Заполни</div>
+    <div class="q-text">Prevedite akademski: <em>„данные свидетельствуют о том, что..."</em></div>
+    <div class="q-translation">Переведите академически: «данные свидетельствуют о том, что...»</div>
+    <input class="fill-input" id="fill-c1-7" placeholder="Podaci ukazuju na to da ..." oninput="this.value=this.value.toLowerCase()">
+    <div class="explanation" id="exp-c1-7"><span class="exp-label">Пояснение</span><strong>Podaci ukazuju na to da...</strong> / <strong>Podaci svedoče o tome da...</strong> — стандартные академические клише сербского научного текста.</div>
+  </div>
+
+  <div class="question-block" id="qblock-c1-8">
+    <div class="q-number">Питање 8 / Вопрос 8</div>
+    <div class="q-type-tag">Избор / Выбор</div>
+    <div class="q-text">Šta je tačno o <em>ekavskom</em> i <em>ijekavskom izgovoru</em>?</div>
+    <div class="q-translation">Что верно об экавском и йекавском произношении?</div>
+    <div class="options">
+      <button class="option" onclick="answerMC('c1','8','A',false,this)"><span class="opt-letter">A</span>Экавский используется только в Хорватии.</button>
+      <button class="option" onclick="answerMC('c1','8','B',true,this)"><span class="opt-letter">B</span>Оба являются стандартными. Экавский преобладает в Сербии, йекавский — в Боснии и Черногории.</button>
+      <button class="option" onclick="answerMC('c1','8','C',false,this)"><span class="opt-letter">C</span>Йекавский — архаизм без официального статуса.</button>
+      <button class="option" onclick="answerMC('c1','8','D',false,this)"><span class="opt-letter">D</span>Их используют только в письменной речи.</button>
+    </div>
+    <div class="explanation" id="exp-c1-8"><span class="exp-label">Пояснение</span>Оба варианта стандартны. Ekavski (mleko, dete) — норма в Сербии. Ijekavski (mlijeko, dijete) — норма в Боснии, Черногории, части Хорватии.</div>
+  </div>
+
+  <div class="submit-row">
+    <button class="btn-primary" onclick="submitPhase('c1')">Predaj odgovore →</button>
+  </div>
+</div>
+
+<!-- ═══ RESULT SCREEN ═══ -->
+<div class="screen" id="screen-result">
+  <div class="final-result">
+    <div style="font-size:0.75rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold)">Резултат теста · Результат теста</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:var(--text-dim);margin-top:6px">Ваш уровень сербского языка</div>
+    <div class="level-badge-big" id="finalLevelBadge">—</div>
+    <div style="color:var(--text-dim);font-size:0.95rem;max-width:480px;margin:0 auto" id="finalDescription"></div>
+
+    <div class="result-detail">
+      <h4>Детальные результаты по уровням / Detalji po nivoima</h4>
+      <div id="levelBreakdown"></div>
+    </div>
+
+    <div class="result-detail" style="margin-top:16px">
+      <h4>Препоруке / Рекомендации</h4>
+      <div id="recommendations" style="font-size:0.88rem;color:var(--text-dim);line-height:1.8"></div>
+    </div>
+
+    <!-- Email send status -->
+    <div class="email-status" id="emailStatus"></div>
+
+    <div class="actions" style="margin-top:32px">
+      <button class="btn-secondary" onclick="restartTest()">↺ Понови тест / Пройти заново</button>
+      <button class="btn-primary" onclick="window.open('https://jasnosajasnom.carrd.co','_blank')">Запишись на урок →</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<script>
+// ═══ EmailJS INIT ═══
+(function(){
+  emailjs.init({ publicKey: 't7ZaL3psba1HqcGTT' });
+})();
+
+// ═══ STATE ═══
+const state = {
+  studentName: '',
+  studentEmail: '',
+  answers: { a1:{}, a2:{}, b1:{}, b2:{}, c1:{} },
+  fillAnswers: { a1:{}, a2:{}, b1:{}, b2:{}, c1:{} },
+  scores: {},
+  phasesCompleted: [],
+  currentPhase: 'welcome',
+  finalLevel: null
+};
+
+// ═══ CORRECT ANSWERS ═══
+const correct = {
+  a1: { mc:{1:'B',2:'C',3:'C',5:'B',6:'C',7:'A',8:'C',9:'B',11:'C',12:'B'},
+        fill:{4:['učim'], 10:['ja se zovem','moje ime je','se zovem','zovem se']} },
+  a2: { mc:{1:'D',2:'B',4:'B',5:'C',6:'B',7:'A',9:'B',10:'B',11:'B',12:'A'},
+        fill:{3:['smo radili','radili smo'], 8:['boli me glava','glava me boli']} },
+  b1: { mc:{1:'B',2:'B',4:'C',5:'C',6:'B',7:'B',8:'B',9:'B',10:'B',11:'C'},
+        fill:{3:['ću otići','otićiću','ja ću otići'], 12:['sviđa mi se ovaj grad','ovaj grad mi se sviđa']} },
+  b2: { mc:{1:'C',2:'B',3:'B',5:'B',6:'B',7:'B',9:'B',10:'C'},
+        fill:{4:['to nije moja stvar','to me se ne tiče','nije moja briga','ne tiče me se'],
+              8:['nova odluka je doneta','doneta je nova odluka','nova odluka je doneta od strane vlade']} },
+  c1: { mc:{1:'B',2:'C',3:'B',5:'C',6:'B',8:'B'},
+        fill:{4:['iako je bio umoran nastavio je da radi','uprkos umoru nastavio je da radi','iako umoran nastavio je da radi'],
+              7:['podaci ukazuju na to da','podaci svedoče o tome da','podaci ukazuju da']} }
+};
+
+const phaseOrder = ['a1','a2','b1','b2','c1'];
+const PASS_THRESHOLD = 0.70;
+
+// ═══ EMAIL GATE VALIDATION ═══
+function validateAndStart() {
+  const nameInput = document.getElementById('gateFirstName');
+  const emailInput = document.getElementById('gateEmail');
+  const errName = document.getElementById('errName');
+  const errEmail = document.getElementById('errEmail');
+
+  let valid = true;
+
+  // Validate name
+  const nameVal = nameInput.value.trim();
+  if (nameVal.length < 2) {
+    nameInput.classList.add('error');
+    errName.classList.add('show');
+    valid = false;
+  } else {
+    nameInput.classList.remove('error');
+    errName.classList.remove('show');
+  }
+
+  // Validate email
+  const emailVal = emailInput.value.trim();
+  const emailRx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRx.test(emailVal)) {
+    emailInput.classList.add('error');
+    errEmail.classList.add('show');
+    valid = false;
+  } else {
+    emailInput.classList.remove('error');
+    errEmail.classList.remove('show');
+  }
+
+  if (!valid) return;
+
+  // Save student info
+  state.studentName = nameVal;
+  state.studentEmail = emailVal;
+
+  startTest();
+}
+
+// Allow Enter key in gate inputs
+document.addEventListener('DOMContentLoaded', function() {
+  ['gateFirstName', 'gateEmail'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') validateAndStart();
+    });
+  });
+});
+
+// ═══ MC ANSWER ═══
+function answerMC(phase, qNum, letter, isCorrect, btn) {
+  const block = document.getElementById('qblock-' + phase + '-' + qNum);
+  if (block.classList.contains('answered')) return;
+
+  const opts = block.querySelectorAll('.option');
+  opts.forEach(o => o.disabled = true);
+
+  state.answers[phase][qNum] = { letter, correct: isCorrect };
+
+  if (isCorrect) {
+    btn.classList.add('correct');
+    block.classList.add('answered', 'correct');
+  } else {
+    btn.classList.add('wrong');
+    block.classList.add('answered', 'wrong');
+    const phaseCorrectLetter = correct[phase].mc[parseInt(qNum)];
+    opts.forEach(o => {
+      const oLetter = o.querySelector('.opt-letter').textContent;
+      if (oLetter === phaseCorrectLetter) o.classList.add('reveal-correct');
+    });
+  }
+  document.getElementById('exp-' + phase + '-' + qNum).classList.add('show');
+}
+
+// ═══ SUBMIT PHASE ═══
+function submitPhase(phase) {
+  const fillKeys = Object.keys(correct[phase].fill || {});
+  fillKeys.forEach(k => {
+    const input = document.getElementById('fill-' + phase + '-' + k);
+    if (!input) return;
+    const val = input.value.trim().toLowerCase();
+    const accepted = correct[phase].fill[k];
+    const isOk = accepted.some(a => val.includes(a) || (a.includes(val) && val.length > 3));
+    state.fillAnswers[phase][k] = isOk;
+    input.classList.add(isOk ? 'correct' : 'wrong');
+    input.disabled = true;
+    document.getElementById('exp-' + phase + '-' + k).classList.add('show');
+  });
+
+  const mcQs = Object.keys(correct[phase].mc);
+  let total = mcQs.length + fillKeys.length;
+  let got = 0;
+
+  mcQs.forEach(k => {
+    const ans = state.answers[phase][k];
+    if (ans && ans.correct) got++;
+  });
+  fillKeys.forEach(k => {
+    if (state.fillAnswers[phase][k]) got++;
+  });
+
+  const pct = got / total;
+  state.scores[phase] = { got, total, pct };
+  state.phasesCompleted.push(phase);
+
+  showPhaseResult(phase, got, total, pct);
+}
+
+// ═══ PHASE RESULT ═══
+function showPhaseResult(phase, got, total, pct) {
+  const pass = pct >= PASS_THRESHOLD;
+  const phaseNames = {a1:'A1',a2:'A2',b1:'B1',b2:'B2',c1:'C1'};
+  const nextPhase = phaseOrder[phaseOrder.indexOf(phase)+1];
+
+  const div = document.createElement('div');
+  div.className = 'phase-result ' + (pass ? 'pass' : 'fail');
+
+  const msgs = {
+    pass: {
+      icon: '✦',
+      ru: 'Отлично! Уровень ' + phaseNames[phase] + ' успешно пройден.',
+      next: nextPhase ? 'Переходим к уровню ' + phaseNames[nextPhase] + '...' : 'Это был последний уровень!'
+    },
+    fail: {
+      icon: '◈',
+      ru: 'Результат показывает, что это ваш текущий уровень.',
+      next: 'Ваш уровень: ' + phaseNames[phase]
+    }
+  };
+
+  const m = pass ? msgs.pass : msgs.fail;
+  const nextAction = (pass && nextPhase)
+    ? "goToPhase('" + nextPhase + "')"
+    : 'showFinalResult()';
+  const nextLabel = (pass && nextPhase)
+    ? 'Следующий уровень: ' + phaseNames[nextPhase] + ' →'
+    : 'Посмотреть результат →';
+
+  div.innerHTML =
+    '<span class="phase-result-icon">' + m.icon + '</span>' +
+    '<span class="score-display">' + got + '/' + total + '</span>' +
+    '<span class="score-label">' + Math.round(pct*100) + '% тачних / верных</span>' +
+    '<h3 style="margin-top:18px">' + m.ru + '</h3>' +
+    '<p>' + m.next + '</p>' +
+    '<button class="btn-primary" onclick="' + nextAction + '" style="margin-top:8px">' + nextLabel + '</button>';
+
+  document.getElementById('screen-' + phase).appendChild(div);
+  setTimeout(function() { div.scrollIntoView({behavior:'smooth', block:'center'}); }, 100);
+}
+
+// ═══ NAVIGATION ═══
+function startTest() { goToPhase('a1'); updateProgress(5); }
+
+function goToPhase(phase) {
+  document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
+  document.getElementById('screen-' + phase).classList.add('active');
+  state.currentPhase = phase;
+  updateNavDots(phase);
+  updateProgress(phaseOrder.indexOf(phase)*20 + 10);
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function updateNavDots(active) {
+  document.querySelectorAll('.phase-dot').forEach(function(d) {
+    d.classList.remove('active','done');
+  });
+  var el = document.getElementById('nav-' + active);
+  if (el) el.classList.add('active');
+  phaseOrder.forEach(function(p) {
+    if (state.phasesCompleted.includes(p)) {
+      var pe = document.getElementById('nav-' + p);
+      if (pe) pe.classList.add('done');
+    }
+  });
+}
+
+function updateProgress(pct) {
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+
+// ═══ FINAL RESULT + EMAIL SEND ═══
+function showFinalResult() {
+  document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
+  document.getElementById('screen-result').classList.add('active');
+  updateNavDots('result');
+  document.getElementById('nav-result').classList.add('active');
+  updateProgress(100);
+
+  // Determine final level
+  var finalLevel = 'A1';
+  phaseOrder.forEach(function(p) {
+    if (state.scores[p] && state.scores[p].pct >= PASS_THRESHOLD) {
+      finalLevel = p.toUpperCase();
+    }
+  });
+  state.finalLevel = finalLevel;
+
+  var levelColors = {A1:'#4a7c6f',A2:'#5a6e8a',B1:'#7a6a8a',B2:'#8a5a6a',C1:'#c44a4a'};
+  var levelDescs = {
+    A1: 'Начальный уровень. Вы понимаете базовые фразы и можете общаться в самых простых ситуациях.',
+    A2: 'Элементарный уровень. Вы можете общаться в рутинных ситуациях, описывать себя и окружение.',
+    B1: 'Средний уровень. Вы справляетесь с большинством ситуаций в путешествии, понимаете основные темы.',
+    B2: 'Выше среднего. Вы свободно общаетесь с носителями на широкий круг тем.',
+    C1: 'Продвинутый уровень. Вы владеете языком гибко и эффективно для академических и профессиональных целей.'
+  };
+
+  var badge = document.getElementById('finalLevelBadge');
+  badge.textContent = finalLevel;
+  badge.style.borderColor = levelColors[finalLevel];
+  badge.style.color = levelColors[finalLevel];
+  badge.style.background = levelColors[finalLevel] + '22';
+  document.getElementById('finalDescription').textContent = levelDescs[finalLevel];
+
+  // Build breakdown HTML + plain text for email
+  var bhtml = '';
+  var breakdownText = '';
+  phaseOrder.forEach(function(p) {
+    var s = state.scores[p];
+    if (!s) return;
+    var pn = p.toUpperCase();
+    var col = levelColors[pn] || '#888';
+    var pct = Math.round(s.pct * 100);
+    bhtml +=
+      '<div class="level-row">' +
+      '<span class="lbl">' + pn + '</span>' +
+      '<div class="bar"><div class="bar-fill" style="width:' + pct + '%;background:' + col + '"></div></div>' +
+      '<span class="pct">' + pct + '%</span>' +
+      '</div>';
+    breakdownText += pn + ': ' + s.got + '/' + s.total + ' (' + pct + '%)\n';
+  });
+  document.getElementById('levelBreakdown').innerHTML = bhtml;
+
+  var recs = {
+    A1: '• Изучайте базовую лексику (еда, числа, приветствия, цвета, семья)\n• Отрабатывайте спряжение biti и imati\n• Слушайте простые диалоги, повторяйте вслух\n• Записывайтесь на уроки уровня A1 с Ясной → jasnosajasnom.carrd.co',
+    A2: '• Отрабатывайте падежи (особенно акузатив, датив, генитив)\n• Изучайте перфект и образование прошедшего времени\n• Расширяйте словарный запас через тематические группы\n• Уроки уровня A2–B1 помогут вам выйти на уровень свободного общения',
+    B1: '• Совершенствуйте вид глагола (свершённый/несвершённый)\n• Работайте с условными предложениями и сложноподчинёнными\n• Читайте сербские тексты средней сложности\n• На уроках B1–B2 разберёте стилистику и нюансы живой речи',
+    B2: '• Изучайте идиомы и фразеологию\n• Работайте над регистрами (официальный / разговорный)\n• Читайте сербскую прессу и художественную литературу\n• Уровень C1 — ваша следующая цель! Запишитесь на интенсив',
+    C1: '• Поздравляем! Ваш уровень — продвинутый\n• Работайте над тонкостями: аорист, причастия, академический стиль\n• Читайте научные и литературные тексты\n• Для дальнейшего совершенствования — занятия по разговорной практике'
+  };
+  var recText = recs[finalLevel] || recs.A1;
+  document.getElementById('recommendations').innerHTML = recText.replace(/\n/g, '<br>');
+
+  window.scrollTo({top:0, behavior:'smooth'});
+
+  // ═══ SEND EMAIL ═══
+  sendResultEmail(finalLevel, breakdownText, levelDescs[finalLevel], recText);
+}
+
+function sendResultEmail(finalLevel, breakdownText, levelDesc, recsText) {
+  var statusEl = document.getElementById('emailStatus');
+  statusEl.className = 'email-status sending';
+  statusEl.textContent = '📨 Slanje rezultata...';
+
+  // Build levels tested string
+  var levelsTested = phaseOrder
+    .filter(function(p) { return state.scores[p]; })
+    .map(function(p) { return p.toUpperCase(); })
+    .join(', ');
+
+  var templateParams = {
+    // Meta
+    to_email: 'jasnosajasnom@gmail.com',
+    subject: finalLevel + ' — test nivo učenika',
+
+    // Student info
+    student_name: state.studentName,
+    student_email: state.studentEmail,
+
+    // Result
+    final_level: finalLevel,
+    level_description: levelDesc,
+
+    // Breakdown
+    levels_tested: levelsTested || 'A1',
+    breakdown: breakdownText,
+
+    // Recommendations
+    recommendations: recsText.replace(/<br>/g, '\n').replace(/•/g, '-'),
+
+    // Timestamp
+    test_date: new Date().toLocaleString('sr-RS', {
+      timeZone: 'Europe/Belgrade',
+      year: 'numeric', month: '2-digit', day: '2-digit',
+      hour: '2-digit', minute: '2-digit'
+    })
+  };
+
+  emailjs.send('service_qb8jsid', 'template_w1ivvq1', templateParams)
+    .then(function() {
+      statusEl.className = 'email-status sent';
+      statusEl.textContent = '✓ Rezultati su uspješno poslati.';
+    }, function(err) {
+      statusEl.className = 'email-status error';
+      statusEl.textContent = '⚠ Greška pri slanju: ' + JSON.stringify(err);
+      console.error('EmailJS error:', err);
+    });
+}
+
+function restartTest() {
+  location.reload();
+}
+
+// Init nav
+updateNavDots('welcome');
+document.getElementById('nav-welcome').classList.add('active');
+</script>
+</body>
+</html>
