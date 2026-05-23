@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lekcija: Glagoli kretanja — Jedan dan u Beogradu</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1208;
+    --paper: #f5f0e8;
+    --paper-dark: #ede6d4;
+    --accent: #8b2e00;
+    --accent-light: #c44b00;
+    --gold: #b8860b;
+    --gold-light: #d4a017;
+    --muted: #5a4a35;
+    --border: #c8b89a;
+    --russian: #1a3a6b;
+    --english: #2d5a1b;
+    --highlight: #fff3cd;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 17px;
+    line-height: 1.75;
+    min-height: 100vh;
+  }
+
+  /* PAGE LAYOUT */
+  .page {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 48px 40px;
+  }
+
+  /* HEADER */
+  .lesson-header {
+    border-bottom: 3px double var(--border);
+    padding-bottom: 28px;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  .lesson-tag {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+
+  .lesson-subtitle {
+    font-style: italic;
+    color: var(--muted);
+    font-size: 1.05rem;
+  }
+
+  .level-badge {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 2px;
+    margin-top: 14px;
+  }
+
+  /* SECTIONS */
+  .section {
+    margin-bottom: 52px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--accent);
+    border-left: 4px solid var(--accent);
+    padding-left: 14px;
+    margin-bottom: 22px;
+    line-height: 1.3;
+  }
+
+  /* GRAMMAR BOX */
+  .grammar-intro {
+    background: var(--paper-dark);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 28px 32px;
+    margin-bottom: 36px;
+  }
+
+  .grammar-intro p {
+    margin-bottom: 12px;
+    color: var(--muted);
+    font-size: 0.97rem;
+  }
+  .grammar-intro p:last-child { margin-bottom: 0; }
+
+  /* GRAMMAR TABLE */
+  .grammar-table-wrap {
+    overflow-x: auto;
+    margin: 20px 0 28px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.94rem;
+  }
+
+  th {
+    background: var(--accent);
+    color: white;
+    padding: 10px 14px;
+    text-align: left;
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+    font-size: 0.88rem;
+    letter-spacing: 0.5px;
+  }
+
+  td {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  tr:nth-child(even) td { background: rgba(200,184,154,0.18); }
+  tr:hover td { background: rgba(200,184,154,0.32); }
+
+  .srp { font-weight: 600; color: var(--ink); }
+  .rus { color: var(--russian); font-style: italic; }
+  .eng { color: var(--english); }
+  .prefix { color: var(--accent); font-weight: 700; }
+  .meaning { font-size: 0.88rem; }
+
+  /* NOTE BOX */
+  .note {
+    background: #fef9ec;
+    border-left: 4px solid var(--gold);
+    padding: 14px 18px;
+    margin: 16px 0;
+    font-size: 0.93rem;
+    border-radius: 0 4px 4px 0;
+  }
+  .note strong { color: var(--gold); }
+
+  /* PRIČA / TEXT */
+  .story-box {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 36px 40px;
+    line-height: 2;
+    position: relative;
+  }
+
+  .story-box p {
+    margin-bottom: 16px;
+    text-align: justify;
+  }
+
+  .story-box p:last-child { margin-bottom: 0; }
+
+  .vocab-word {
+    color: var(--accent);
+    font-weight: 600;
+    border-bottom: 1px dotted var(--accent);
+    cursor: default;
+  }
+
+  /* COLLAPSE */
+  details {
+    margin-top: 16px;
+  }
+
+  details summary {
+    cursor: pointer;
+    font-size: 0.88rem;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 10px 16px;
+    background: var(--paper-dark);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s;
+    user-select: none;
+  }
+
+  details summary::-webkit-details-marker { display: none; }
+  details summary::before {
+    content: '▶';
+    font-size: 10px;
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  details[open] summary::before { transform: rotate(90deg); }
+  details summary:hover { background: var(--border); }
+
+  .translation-box {
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 3px 3px;
+    padding: 20px 24px;
+    background: white;
+  }
+
+  .translation-box p {
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+  }
+  .translation-box p:last-child { margin-bottom: 0; }
+
+  .tr-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 6px;
+    margin-top: 14px;
+  }
+
+  .tr-label.ru { color: var(--russian); }
+  .tr-label.en { color: var(--english); }
+  .tr-label:first-child { margin-top: 0; }
+
+  .translation-box p.ru-text { color: var(--russian); }
+  .translation-box p.en-text { color: var(--english); font-style: italic; }
+
+  /* EXERCISES */
+  .exercise {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 28px 32px;
+    margin-bottom: 24px;
+  }
+
+  .ex-number {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  .ex-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .ex-instruction {
+    font-size: 0.9rem;
+    color: var(--muted);
+    font-style: italic;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ex-ru {
+    font-size: 0.82rem;
+    color: var(--russian);
+  }
+
+  .ex-en {
+    font-size: 0.82rem;
+    color: var(--english);
+  }
+
+  ol.ex-list {
+    padding-left: 22px;
+  }
+
+  ol.ex-list li {
+    margin-bottom: 12px;
+    line-height: 1.6;
+  }
+
+  .blank {
+    display: inline-block;
+    min-width: 90px;
+    border-bottom: 2px solid var(--ink);
+    margin: 0 4px;
+  }
+
+  .answer-box {
+    background: #f0f7ed;
+    border: 1px solid #a8d09a;
+    border-radius: 3px;
+    padding: 16px 20px;
+    margin-top: 4px;
+    font-size: 0.93rem;
+  }
+
+  .answer-box ol {
+    padding-left: 20px;
+    margin-top: 6px;
+  }
+
+  .answer-box li {
+    margin-bottom: 6px;
+    color: #2a5a1a;
+  }
+
+  .answer-box strong { color: var(--accent); }
+
+  .word-bank {
+    background: var(--highlight);
+    border: 1px dashed var(--gold);
+    border-radius: 3px;
+    padding: 12px 16px;
+    margin-bottom: 18px;
+    font-size: 0.93rem;
+  }
+
+  .word-bank span {
+    font-weight: 700;
+    color: var(--accent);
+    margin-right: 14px;
+  }
+
+  /* VOCAB LIST */
+  .vocab-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .vocab-item {
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .vocab-head {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 0;
+    background: var(--paper-dark);
+    padding: 0;
+  }
+
+  .vocab-word-main {
+    padding: 12px 16px;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--ink);
+    border-right: 1px solid var(--border);
+  }
+
+  .vocab-sentence-sr {
+    padding: 12px 16px;
+    font-size: 0.93rem;
+    font-style: italic;
+    color: var(--muted);
+  }
+
+  .vocab-translations {
+    padding: 14px 20px 16px;
+    background: white;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .vocab-tr-block { font-size: 0.9rem; }
+  .vocab-tr-block .lang-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+    display: block;
+  }
+  .vocab-tr-block.ru .lang-label { color: var(--russian); }
+  .vocab-tr-block.en .lang-label { color: var(--english); }
+  .vocab-tr-block.ru .tr-word { color: var(--russian); }
+  .vocab-tr-block.en .tr-word { color: var(--english); font-style: italic; }
+  .vocab-tr-block .tr-sentence { font-size: 0.84rem; color: var(--muted); margin-top: 2px; }
+
+  /* CONJUGATION BOX */
+  .conj-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .conj-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .conj-card-head {
+    background: var(--ink);
+    color: white;
+    padding: 10px 16px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+  }
+
+  .conj-card-head .gloss {
+    font-size: 0.78rem;
+    opacity: 0.7;
+    display: block;
+    font-family: 'Source Serif 4', serif;
+    font-style: italic;
+    margin-top: 1px;
+  }
+
+  .conj-card table {
+    width: 100%;
+  }
+
+  .conj-card td {
+    padding: 7px 14px;
+    font-size: 0.9rem;
+  }
+
+  .conj-card td:first-child {
+    color: var(--muted);
+    font-size: 0.83rem;
+    width: 90px;
+  }
+
+  .conj-card td:last-child {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  /* PREFIX TABLE */
+  .prefix-table-wrap { margin: 20px 0; }
+
+  .prefix-table th { background: var(--ink); }
+
+  .pref-cell {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--accent);
+    font-family: 'Playfair Display', serif;
+  }
+
+  /* FOOTER */
+  .lesson-footer {
+    margin-top: 60px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  /* PRINT */
+  @media print {
+    details { display: block; }
+    details summary { display: none; }
+    .translation-box, .answer-box, .vocab-translations { display: block !important; }
+  }
+
+  @media (max-width: 600px) {
+    .page { padding: 24px 18px; }
+    .story-box { padding: 22px 18px; }
+    h1 { font-size: 1.7rem; }
+    .vocab-head { grid-template-columns: 1fr; }
+    .vocab-word-main { border-right: none; border-bottom: 1px solid var(--border); }
+    .vocab-translations { grid-template-columns: 1fr; }
+    .conj-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="lesson-header">
+    <div class="lesson-tag">Čas srpskog jezika</div>
+    <h1>Jedan dan u Beogradu</h1>
+    <div class="lesson-subtitle">Glagoli kretanja — prefiks i konjugacija</div>
+    <div class="level-badge">A2</div>
+  </header>
+
+  <!-- GRAMATIKA: UVOD -->
+  <section class="section">
+    <h2 class="section-title">Gramatika: Glagoli kretanja</h2>
+
+    <div class="grammar-intro">
+      <p>У сербском языке есть базовый глагол движения <strong>ићи</strong> (идти/ходить). К нему добавляются приставки, которые меняют направление или смысл движения.</p>
+      <p>In Serbian, the base verb <strong>ići</strong> (to go) takes prefixes to express direction or type of movement.</p>
+    </div>
+
+    <!-- Konjugacija: ići -->
+    <h3 style="font-family:'Playfair Display',serif; font-size:1.15rem; margin-bottom:14px; color:var(--ink);">Prezent glagola <em>ići</em></h3>
+
+    <div class="conj-grid">
+      <div class="conj-card">
+        <div class="conj-card-head">
+          ići
+          <span class="gloss">идти / to go</span>
+        </div>
+        <table>
+          <tr><td>ja</td><td>id<strong>em</strong></td></tr>
+          <tr><td>ti</td><td>id<strong>eš</strong></td></tr>
+          <tr><td>on/ona</td><td>id<strong>e</strong></td></tr>
+          <tr><td>mi</td><td>id<strong>emo</strong></td></tr>
+          <tr><td>vi</td><td>id<strong>ete</strong></td></tr>
+          <tr><td>oni</td><td>id<strong>u</strong></td></tr>
+        </table>
+      </div>
+
+      <div class="conj-card">
+        <div class="conj-card-head">
+          doći
+          <span class="gloss">прийти / to arrive, come</span>
+        </div>
+        <table>
+          <tr><td>ja</td><td>dođ<strong>em</strong></td></tr>
+          <tr><td>ti</td><td>dođ<strong>eš</strong></td></tr>
+          <tr><td>on/ona</td><td>dođ<strong>e</strong></td></tr>
+          <tr><td>mi</td><td>dođ<strong>emo</strong></td></tr>
+          <tr><td>vi</td><td>dođ<strong>ete</strong></td></tr>
+          <tr><td>oni</td><td>dođ<strong>u</strong></td></tr>
+        </table>
+      </div>
+
+      <div class="conj-card">
+        <div class="conj-card-head">
+          otići
+          <span class="gloss">уйти / to leave, go away</span>
+        </div>
+        <table>
+          <tr><td>ja</td><td>od<strong>em</strong></td></tr>
+          <tr><td>ti</td><td>od<strong>eš</strong></td></tr>
+          <tr><td>on/ona</td><td>od<strong>e</strong></td></tr>
+          <tr><td>mi</td><td>od<strong>emo</strong></td></tr>
+          <tr><td>vi</td><td>od<strong>ete</strong></td></tr>
+          <tr><td>oni</td><td>od<strong>u</strong></td></tr>
+        </table>
+      </div>
+
+      <div class="conj-card">
+        <div class="conj-card-head">
+          izaći
+          <span class="gloss">выйти / to go out, exit</span>
+        </div>
+        <table>
+          <tr><td>ja</td><td>izađ<strong>em</strong></td></tr>
+          <tr><td>ti</td><td>izađ<strong>eš</strong></td></tr>
+          <tr><td>on/ona</td><td>izađ<strong>e</strong></td></tr>
+          <tr><td>mi</td><td>izađ<strong>emo</strong></td></tr>
+          <tr><td>vi</td><td>izađ<strong>ete</strong></td></tr>
+          <tr><td>oni</td><td>izađ<strong>u</strong></td></tr>
+        </table>
+      </div>
+
+      <div class="conj-card">
+        <div class="conj-card-head">
+          ući
+          <span class="gloss">войти / to enter, go in</span>
+        </div>
+        <table>
+          <tr><td>ja</td><td>uđ<strong>em</strong></td></tr>
+          <tr><td>ti</td><td>uđ<strong>eš</strong></td></tr>
+          <tr><td>on/ona</td><td>uđ<strong>e</strong></td></tr>
+          <tr><td>mi</td><td>uđ<strong>emo</strong></td></tr>
+          <tr><td>vi</td><td>uđ<strong>ete</strong></td></tr>
+          <tr><td>oni</td><td>uđ<strong>u</strong></td></tr>
+        </table>
+      </div>
+
+      <div class="conj-card">
+        <div class="conj-card-head">
+          proći
+          <span class="gloss">пройти / to pass (by)</span>
+        </div>
+        <table>
+          <tr><td>ja</td><td>prođ<strong>em</strong></td></tr>
+          <tr><td>ti</td><td>prođ<strong>eš</strong></td></tr>
+          <tr><td>on/ona</td><td>prođ<strong>e</strong></td></tr>
+          <tr><td>mi</td><td>prođ<strong>emo</strong></td></tr>
+          <tr><td>vi</td><td>prođ<strong>ete</strong></td></tr>
+          <tr><td>oni</td><td>prođ<strong>u</strong></td></tr>
+        </table>
+      </div>
+
+      <div class="conj-card">
+        <div class="conj-card-head">
+          prići
+          <span class="gloss">подойти / to approach</span>
+        </div>
+        <table>
+          <tr><td>ja</td><td>priđ<strong>em</strong></td></tr>
+          <tr><td>ti</td><td>priđ<strong>eš</strong></td></tr>
+          <tr><td>on/ona</td><td>priđ<strong>e</strong></td></tr>
+          <tr><td>mi</td><td>priđ<strong>emo</strong></td></tr>
+          <tr><td>vi</td><td>priđ<strong>ete</strong></td></tr>
+          <tr><td>oni</td><td>priđ<strong>u</strong></td></tr>
+        </table>
+      </div>
+
+      <div class="conj-card">
+        <div class="conj-card-head">
+          naći
+          <span class="gloss">найти / to find</span>
+        </div>
+        <table>
+          <tr><td>ja</td><td>nađ<strong>em</strong></td></tr>
+          <tr><td>ti</td><td>nađ<strong>eš</strong></td></tr>
+          <tr><td>on/ona</td><td>nađ<strong>e</strong></td></tr>
+          <tr><td>mi</td><td>nađ<strong>emo</strong></td></tr>
+          <tr><td>vi</td><td>nađ<strong>ete</strong></td></tr>
+          <tr><td>oni</td><td>nađ<strong>u</strong></td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- Prefix table -->
+    <h3 style="font-family:'Playfair Display',serif; font-size:1.15rem; margin: 28px 0 14px; color:var(--ink);">Prefiksi i značenje</h3>
+
+    <div class="note">
+      <strong>Napomena:</strong> Pristavka меняет основу: <em>ić-</em> → <em>ić-</em> posle do-, ot-, pro-, pri-, na- → osnova postaje <strong>-đ-</strong> ili <strong>-đ-</strong>. U konjugaciji: dođem, otiđem, izađem, priđem...
+    </div>
+
+    <div class="grammar-table-wrap prefix-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Prefiks</th>
+            <th>Glagol</th>
+            <th>Значение (rus)</th>
+            <th>Meaning (eng)</th>
+            <th>Primer / Пример</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="pref-cell">do-</td>
+            <td class="srp">doći</td>
+            <td class="rus meaning">прийти; добраться до</td>
+            <td class="eng meaning">to arrive, to come</td>
+            <td><em>Marko <strong>dolazi</strong> u pet sati.</em></td>
+          </tr>
+          <tr>
+            <td class="pref-cell">ot-</td>
+            <td class="srp">otići</td>
+            <td class="rus meaning">уйти, уехать</td>
+            <td class="eng meaning">to leave, go away</td>
+            <td><em>Ana <strong>odlazi</strong> na posao.</em></td>
+          </tr>
+          <tr>
+            <td class="pref-cell">iz-</td>
+            <td class="srp">izaći</td>
+            <td class="rus meaning">выйти (из здания)</td>
+            <td class="eng meaning">to go out, exit</td>
+            <td><em>Ona <strong>izlazi</strong> iz kuće.</em></td>
+          </tr>
+          <tr>
+            <td class="pref-cell">u-</td>
+            <td class="srp">ući</td>
+            <td class="rus meaning">войти (в здание)</td>
+            <td class="eng meaning">to enter, go in</td>
+            <td><em>On <strong>ulazi</strong> u prodavnicu.</em></td>
+          </tr>
+          <tr>
+            <td class="pref-cell">pro-</td>
+            <td class="srp">proći</td>
+            <td class="rus meaning">пройти мимо</td>
+            <td class="eng meaning">to pass (by)</td>
+            <td><em>Mi <strong>prolazimo</strong> pored parka.</em></td>
+          </tr>
+          <tr>
+            <td class="pref-cell">pri-</td>
+            <td class="srp">prići</td>
+            <td class="rus meaning">подойти (к кому-то)</td>
+            <td class="eng meaning">to approach, walk up to</td>
+            <td><em>Ona <strong>prilazi</strong> prozoru.</em></td>
+          </tr>
+          <tr>
+            <td class="pref-cell">na-</td>
+            <td class="srp">naći</td>
+            <td class="rus meaning">найти</td>
+            <td class="eng meaning">to find</td>
+            <td><em>Ne mogu da <strong>nađem</strong> ključeve.</em></td>
+          </tr>
+          <tr>
+            <td class="pref-cell">za-</td>
+            <td class="srp">zaći</td>
+            <td class="rus meaning">зайти (за угол / к кому-то)</td>
+            <td class="eng meaning">to go (around/past a point); to drop by</td>
+            <td><em>Možemo da <strong>zađemo</strong> u kafić.</em></td>
+          </tr>
+          <tr>
+            <td class="pref-cell">pre-</td>
+            <td class="srp">preći</td>
+            <td class="rus meaning">перейти (через улицу)</td>
+            <td class="eng meaning">to cross, go across</td>
+            <td><em>Pređi ulicu na semaforu!</em></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <strong>Важно:</strong> U svakodnevnom govoru, ovi glagoli se često koriste u <em>imperfektivnom paru</em>: dolaziti, odlaziti, izlaziti, ulaziti, prolaziti, prilaziti. U ovoj lekciji učimo <strong>oba oblika</strong> u kontekstu.
+      <br><br>
+      <span style="color:var(--russian);">В повседневной речи используются оба вида: совершенный (doći, otići…) и несовершенный (dolaziti, odlaziti…). В этом уроке оба встречаются в тексте.</span>
+    </div>
+  </section>
+
+  <!-- PRIČA -->
+  <section class="section">
+    <h2 class="section-title">Tekst: Jedan dan u Beogradu</h2>
+
+    <div class="story-box">
+      <p>
+        Danas je subota i Stefan ima slobodan dan. Ujutro, u osam sati, <span class="vocab-word">izlazi</span> iz stana i <span class="vocab-word">silazi</span> niz stepenice. <span class="vocab-word">Izlazi</span> na ulicu i duboko <span class="vocab-word">udiše</span> svež jutarnji vazduh. Vreme je lepo — sunce sija, ali nije prevruće.
+      </p>
+      <p>
+        Stefan <span class="vocab-word">ide</span> pešice do obližnje pekare. Kad <span class="vocab-word">uđe</span>, <span class="vocab-word">priđe</span> šalteru i kaže: „Dobar dan, molim vas jedan kifli i kafu, ako možete." Prodavačica se osmehuje i <span class="vocab-word">donosi</span> mu narudžbinu. Stefan <span class="vocab-word">seda</span> za sto kraj prozora, jede i gleda kroz staklo na <span class="vocab-word">prolaznice</span>.
+      </p>
+      <p>
+        Posle doručka, <span class="vocab-word">odlazi</span> do Kalemegdana. Na putu <span class="vocab-word">prolazi</span> pored <span class="vocab-word">fontane</span> u parku i <span class="vocab-word">zastaje</span> na trenutak da fotografiše cveće. Malo dalje, <span class="vocab-word">nailazi</span> na grupu turista koji <span class="vocab-word">traže</span> put do tvrđave.
+      </p>
+      <p>
+        „<span class="vocab-word">Pređite</span> ovaj trg, pa <span class="vocab-word">idite</span> pravo," kaže Stefan i pokazuje rukom. Turisti mu <span class="vocab-word">zahvaljuju</span> i <span class="vocab-word">odlaze</span>. Stefan <span class="vocab-word">dolazi</span> do tvrđave i <span class="vocab-word">ulazi</span> kroz <span class="vocab-word">kapiju</span>. <span class="vocab-word">Penje se</span> na zidine i odatle <span class="vocab-word">vidi</span> ceo grad — reku, mostove, parkove.
+      </p>
+      <p>
+        Uveče, <span class="vocab-word">vraća se</span> kući. Pre nego što <span class="vocab-word">uđe</span> u zgradu, <span class="vocab-word">zasvrati</span> do komšije Nikole da mu <span class="vocab-word">vrati</span> knjigu koju je <span class="vocab-word">pozajmio</span> prošle <span class="vocab-word">nedelje</span>. „Bila je <span class="vocab-word">odlična</span>," kaže Stefan. Nikola se smeje i <span class="vocab-word">nudi</span> mu novu.
+      </p>
+    </div>
+
+    <details>
+      <summary>▸ Prevod / Перевод / Translation</summary>
+      <div class="translation-box">
+        <span class="tr-label ru">Русский перевод</span>
+        <p class="ru-text">Сегодня суббота, и у Стефана выходной. Утром, в восемь часов, он выходит из квартиры и спускается по лестнице. Он выходит на улицу и глубоко вдыхает свежий утренний воздух. Погода хорошая — светит солнце, но не слишком жарко.</p>
+        <p class="ru-text">Стефан идёт пешком до ближайшей пекарни. Когда он входит, подходит к прилавку и говорит: «Добрый день, пожалуйста, один рогалик и кофе, если можно.» Продавщица улыбается и приносит ему заказ. Стефан садится за столик у окна, ест и смотрит через стекло на прохожих.</p>
+        <p class="ru-text">После завтрака он отправляется на Калемегдан. По дороге проходит мимо фонтана в парке и на мгновение останавливается, чтобы сфотографировать цветы. Чуть дальше он натыкается на группу туристов, которые ищут дорогу к крепости.</p>
+        <p class="ru-text">«Перейдите эту площадь, потом идите прямо,» — говорит Стефан и показывает рукой. Туристы благодарят его и уходят. Стефан подходит к крепости и входит через ворота. Он поднимается на стены и оттуда видит весь город — реку, мосты, парки.</p>
+        <p class="ru-text">Вечером он возвращается домой. Прежде чем войти в здание, он заходит к соседу Николе, чтобы вернуть книгу, которую взял на прошлой неделе. «Она была отличной,» — говорит Стефан. Никола смеётся и предлагает ему новую.</p>
+
+        <span class="tr-label en">English translation</span>
+        <p class="en-text">Today is Saturday and Stefan has a free day. In the morning, at eight o'clock, he goes out of his apartment and walks down the stairs. He steps out onto the street and takes a deep breath of fresh morning air. The weather is nice — the sun is shining, but it's not too hot.</p>
+        <p class="en-text">Stefan walks to the nearby bakery. When he enters, he approaches the counter and says: "Good day, one croissant and a coffee, please." The saleswoman smiles and brings him his order. Stefan sits at a table by the window, eats, and watches the passersby through the glass.</p>
+        <p class="en-text">After breakfast, he goes to Kalemegdan. On the way, he passes by the fountain in the park and stops for a moment to photograph the flowers. A little further on, he comes across a group of tourists who are looking for the way to the fortress.</p>
+        <p class="en-text">"Cross this square, then go straight," says Stefan, pointing with his hand. The tourists thank him and leave. Stefan arrives at the fortress and enters through the gate. He climbs up the walls and from there sees the whole city — the river, bridges, parks.</p>
+        <p class="en-text">In the evening, he returns home. Before entering the building, he stops by his neighbour Nikola's to return the book he borrowed last week. "It was excellent," says Stefan. Nikola laughs and offers him a new one.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- VEŽBE -->
+  <section class="section">
+    <h2 class="section-title">Vežbe / Упражнения / Exercises</h2>
+
+    <!-- Vežba 1 -->
+    <div class="exercise">
+      <div class="ex-number">Vežba 1</div>
+      <div class="ex-title">Tačno ili netačno?</div>
+      <div class="ex-instruction">
+        Pročitaj rečenice. Da li su tačne (T) ili netačne (N) prema tekstu?
+        <br><span class="ex-ru">Прочитай предложения. Они верны (T) или неверны (N) по тексту?</span>
+        <br><span class="ex-en">Are the sentences true (T) or false (N) according to the text?</span>
+      </div>
+      <ol class="ex-list">
+        <li>Stefan izlazi iz stana u deset sati. &nbsp;&nbsp; T / N</li>
+        <li>U pekari, Stefan seda pored vrata. &nbsp;&nbsp; T / N</li>
+        <li>Na putu do Kalemegdana, Stefan prolazi pored fontane. &nbsp;&nbsp; T / N</li>
+        <li>Turisti traže put do muzeja. &nbsp;&nbsp; T / N</li>
+        <li>Uveče, Stefan posećuje komšiju Nikolu. &nbsp;&nbsp; T / N</li>
+      </ol>
+
+      <details>
+        <summary>Odgovori / Ответы / Answers</summary>
+        <div class="answer-box">
+          <ol>
+            <li><strong>N</strong> — Izlazi u <strong>osam</strong> sati.</li>
+            <li><strong>N</strong> — Seda za sto <strong>kraj prozora</strong>.</li>
+            <li><strong>T</strong></li>
+            <li><strong>N</strong> — Traže put do <strong>tvrđave</strong>.</li>
+            <li><strong>T</strong></li>
+          </ol>
+        </div>
+      </details>
+    </div>
+
+    <!-- Vežba 2 -->
+    <div class="exercise">
+      <div class="ex-number">Vežba 2</div>
+      <div class="ex-title">Popuni praznine — glagoli kretanja</div>
+      <div class="ex-instruction">
+        Stavi glagol u pravi oblik prezenta.
+        <br><span class="ex-ru">Поставь глагол в правильную форму настоящего времени.</span>
+        <br><span class="ex-en">Put the verb in the correct present tense form.</span>
+      </div>
+
+      <div class="word-bank">
+        <strong>Glagoli:</strong>
+        <span>doći</span><span>otići</span><span>ući</span><span>izaći</span><span>proći</span><span>prići</span><span>naći</span>
+      </div>
+
+      <ol class="ex-list">
+        <li>Marija <span class="blank"></span> iz kuće u sedam sati. <em style="font-size:0.85rem; color:var(--muted);">(izaći)</em></li>
+        <li>Kada oni <span class="blank"></span> u restoran, svi ih gledaju. <em style="font-size:0.85rem; color:var(--muted);">(ući)</em></li>
+        <li>Ne mogu da <span class="blank"></span> ključeve! <em style="font-size:0.85rem; color:var(--muted);">(naći)</em></li>
+        <li>Mi <span class="blank"></span> pored biblioteke svaki dan. <em style="font-size:0.85rem; color:var(--muted);">(proći)</em></li>
+        <li>Stefan <span class="blank"></span> prozoru i otvara ga. <em style="font-size:0.85rem; color:var(--muted);">(prići)</em></li>
+        <li>Kada <span class="blank"></span> tvoja sestra? <em style="font-size:0.85rem; color:var(--muted);">(doći)</em></li>
+        <li>Zašto već <span class="blank"></span>? Ostani još malo! <em style="font-size:0.85rem; color:var(--muted);">(otići)</em></li>
+      </ol>
+
+      <details>
+        <summary>Odgovori / Ответы / Answers</summary>
+        <div class="answer-box">
+          <ol>
+            <li>Marija <strong>izlazi</strong> iz kuće u sedam sati.</li>
+            <li>Kada oni <strong>uđu</strong> u restoran, svi ih gledaju.</li>
+            <li>Ne mogu da <strong>nađem</strong> ključeve!</li>
+            <li>Mi <strong>prolazimo</strong> pored biblioteke svaki dan.</li>
+            <li>Stefan <strong>priđe / prilazi</strong> prozoru i otvara ga.</li>
+            <li>Kada <strong>dolazi / dođe</strong> tvoja sestra?</li>
+            <li>Zašto već <strong>odlaziš / otiđeš</strong>? Ostani još malo!</li>
+          </ol>
+        </div>
+      </details>
+    </div>
+
+    <!-- Vežba 3 -->
+    <div class="exercise">
+      <div class="ex-number">Vežba 3</div>
+      <div class="ex-title">Poveži — glagol i značenje</div>
+      <div class="ex-instruction">
+        Poveži glagol sa odgovarajućim ruskim prevodom.
+        <br><span class="ex-ru">Соедини глагол с его русским переводом.</span>
+        <br><span class="ex-en">Match each verb with its Russian equivalent.</span>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap: 24px; margin-top:8px;">
+        <div>
+          <p style="font-weight:600; margin-bottom:10px;">Glagoli:</p>
+          <ol class="ex-list" style="list-style-type: upper-alpha;">
+            <li>ući</li>
+            <li>otići</li>
+            <li>prići</li>
+            <li>izaći</li>
+            <li>proći</li>
+            <li>doći</li>
+          </ol>
+        </div>
+        <div>
+          <p style="font-weight:600; margin-bottom:10px; color:var(--russian);">Значения:</p>
+          <ol class="ex-list" style="list-style-type:decimal; color:var(--russian);">
+            <li>выйти</li>
+            <li>войти</li>
+            <li>пройти мимо</li>
+            <li>прийти</li>
+            <li>подойти</li>
+            <li>уйти</li>
+          </ol>
+        </div>
+      </div>
+
+      <details>
+        <summary>Odgovori / Ответы / Answers</summary>
+        <div class="answer-box">
+          A–2 &nbsp;|&nbsp; B–6 &nbsp;|&nbsp; C–5 &nbsp;|&nbsp; D–1 &nbsp;|&nbsp; E–3 &nbsp;|&nbsp; F–4
+        </div>
+      </details>
+    </div>
+
+    <!-- Vežba 4 -->
+    <div class="exercise">
+      <div class="ex-number">Vežba 4</div>
+      <div class="ex-title">Odaberi tačan glagol</div>
+      <div class="ex-instruction">
+        Zaokruži tačan glagol.
+        <br><span class="ex-ru">Обведи правильный глагол.</span>
+        <br><span class="ex-en">Circle the correct verb.</span>
+      </div>
+
+      <ol class="ex-list">
+        <li>Ana <strong>ulazi / izlazi</strong> iz prodavnice sa torbama punim namirnica.</li>
+        <li>Molim te, <strong>dođi / otiđi</strong> ovde — hoću da ti nešto pokažem!</li>
+        <li>Autobus <strong>prolazi / priđe</strong> pored naše škole.</li>
+        <li>Ne mogu da <strong>nađem / dođem</strong> adresu na mapi.</li>
+        <li>Kad <strong>uđem / izađem</strong> u sobu, ugasim svetlo.</li>
+        <li>Ona <strong>priđe / prođe</strong> stolu i uzme čašu.</li>
+      </ol>
+
+      <details>
+        <summary>Odgovori / Ответы / Answers</summary>
+        <div class="answer-box">
+          <ol>
+            <li><strong>izlazi</strong> — она выходит из магазина (iznosi/nosi = тащит наружу; izlaziti = выходить)</li>
+            <li><strong>dođi</strong> — imperativ od doći; подойди / come here</li>
+            <li><strong>prolazi</strong> — пролегает мимо / passes by</li>
+            <li><strong>nađem</strong> — найти / to find</li>
+            <li><strong>uđem</strong> — войду / I enter (gasim svetlo = I turn off the light, which you do when entering)</li>
+            <li><strong>priđe</strong> — подходит к столу / approaches the table</li>
+          </ol>
+        </div>
+      </details>
+    </div>
+
+    <!-- Vežba 5 -->
+    <div class="exercise">
+      <div class="ex-number">Vežba 5</div>
+      <div class="ex-title">Napiši rečenicu</div>
+      <div class="ex-instruction">
+        Za svaki glagol napiši jednu rečenicu o sebi ili svom životu (prezent).
+        <br><span class="ex-ru">Для каждого глагола напиши одно предложение о себе (настоящее время).</span>
+        <br><span class="ex-en">Write one sentence about yourself for each verb (present tense).</span>
+      </div>
+      <ol class="ex-list">
+        <li><strong>izaći</strong> — Svaki dan izlazim iz kuće u _____ sati.</li>
+        <li><strong>doći</strong> — Na čas srpskog dolazim ___________.</li>
+        <li><strong>proći</strong> — Na putu do __________, prolazim pored __________.</li>
+        <li><strong>ući</strong> — Kad uđem u __________, uvek __________.</li>
+      </ol>
+      <div class="note" style="margin-top:14px;">
+        <strong>Slobodna vežba</strong> — nema jednog tačnog odgovora. Razgovarajte zajedno!
+        <br><span style="color:var(--russian); font-size:0.88rem;">Свободное упражнение — нет единственно верного ответа.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- LISTA NOVIH REČI -->
+  <section class="section">
+    <h2 class="section-title">Nove reči iz teksta / Новые слова / New vocabulary</h2>
+
+    <p style="font-size:0.9rem; color:var(--muted); margin-bottom:20px; font-style:italic;">
+      Klikni na svaku reč da vidiš prevod i primer rečenice. — Нажми на каждое слово, чтобы увидеть перевод.
+    </p>
+
+    <div class="vocab-grid">
+
+      <!-- 1 -->
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">slobodan dan</div>
+          <div class="vocab-sentence-sr">Stefan ima slobodan dan i ne ide na posao.</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">выходной (день)</span>
+              <div class="tr-sentence">У меня сегодня выходной — я никуда не иду.</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">day off / free day</span>
+              <div class="tr-sentence">I have a day off today — I'm not going anywhere.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <!-- 2 -->
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">silaziti (niz stepenice)</div>
+          <div class="vocab-sentence-sr">On silazi niz stepenice brzo.</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">спускаться (по лестнице)</span>
+              <div class="tr-sentence">Он быстро спускается по лестнице.</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">to go down (the stairs)</span>
+              <div class="tr-sentence">He goes down the stairs quickly.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <!-- 3 -->
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">udisati / udahnuti</div>
+          <div class="vocab-sentence-sr">Udišem svež vazduh kraj reke.</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">вдыхать / вдохнуть</span>
+              <div class="tr-sentence">Я вдыхаю свежий воздух у реки.</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">to breathe in, inhale</span>
+              <div class="tr-sentence">I breathe in the fresh air by the river.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <!-- 4 -->
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">obližnji / -a / -e</div>
+          <div class="vocab-sentence-sr">Postoji obližnja prodavnica, odmah iza ugla.</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">ближайший / соседний</span>
+              <div class="tr-sentence">Есть ближайший магазин прямо за углом.</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">nearby, neighbouring</span>
+              <div class="tr-sentence">There's a nearby shop just around the corner.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <!-- 5 -->
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">šalter</div>
+          <div class="vocab-sentence-sr">Priđem šalteru i naručim kafu.</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">прилавок / стойка / касса</span>
+              <div class="tr-sentence">Я подхожу к прилавку и заказываю кофе.</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">counter, till</span>
+              <div class="tr-sentence">I approach the counter and order a coffee.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <!-- 6 -->
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">kifla</div>
+          <div class="vocab-sentence-sr">Za doručak jedem kiflu sa sirom.</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">рогалик / круасан</span>
+              <div class="tr-sentence">На завтрак я ем рогалик с сыром.</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">croissant, bread roll</span>
+              <div class="tr-sentence">For breakfast I eat a bread roll with cheese.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <!-- 7 -->
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">narudžbina</div>
+          <div class="vocab-sentence-sr">Konobar donosi narudžbinu za pet minuta.</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">заказ</span>
+              <div class="tr-sentence">Официант принесёт заказ через пять минут.</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">order</span>
+              <div class="tr-sentence">The waiter will bring the order in five minutes.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <!-- 8 -->
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">prolaznici (mn.) / prolaznik</div>
+          <div class="vocab-sentence-sr">Gledam prolaznike kroz prozor kafića.</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">прохожие / прохожий</span>
+              <div class="tr-sentence">Я смотрю на прохожих через окно кафе.</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">passersby / passer-by</span>
+              <div class="tr-sentence">I watch the passersby through the café window.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <!-- 9 -->
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">fontana</div>
+          <div class="vocab-sentence-sr">U centru grada postoji velika fontana.</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">фонтан</span>
+              <div class="tr-sentence">В центре города есть большой фонтан.</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">fountain</span>
+              <div class="tr-sentence">There is a large fountain in the city centre.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <!-- 10 -->
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">zastati</div>
+          <div class="vocab-sentence-sr">Zastala sam pred izlogom i gledala haljine.</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">остановиться (на мгновение)</span>
+              <div class="tr-sentence">Я остановилась перед витриной и смотрела на платья.</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">to stop (for a moment), pause</span>
+              <div class="tr-sentence">I stopped in front of the shop window and looked at the dresses.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <!-- 11 -->
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">nailaziti na (nekoga)</div>
+          <div class="vocab-sentence-sr">Na putu sam naišla na staru prijateljicu.</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">наткнуться на (кого-то); встретить случайно</span>
+              <div class="tr-sentence">По дороге я случайно встретила старую подругу.</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">to come across, run into (someone)</span>
+              <div class="tr-sentence">On the way I ran into an old friend.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <!-- 12 -->
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">tvrđava</div>
+          <div class="vocab-sentence-sr">Kalemegdan je stara tvrđava u Beogradu.</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">крепость</span>
+              <div class="tr-sentence">Калемегдан — старая крепость в Белграде.</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">fortress, fort</span>
+              <div class="tr-sentence">Kalemegdan is an old fortress in Belgrade.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <!-- 13 -->
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">zahvaljivati / zahvaliti</div>
+          <div class="vocab-sentence-sr">Zahvalio sam mu što mi je pomogao.</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">благодарить / поблагодарить</span>
+              <div class="tr-sentence">Я поблагодарил его за то, что он помог мне.</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">to thank</span>
+              <div class="tr-sentence">I thanked him for helping me.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <!-- 14 -->
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">kapija</div>
+          <div class="vocab-sentence-sr">Ušli smo kroz veliku kapiju u dvorište.</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">ворота / калитка</span>
+              <div class="tr-sentence">Мы вошли через большие ворота во двор.</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">gate</span>
+              <div class="tr-sentence">We entered through the large gate into the courtyard.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <!-- 15 -->
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">penjati se</div>
+          <div class="vocab-sentence-sr">Penjemo se na brdo i vidimo more.</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">подниматься / взбираться</span>
+              <div class="tr-sentence">Мы поднимаемся на гору и видим море.</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">to climb, go up</span>
+              <div class="tr-sentence">We climb the hill and see the sea.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <!-- 16 -->
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">vraćati se / vratiti se</div>
+          <div class="vocab-sentence-sr">Vraćam se kući posle posla oko sedam.</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">возвращаться / вернуться</span>
+              <div class="tr-sentence">Я возвращаюсь домой после работы около семи.</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">to return, go back</span>
+              <div class="tr-sentence">I return home after work around seven.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <!-- 17 -->
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">zasvratiti (kod nekoga)</div>
+          <div class="vocab-sentence-sr">Zasvratila sam kod drugarice pre kući.</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">заглянуть / зайти (к кому-то)</span>
+              <div class="tr-sentence">Я заглянула к подруге по дороге домой.</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">to drop by, stop in (at someone's place)</span>
+              <div class="tr-sentence">I dropped by my friend's place on the way home.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <!-- 18 -->
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">pozajmiti / pozajmljivati</div>
+          <div class="vocab-sentence-sr">Pozajmio sam knjigu iz biblioteke na dve nedelje.</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">одолжить / брать / давать взаймы</span>
+              <div class="tr-sentence">Я взял книгу в библиотеке на две недели.</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">to borrow / to lend</span>
+              <div class="tr-sentence">I borrowed the book from the library for two weeks.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <!-- 19 -->
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">odličan / -čna / -čno</div>
+          <div class="vocab-sentence-sr">Film je bio odličan — preporučujem svima!</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">отличный / превосходный</span>
+              <div class="tr-sentence">Фильм был отличный — рекомендую всем!</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">excellent, great</span>
+              <div class="tr-sentence">The film was excellent — I recommend it to everyone!</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <!-- 20 -->
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">nuditi / ponuditi</div>
+          <div class="vocab-sentence-sr">Domaćin nam je ponudio kafu i kolač.</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">предлагать / предложить</span>
+              <div class="tr-sentence">Хозяин предложил нам кофе и пирожное.</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">to offer</span>
+              <div class="tr-sentence">The host offered us coffee and cake.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="lesson-footer">
+    Čas srpskog jezika · Glagoli kretanja · Nivo A2 · Jedan dan u Beogradu
+  </footer>
+
+</div>
+</body>
+</html>
