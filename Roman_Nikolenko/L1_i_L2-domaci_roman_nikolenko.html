@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Domaći zadatak — Roman Nikolenko</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+  :root {
+    --ink: #1a1208;
+    --paper: #f5f0e8;
+    --paper-dark: #ede6d4;
+    --accent: #8b2e00;
+    --accent2: #2c5f7a;
+    --accent3: #3a6b3a;
+    --gold: #b8860b;
+    --gold-light: #d4a017;
+    --muted: #5a4a35;
+    --border: #c8b89a;
+    --russian: #1a3a6b;
+    --english: #2d5a1b;
+    --highlight: #fff3cd;
+    --success: #2d5a1b;
+    --success-bg: #eaf4ea;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 16.5px;
+    line-height: 1.8;
+    min-height: 100vh;
+  }
+
+  .page {
+    max-width: 840px;
+    margin: 0 auto;
+    padding: 48px 40px;
+  }
+
+  /* HEADER */
+  .main-header {
+    text-align: center;
+    padding-bottom: 32px;
+    margin-bottom: 48px;
+    border-bottom: 3px double var(--border);
+  }
+
+  .header-tag {
+    font-size: 10.5px;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .main-header h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 8px;
+    color: var(--ink);
+  }
+
+  .header-sub {
+    color: var(--muted);
+    font-size: 1rem;
+    font-style: italic;
+    margin-bottom: 14px;
+  }
+
+  .student-badge {
+    display: inline-block;
+    background: var(--ink);
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    border-radius: 2px;
+    margin-right: 8px;
+  }
+
+  .level-badge {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    border-radius: 2px;
+  }
+
+  /* TABLE OF CONTENTS */
+  .toc {
+    background: var(--paper-dark);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 22px 28px;
+    margin-bottom: 48px;
+  }
+
+  .toc-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 0.82rem;
+    margin-bottom: 12px;
+  }
+
+  .toc ol {
+    padding-left: 20px;
+  }
+
+  .toc li {
+    margin-bottom: 6px;
+    font-size: 0.93rem;
+  }
+
+  .toc a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--accent);
+  }
+
+  .toc a:hover { color: var(--ink); }
+
+  /* PART DIVIDER */
+  .part-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 32px;
+    margin-top: 8px;
+  }
+
+  .part-number {
+    background: var(--accent);
+    color: white;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .part-number.blue { background: var(--accent2); }
+  .part-number.green { background: var(--accent3); }
+
+  .part-info h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--ink);
+  }
+
+  .part-info .part-sub {
+    font-size: 0.9rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  /* SECTION */
+  .section {
+    margin-bottom: 44px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--accent);
+    border-left: 4px solid var(--accent);
+    padding-left: 13px;
+    margin-bottom: 20px;
+    line-height: 1.3;
+  }
+
+  .section-title.blue {
+    color: var(--accent2);
+    border-left-color: var(--accent2);
+  }
+
+  .section-title.green {
+    color: var(--accent3);
+    border-left-color: var(--accent3);
+  }
+
+  /* GRAMMAR REMINDER */
+  .grammar-reminder {
+    background: var(--paper-dark);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 18px 24px;
+    margin-bottom: 24px;
+    font-size: 0.93rem;
+  }
+
+  .grammar-reminder p { margin-bottom: 8px; color: var(--muted); }
+  .grammar-reminder p:last-child { margin-bottom: 0; }
+  .grammar-reminder strong { color: var(--ink); }
+
+  /* NOTE */
+  .note {
+    background: #fef9ec;
+    border-left: 4px solid var(--gold);
+    padding: 12px 16px;
+    margin: 14px 0;
+    font-size: 0.91rem;
+    border-radius: 0 3px 3px 0;
+  }
+  .note strong { color: var(--gold); }
+
+  .note.blue {
+    background: #e8f4f8;
+    border-left-color: var(--accent2);
+  }
+  .note.blue strong { color: var(--accent2); }
+
+  .note.green {
+    background: #eaf4ea;
+    border-left-color: var(--accent3);
+  }
+  .note.green strong { color: var(--accent3); }
+
+  /* EXERCISE */
+  .exercise {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 24px 28px;
+    margin-bottom: 22px;
+  }
+
+  .ex-number {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  .ex-number.blue { color: var(--accent2); }
+  .ex-number.green { color: var(--accent3); }
+
+  .ex-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.08rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+
+  .ex-instruction {
+    font-size: 0.88rem;
+    color: var(--muted);
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    line-height: 1.55;
+  }
+
+  .ex-ru { color: var(--russian); font-size: 0.85rem; display: block; margin-top: 3px; }
+  .ex-en { color: var(--english); font-size: 0.85rem; display: block; margin-top: 3px; font-style: italic; }
+
+  ol.ex-list { padding-left: 20px; }
+  ol.ex-list li { margin-bottom: 13px; line-height: 1.7; }
+
+  .word-bank {
+    background: var(--highlight);
+    border: 1px dashed var(--gold);
+    border-radius: 3px;
+    padding: 10px 14px;
+    margin-bottom: 16px;
+    font-size: 0.91rem;
+    line-height: 1.9;
+  }
+  .word-bank strong { color: var(--accent); margin-right: 4px; }
+  .word-bank span { font-weight: 700; color: var(--ink); margin-right: 12px; }
+
+  /* INPUTS */
+  input[type="text"],
+  textarea {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 0.95rem;
+    color: var(--ink);
+    background: #fafaf7;
+    border: 1.5px solid var(--border);
+    border-radius: 3px;
+    padding: 7px 11px;
+    transition: border-color 0.2s, background 0.2s;
+    width: 100%;
+  }
+
+  input[type="text"]:focus,
+  textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: white;
+  }
+
+  input[type="text"].inline-input {
+    width: auto;
+    min-width: 120px;
+    display: inline-block;
+    margin: 0 4px;
+    padding: 4px 9px;
+    vertical-align: baseline;
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 80px;
+    width: 100%;
+    margin-top: 6px;
+  }
+
+  /* RADIO / SELECT */
+  .radio-group {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    margin-top: 6px;
+  }
+
+  .radio-group label {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--ink);
+    padding: 6px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 3px;
+    background: #fafaf7;
+    transition: background 0.15s, border-color 0.15s;
+  }
+
+  .radio-group label:hover {
+    background: var(--paper-dark);
+    border-color: var(--accent);
+  }
+
+  .radio-group input[type="radio"] {
+    accent-color: var(--accent);
+  }
+
+  .radio-group input[type="radio"]:checked + span {
+    color: var(--accent);
+  }
+
+  select {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 0.93rem;
+    color: var(--ink);
+    background: #fafaf7;
+    border: 1.5px solid var(--border);
+    border-radius: 3px;
+    padding: 6px 10px;
+    cursor: pointer;
+    margin: 0 4px;
+  }
+
+  select:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  /* MATCH EXERCISE */
+  .match-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 8px;
+  }
+
+  .match-col-title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .match-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+
+  .match-label {
+    font-weight: 700;
+    color: var(--accent);
+    width: 24px;
+    flex-shrink: 0;
+  }
+
+  .match-item select {
+    margin: 0;
+    flex: 1;
+  }
+
+  /* SENTENCE ROWS */
+  .sentence-row {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+
+  .sentence-num {
+    font-weight: 700;
+    color: var(--muted);
+    font-size: 0.88rem;
+    width: 20px;
+    flex-shrink: 0;
+  }
+
+  /* DIVIDER */
+  .part-divider {
+    border: none;
+    border-top: 2px solid var(--border);
+    margin: 52px 0;
+  }
+
+  /* SEND SECTION */
+  .send-section {
+    background: white;
+    border: 2px solid var(--accent);
+    border-radius: 6px;
+    padding: 32px 36px;
+    margin-top: 52px;
+    text-align: center;
+  }
+
+  .send-section h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+    color: var(--ink);
+  }
+
+  .send-section p {
+    color: var(--muted);
+    font-size: 0.93rem;
+    margin-bottom: 6px;
+  }
+
+  .send-section p.ru { color: var(--russian); }
+  .send-section p.en { color: var(--english); font-style: italic; }
+
+  .btn-send {
+    display: inline-block;
+    margin-top: 22px;
+    background: var(--accent);
+    color: white;
+    font-family: 'Source Serif 4', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 13px 38px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+  }
+
+  .btn-send:hover {
+    background: #6b2200;
+    transform: translateY(-1px);
+  }
+
+  .btn-send:active {
+    transform: translateY(0);
+  }
+
+  .btn-send:disabled {
+    background: var(--muted);
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* SUCCESS */
+  .success-box {
+    display: none;
+    background: var(--success-bg);
+    border: 2px solid #9acb9a;
+    border-radius: 6px;
+    padding: 28px 32px;
+    margin-top: 52px;
+    text-align: center;
+  }
+
+  .success-box.show { display: block; }
+
+  .success-icon {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+  }
+
+  .success-box h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--success);
+    margin-bottom: 10px;
+  }
+
+  .success-box p {
+    font-size: 0.95rem;
+    color: var(--muted);
+    margin-bottom: 5px;
+  }
+
+  .success-box p.ru { color: var(--russian); }
+  .success-box p.en { color: var(--english); font-style: italic; }
+
+  /* ERROR */
+  .error-msg {
+    display: none;
+    color: #c00;
+    font-size: 0.88rem;
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: #fff0f0;
+    border: 1px solid #f5c0c0;
+    border-radius: 3px;
+  }
+
+  .error-msg.show { display: block; }
+
+  /* TABLE */
+  table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+  th {
+    background: var(--accent);
+    color: white;
+    padding: 9px 13px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.86rem;
+  }
+  td {
+    padding: 9px 13px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  tr:nth-child(even) td { background: rgba(200,184,154,0.15); }
+  .srp { font-weight: 600; }
+  .rus { color: var(--russian); }
+  .eng { color: var(--english); font-style: italic; }
+
+  /* FOOTER */
+  .lesson-footer {
+    margin-top: 60px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  @media (max-width: 600px) {
+    .page { padding: 22px 16px; }
+    .main-header h1 { font-size: 1.8rem; }
+    .match-grid { grid-template-columns: 1fr; }
+    input[type="text"].inline-input { min-width: 90px; }
+    .send-section { padding: 22px 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="main-header">
+    <div class="header-tag">Srpski jezik · Domaći zadatak</div>
+    <h1>Domaći zadatak</h1>
+    <div class="header-sub">Lekcije 1 i 2 + Provera znanja i novih reči</div>
+    <div>
+      <span class="student-badge">Roman Nikolenko</span>
+      <span class="level-badge">A2</span>
+    </div>
+  </header>
+
+  <!-- TABLE OF CONTENTS -->
+  <nav class="toc">
+    <div class="toc-title">Sadržaj · Содержание · Contents</div>
+    <ol>
+      <li><a href="#deo1">Deo I — Glagoli kretanja (Jedan dan u Beogradu)</a></li>
+      <li><a href="#deo2">Deo II — Priloške odredbe mesta i pravca (Čudna adresa)</a></li>
+      <li><a href="#deo3">Deo III — Provera znanja i novih reči</a></li>
+    </ol>
+  </nav>
+
+  <!-- ===================== DEO I ===================== -->
+  <div id="deo1">
+    <div class="part-header">
+      <div class="part-number">I</div>
+      <div class="part-info">
+        <h2>Glagoli kretanja</h2>
+        <div class="part-sub">Jedan dan u Beogradu · A2</div>
+      </div>
+    </div>
+
+    <!-- PODSETNIK -->
+    <div class="grammar-reminder">
+      <p><strong>Podsetnik:</strong> Glagol <em>ići</em> dobija prefikse koji menjaju pravac ili smisao kretanja: <em>do-ći, ot-ići, iz-aći, u-ći, pro-ći, pri-ći, na-ći...</em></p>
+      <p><span style="color:var(--russian);">Глагол <em>ићи</em> получает приставки, меняющие направление или смысл движения.</span></p>
+      <p><span style="color:var(--english); font-style:italic;">The verb <em>ići</em> takes prefixes that change the direction or meaning of movement.</span></p>
+    </div>
+
+    <!-- VEŽBA I-1 -->
+    <div class="section">
+      <h3 class="section-title">Vežba I-1 — Popuni praznine</h3>
+      <div class="exercise">
+        <div class="ex-number">Vežba I · 1</div>
+        <div class="ex-title">Stavi glagol u pravi oblik prezenta</div>
+        <div class="ex-instruction">
+          Upiši tačan oblik glagola u zagradi (prezent).
+          <span class="ex-ru">Вставь правильную форму глагола в скобках (настоящее время).</span>
+          <span class="ex-en">Write the correct present tense form of the verb in brackets.</span>
+        </div>
+        <div class="word-bank">
+          <strong>Glagoli:</strong>
+          <span>doći</span><span>otići</span><span>ući</span><span>izaći</span><span>proći</span><span>prići</span><span>naći</span>
+        </div>
+        <ol class="ex-list">
+          <li>
+            Svako jutro <input type="text" class="inline-input" data-key="I1_1" placeholder="izaći"> iz kuće u sedam sati.
+            <br><small style="color:var(--muted);">(izaći — ja)</small>
+          </li>
+          <li>
+            Kada oni <input type="text" class="inline-input" data-key="I1_2" placeholder="ući"> u restoran, svi ih gledaju.
+            <br><small style="color:var(--muted);">(ući — oni)</small>
+          </li>
+          <li>
+            Ne mogu da <input type="text" class="inline-input" data-key="I1_3" placeholder="naći"> ključeve!
+            <br><small style="color:var(--muted);">(naći — ja)</small>
+          </li>
+          <li>
+            Mi <input type="text" class="inline-input" data-key="I1_4" placeholder="proći"> pored biblioteke svaki dan.
+            <br><small style="color:var(--muted);">(proći — mi)</small>
+          </li>
+          <li>
+            Stefan <input type="text" class="inline-input" data-key="I1_5" placeholder="prići"> prozoru i otvara ga.
+            <br><small style="color:var(--muted);">(prići — on)</small>
+          </li>
+          <li>
+            Kada <input type="text" class="inline-input" data-key="I1_6" placeholder="doći"> tvoja sestra?
+            <br><small style="color:var(--muted);">(doći — ona, upitna forma)</small>
+          </li>
+          <li>
+            Zašto već <input type="text" class="inline-input" data-key="I1_7" placeholder="otići">? Ostani još malo!
+            <br><small style="color:var(--muted);">(otići — ti)</small>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- VEŽBA I-2 -->
+    <div class="section">
+      <h3 class="section-title">Vežba I-2 — Tačno ili netačno?</h3>
+      <div class="exercise">
+        <div class="ex-number">Vežba I · 2</div>
+        <div class="ex-title">Tačno (T) ili netačno (N) — prema tekstu „Jedan dan u Beogradu"</div>
+        <div class="ex-instruction">
+          Odaberi T (tačno) ili N (netačno).
+          <span class="ex-ru">Выбери T (верно) или N (неверно) по тексту.</span>
+          <span class="ex-en">Choose T (true) or N (false) based on the text.</span>
+        </div>
+        <ol class="ex-list">
+          <li>
+            Stefan izlazi iz stana u deset sati.
+            <div class="radio-group">
+              <label><input type="radio" name="I2_1" value="T"> <span>T — Tačno</span></label>
+              <label><input type="radio" name="I2_1" value="N"> <span>N — Netačno</span></label>
+            </div>
+          </li>
+          <li>
+            U pekari, Stefan seda kraj prozora.
+            <div class="radio-group">
+              <label><input type="radio" name="I2_2" value="T"> <span>T — Tačno</span></label>
+              <label><input type="radio" name="I2_2" value="N"> <span>N — Netačno</span></label>
+            </div>
+          </li>
+          <li>
+            Na putu do Kalemegdana, Stefan prolazi pored fontane.
+            <div class="radio-group">
+              <label><input type="radio" name="I2_3" value="T"> <span>T — Tačno</span></label>
+              <label><input type="radio" name="I2_3" value="N"> <span>N — Netačno</span></label>
+            </div>
+          </li>
+          <li>
+            Turisti traže put do muzeja.
+            <div class="radio-group">
+              <label><input type="radio" name="I2_4" value="T"> <span>T — Tačno</span></label>
+              <label><input type="radio" name="I2_4" value="N"> <span>N — Netačno</span></label>
+            </div>
+          </li>
+          <li>
+            Uveče, Stefan posećuje komšiju Nikolu.
+            <div class="radio-group">
+              <label><input type="radio" name="I2_5" value="T"> <span>T — Tačno</span></label>
+              <label><input type="radio" name="I2_5" value="N"> <span>N — Netačno</span></label>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- VEŽBA I-3 -->
+    <div class="section">
+      <h3 class="section-title">Vežba I-3 — Odaberi tačan glagol</h3>
+      <div class="exercise">
+        <div class="ex-number">Vežba I · 3</div>
+        <div class="ex-title">Koji glagol je tačan?</div>
+        <div class="ex-instruction">
+          Odaberi tačan glagol iz padajućeg menija.
+          <span class="ex-ru">Выбери правильный глагол из выпадающего меню.</span>
+          <span class="ex-en">Choose the correct verb from the dropdown menu.</span>
+        </div>
+        <ol class="ex-list">
+          <li>
+            Ana
+            <select data-key="I3_1">
+              <option value="">— odaberi —</option>
+              <option value="ulazi">ulazi</option>
+              <option value="izlazi">izlazi</option>
+            </select>
+            iz prodavnice sa torbama punim namirnica.
+          </li>
+          <li>
+            Molim te,
+            <select data-key="I3_2">
+              <option value="">— odaberi —</option>
+              <option value="dođi">dođi</option>
+              <option value="odi">odi</option>
+            </select>
+            ovde — hoću da ti nešto pokažem!
+          </li>
+          <li>
+            Autobus
+            <select data-key="I3_3">
+              <option value="">— odaberi —</option>
+              <option value="prolazi">prolazi</option>
+              <option value="priđe">priđe</option>
+            </select>
+            pored naše škole.
+          </li>
+          <li>
+            Ne mogu da
+            <select data-key="I3_4">
+              <option value="">— odaberi —</option>
+              <option value="nađem">nađem</option>
+              <option value="dođem">dođem</option>
+            </select>
+            adresu na mapi.
+          </li>
+          <li>
+            Kad
+            <select data-key="I3_5">
+              <option value="">— odaberi —</option>
+              <option value="uđem">uđem</option>
+              <option value="izađem">izađem</option>
+            </select>
+            u sobu, upalim svetlo.
+          </li>
+          <li>
+            Ona
+            <select data-key="I3_6">
+              <option value="">— odaberi —</option>
+              <option value="priđe">priđe</option>
+              <option value="prođe">prođe</option>
+            </select>
+            stolu i uzme čašu.
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- VEŽBA I-4 -->
+    <div class="section">
+      <h3 class="section-title">Vežba I-4 — Napiši sopstvene rečenice</h3>
+      <div class="exercise">
+        <div class="ex-number">Vežba I · 4</div>
+        <div class="ex-title">Slobodna produkcija — o sebi</div>
+        <div class="ex-instruction">
+          Dovrši rečenice o svom životu. Koristi glagole iz lekcije!
+          <span class="ex-ru">Допиши предложения о своей жизни, используя глаголы из урока.</span>
+          <span class="ex-en">Complete the sentences about your own life. Use verbs from the lesson!</span>
+        </div>
+        <ol class="ex-list">
+          <li>
+            Svaki dan izlazim iz kuće u _____ sati i idem do...
+            <textarea data-key="I4_1" placeholder="Napiši svoju rečenicu ovde..."></textarea>
+          </li>
+          <li>
+            Na putu do _____, prolazim pored...
+            <textarea data-key="I4_2" placeholder="Napiši svoju rečenicu ovde..."></textarea>
+          </li>
+          <li>
+            Kad uđem u _____, uvek...
+            <textarea data-key="I4_3" placeholder="Napiši svoju rečenicu ovde..."></textarea>
+          </li>
+          <li>
+            Ponekad svratim do _____ da...
+            <textarea data-key="I4_4" placeholder="Napiši svoju rečenicu ovde..."></textarea>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <hr class="part-divider">
+
+  <!-- ===================== DEO II ===================== -->
+  <div id="deo2">
+    <div class="part-header">
+      <div class="part-number blue">II</div>
+      <div class="part-info">
+        <h2>Priloške odredbe mesta i pravca</h2>
+        <div class="part-sub">Čudna adresa · A2</div>
+      </div>
+    </div>
+
+    <div class="grammar-reminder">
+      <p><strong>Podsetnik:</strong> Priloške odredbe za mesto odgovaraju na pitanja <em>gde?</em> (ispred, iza, pored, između, nasuprot...) i <em>kuda?</em> (prema, kroz, pravo, levo, desno...).</p>
+      <p><span style="color:var(--russian);">Наречия места отвечают на вопросы <em>где?</em> и <em>куда?</em></span></p>
+      <p><span style="color:var(--english); font-style:italic;">Adverbs of place answer the questions <em>where?</em> and <em>which way?</em></span></p>
+    </div>
+
+    <!-- VEŽBA II-1 -->
+    <div class="section">
+      <h3 class="section-title blue">Vežba II-1 — Pitanja i odgovori</h3>
+      <div class="exercise">
+        <div class="ex-number blue">Vežba II · 1</div>
+        <div class="ex-title">Odgovori kratkim rečenicama prema tekstu „Čudna adresa"</div>
+        <div class="ex-instruction">
+          Napiši kratke odgovore na srpskom.
+          <span class="ex-ru">Напиши краткие ответы на сербском языке.</span>
+          <span class="ex-en">Write short answers in Serbian.</span>
+        </div>
+        <ol class="ex-list">
+          <li>
+            Gde Ana treba da izađe iz busa?
+            <textarea data-key="II1_1" placeholder="Treba da izađe..."></textarea>
+          </li>
+          <li>
+            Šta se nalazi između cvećare i knjižare?
+            <textarea data-key="II1_2" placeholder="Između cvećare i knjižare..."></textarea>
+          </li>
+          <li>
+            Sa koje strane je kapija — leve ili desne?
+            <textarea data-key="II1_3" placeholder="Kapija je..."></textarea>
+          </li>
+          <li>
+            Gde je lift u zgradi?
+            <textarea data-key="II1_4" placeholder="Lift je..."></textarea>
+          </li>
+          <li>
+            Zašto Maja ne živi blizu centra?
+            <textarea data-key="II1_5" placeholder="Jer..."></textarea>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- VEŽBA II-2 -->
+    <div class="section">
+      <h3 class="section-title blue">Vežba II-2 — Popuni praznine</h3>
+      <div class="exercise">
+        <div class="ex-number blue">Vežba II · 2</div>
+        <div class="ex-title">Izaberi odgovarajuću prilosku odredbu</div>
+        <div class="ex-instruction">
+          Upiši reč iz banke reči u odgovarajuće polje.
+          <span class="ex-ru">Вставь слово из банка слов в нужное место.</span>
+          <span class="ex-en">Insert the word from the word bank into the correct blank.</span>
+        </div>
+        <div class="word-bank">
+          <strong>Reči:</strong>
+          <span>ispred</span><span>iza</span><span>pored</span><span>između</span><span>nasuprot</span><span>prema</span><span>kroz</span><span>pravo</span>
+        </div>
+        <ol class="ex-list">
+          <li>
+            Banka je <input type="text" class="inline-input" data-key="II2_1" placeholder="..."> hotela — vidiš je s druge strane ulice.
+          </li>
+          <li>
+            Čekaj me <input type="text" class="inline-input" data-key="II2_2" placeholder="..."> bioskopa, na ulazu.
+          </li>
+          <li>
+            Idemo <input type="text" class="inline-input" data-key="II2_3" placeholder="..."> do kraja ulice, pa skrenemo levo.
+          </li>
+          <li>
+            Kafić je <input type="text" class="inline-input" data-key="II2_4" placeholder="..."> pošte i apoteke.
+          </li>
+          <li>
+            Auto je parkiran <input type="text" class="inline-input" data-key="II2_5" placeholder="..."> zgrade.
+          </li>
+          <li>
+            Prođi <input type="text" class="inline-input" data-key="II2_6" placeholder="..."> park — tako je kraće.
+          </li>
+          <li>
+            Sedi <input type="text" class="inline-input" data-key="II2_7" placeholder="..."> mene, ovde ima mesta.
+          </li>
+          <li>
+            Idemo <input type="text" class="inline-input" data-key="II2_8" placeholder="..."> stanici — bus polazi za deset minuta.
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- VEŽBA II-3 -->
+    <div class="section">
+      <h3 class="section-title blue">Vežba II-3 — Tačno ili netačno?</h3>
+      <div class="exercise">
+        <div class="ex-number blue">Vežba II · 3</div>
+        <div class="ex-title">T ili N — prema tekstu „Čudna adresa"</div>
+        <div class="ex-instruction">
+          Odaberi T (tačno) ili N (netačno).
+          <span class="ex-ru">Выбери T (верно) или N (неверно).</span>
+          <span class="ex-en">Choose T (true) or N (false).</span>
+        </div>
+        <ol class="ex-list">
+          <li>
+            Apoteka je iza autobuske stanice.
+            <div class="radio-group">
+              <label><input type="radio" name="II3_1" value="T"> <span>T — Tačno</span></label>
+              <label><input type="radio" name="II3_1" value="N"> <span>N — Netačno</span></label>
+            </div>
+          </li>
+          <li>
+            Majina zgrada je između cvećare i knjižare.
+            <div class="radio-group">
+              <label><input type="radio" name="II3_2" value="T"> <span>T — Tačno</span></label>
+              <label><input type="radio" name="II3_2" value="N"> <span>N — Netačno</span></label>
+            </div>
+          </li>
+          <li>
+            Lift je uvek ispravan.
+            <div class="radio-group">
+              <label><input type="radio" name="II3_3" value="T"> <span>T — Tačno</span></label>
+              <label><input type="radio" name="II3_3" value="N"> <span>N — Netačno</span></label>
+            </div>
+          </li>
+          <li>
+            Ana treba da skrene levo pored apoteke.
+            <div class="radio-group">
+              <label><input type="radio" name="II3_4" value="T"> <span>T — Tačno</span></label>
+              <label><input type="radio" name="II3_4" value="N"> <span>N — Netačno</span></label>
+            </div>
+          </li>
+          <li>
+            Maja živi na trećem spratu.
+            <div class="radio-group">
+              <label><input type="radio" name="II3_5" value="T"> <span>T — Tačno</span></label>
+              <label><input type="radio" name="II3_5" value="N"> <span>N — Netačno</span></label>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- VEŽBA II-4 -->
+    <div class="section">
+      <h3 class="section-title blue">Vežba II-4 — Tvoja adresa</h3>
+      <div class="exercise">
+        <div class="ex-number blue">Vežba II · 4</div>
+        <div class="ex-title">Opiši gde živiš — slobodna produkcija</div>
+        <div class="ex-instruction">
+          Napiši 4–6 rečenica o tome gde živiš, koristeći reči iz lekcije (ispred, iza, pored, između, nasuprot, blizu, prema, kroz, pravo, levo, desno...).
+          <span class="ex-ru">Напиши 4–6 предложений о том, где ты живёшь, используя слова из урока.</span>
+          <span class="ex-en">Write 4–6 sentences about where you live, using words from the lesson.</span>
+        </div>
+        <textarea data-key="II4_1" style="min-height: 120px;" placeholder="Živim u... Blizu moje kuće je... Pored... se nalazi... Da dođeš kod mene, treba da ideš..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <hr class="part-divider">
+
+  <!-- ===================== DEO III ===================== -->
+  <div id="deo3">
+    <div class="part-header">
+      <div class="part-number green">III</div>
+      <div class="part-info">
+        <h2>Provera znanja i novih reči</h2>
+        <div class="part-sub">Novi vokabular i gramatika · A2</div>
+      </div>
+    </div>
+
+    <!-- PODSETNIK: NOVA REČ I GRAMATIKA -->
+    <div class="grammar-reminder">
+      <p><strong>Nove reči i pravila u ovom delu:</strong> raskršće / do raskršnice · ulaz/izlaz · ukrcavati se/iskrcavati se · radim od kuće · nailaziti na = sresti slučajno · svratiti · nuditi = predložiti · ć→đ (prića→priđem) · vid glagola: priđe (svršeno) vs. prilazi (nesvršeno) · futur I · naći/pronaći.</p>
+      <p><span style="color:var(--russian);">Новые слова и правила: перекрёсток · вход/выход · садиться/выходить из транспорта · я работаю из дома · встретить случайно · заглянуть к · предлагать · ć→đ · вид глагола · будущее время · найти.</span></p>
+      <p><span style="color:var(--english); font-style:italic;">New vocabulary and grammar: crossroads · entrance/exit · to board/get off · I work from home · to run into · to drop by · to offer/suggest · ć→đ mutation · verb aspect · future tense · to find.</span></p>
+    </div>
+
+    <!-- VEŽBA III-1: NOVA REČ + PREVOD -->
+    <div class="section">
+      <h3 class="section-title green">Vežba III-1 — Poveži reč s prevodom</h3>
+      <div class="exercise">
+        <div class="ex-number green">Vežba III · 1</div>
+        <div class="ex-title">Poveži srpsku reč s ruskim i engleskim prevodom</div>
+        <div class="ex-instruction">
+          Za svaku srpsku reč odaberi tačan prevod iz padajućeg menija.
+          <span class="ex-ru">Для каждого сербского слова выбери правильный перевод из выпадающего меню.</span>
+          <span class="ex-en">For each Serbian word, choose the correct translation from the dropdown.</span>
+        </div>
+
+        <div style="overflow-x:auto; margin-top:8px;">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:180px;">Srpski</th>
+                <th>Prevod na RUSKI</th>
+                <th>Prevod na ENGLESKI</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="srp">raskršće</td>
+                <td>
+                  <select data-key="III1_1ru">
+                    <option value="">— odaberi —</option>
+                    <option value="перекрёсток">перекрёсток</option>
+                    <option value="остановка">остановка</option>
+                    <option value="площадь">площадь</option>
+                  </select>
+                </td>
+                <td>
+                  <select data-key="III1_1en">
+                    <option value="">— odaberi —</option>
+                    <option value="crossroads">crossroads</option>
+                    <option value="bus stop">bus stop</option>
+                    <option value="square">square</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="srp">ulaz</td>
+                <td>
+                  <select data-key="III1_2ru">
+                    <option value="">— odaberi —</option>
+                    <option value="вход">вход</option>
+                    <option value="выход">выход</option>
+                    <option value="переход">переход</option>
+                  </select>
+                </td>
+                <td>
+                  <select data-key="III1_2en">
+                    <option value="">— odaberi —</option>
+                    <option value="entrance">entrance</option>
+                    <option value="exit">exit</option>
+                    <option value="crossing">crossing</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="srp">izlaz</td>
+                <td>
+                  <select data-key="III1_3ru">
+                    <option value="">— odaberi —</option>
+                    <option value="выход">выход</option>
+                    <option value="вход">вход</option>
+                    <option value="переход">переход</option>
+                  </select>
+                </td>
+                <td>
+                  <select data-key="III1_3en">
+                    <option value="">— odaberi —</option>
+                    <option value="exit">exit</option>
+                    <option value="entrance">entrance</option>
+                    <option value="crossing">crossing</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="srp">ukrcavati se</td>
+                <td>
+                  <select data-key="III1_4ru">
+                    <option value="">— odaberi —</option>
+                    <option value="садиться (в транспорт)">садиться (в транспорт)</option>
+                    <option value="выходить (из транспорта)">выходить (из транспорта)</option>
+                    <option value="ехать">ехать</option>
+                  </select>
+                </td>
+                <td>
+                  <select data-key="III1_4en">
+                    <option value="">— odaberi —</option>
+                    <option value="to board (transport)">to board (transport)</option>
+                    <option value="to get off (transport)">to get off (transport)</option>
+                    <option value="to travel">to travel</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="srp">iskrcavati se</td>
+                <td>
+                  <select data-key="III1_5ru">
+                    <option value="">— odaberi —</option>
+                    <option value="выходить (из транспорта)">выходить (из транспорта)</option>
+                    <option value="садиться (в транспорт)">садиться (в транспорт)</option>
+                    <option value="ехать">ехать</option>
+                  </select>
+                </td>
+                <td>
+                  <select data-key="III1_5en">
+                    <option value="">— odaberi —</option>
+                    <option value="to get off (transport)">to get off (transport)</option>
+                    <option value="to board (transport)">to board (transport)</option>
+                    <option value="to travel">to travel</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="srp">nailaziti na</td>
+                <td>
+                  <select data-key="III1_6ru">
+                    <option value="">— odaberi —</option>
+                    <option value="встретить случайно">встретить случайно</option>
+                    <option value="прийти к">прийти к</option>
+                    <option value="искать">искать</option>
+                  </select>
+                </td>
+                <td>
+                  <select data-key="III1_6en">
+                    <option value="">— odaberi —</option>
+                    <option value="to run into, come across">to run into, come across</option>
+                    <option value="to arrive at">to arrive at</option>
+                    <option value="to look for">to look for</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="srp">svratiti (kod nekoga)</td>
+                <td>
+                  <select data-key="III1_7ru">
+                    <option value="">— odaberi —</option>
+                    <option value="заглянуть / зайти (к кому-то)">заглянуть / зайти (к кому-то)</option>
+                    <option value="вернуться домой">вернуться домой</option>
+                    <option value="уйти">уйти</option>
+                  </select>
+                </td>
+                <td>
+                  <select data-key="III1_7en">
+                    <option value="">— odaberi —</option>
+                    <option value="to drop by (someone's place)">to drop by (someone's place)</option>
+                    <option value="to return home">to return home</option>
+                    <option value="to leave">to leave</option>
+                  </select>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- VEŽBA III-2: Ć → Đ -->
+    <div class="section">
+      <h3 class="section-title green">Vežba III-2 — Promena ć → đ</h3>
+      <div class="exercise">
+        <div class="ex-number green">Vežba III · 2</div>
+        <div class="ex-title">Konjugacija: ć → đ u prezentu</div>
+        <div class="ex-instruction">
+          Ovi glagoli menjaju osnovu u prezente: doći → dođem, prići → priđem, naći → nađem, izaći → izađem, ući → uđem, proći → prođem. Upiši tačan oblik u prezent.
+          <span class="ex-ru">Эти глаголы меняют основу в настоящем времени: doći→dođem и т.д. Вставь правильную форму.</span>
+          <span class="ex-en">These verbs change their stem in the present tense. Write the correct present tense form.</span>
+        </div>
+        <ol class="ex-list">
+          <li>
+            doći — <em>ja</em>: &nbsp;<input type="text" class="inline-input" data-key="III2_1" placeholder="dođ...">
+            &nbsp;&nbsp; <em>mi</em>: &nbsp;<input type="text" class="inline-input" data-key="III2_2" placeholder="dođ...">
+          </li>
+          <li>
+            prići — <em>ti</em>: &nbsp;<input type="text" class="inline-input" data-key="III2_3" placeholder="priđ...">
+            &nbsp;&nbsp; <em>oni</em>: &nbsp;<input type="text" class="inline-input" data-key="III2_4" placeholder="priđ...">
+          </li>
+          <li>
+            naći — <em>on/ona</em>: &nbsp;<input type="text" class="inline-input" data-key="III2_5" placeholder="nađ...">
+            &nbsp;&nbsp; <em>vi</em>: &nbsp;<input type="text" class="inline-input" data-key="III2_6" placeholder="nađ...">
+          </li>
+          <li>
+            izaći — <em>ja</em>: &nbsp;<input type="text" class="inline-input" data-key="III2_7" placeholder="izađ...">
+            &nbsp;&nbsp; <em>ti</em>: &nbsp;<input type="text" class="inline-input" data-key="III2_8" placeholder="izađ...">
+          </li>
+          <li>
+            ući — <em>mi</em>: &nbsp;<input type="text" class="inline-input" data-key="III2_9" placeholder="uđ...">
+            &nbsp;&nbsp; <em>oni</em>: &nbsp;<input type="text" class="inline-input" data-key="III2_10" placeholder="uđ...">
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- VEŽBA III-3: VID GLAGOLA -->
+    <div class="section">
+      <h3 class="section-title green">Vežba III-3 — Vid glagola: svršeni vs. nesvršeni</h3>
+      <div class="exercise">
+        <div class="ex-number green">Vežba III · 3</div>
+        <div class="ex-title">Priđe (završena radnja) ili Prilazi (radnja u toku)?</div>
+        <div class="ex-instruction">
+          Odaberi tačan glagol. Zapamti: svršeni glagoli (doći, prići, naći...) označavaju završenu radnju. Nesvršeni (dolaziti, prilaziti, nalaziti...) označavaju radnju u toku ili naviku.
+          <span class="ex-ru">Выбери правильный глагол. Совершенный вид = завершённое действие. Несовершенный = действие в процессе или привычка.</span>
+          <span class="ex-en">Choose the correct verb. Perfective = completed action. Imperfective = ongoing action or habit.</span>
+        </div>
+        <div class="note green">
+          <strong>Podsetnik · Напоминание · Reminder:</strong><br>
+          <strong>priđe</strong> prozoru (i otvori ga) = подошёл к окну (и открыл его) — <em>finished, one action</em><br>
+          <strong>prilazi</strong> prozoru (svaki dan) = подходит к окну (каждый день) — <em>habit, ongoing</em>
+        </div>
+        <ol class="ex-list">
+          <li>
+            Svako jutro ona
+            <select data-key="III3_1">
+              <option value="">— odaberi —</option>
+              <option value="dolazi">dolazi (nesvršeni)</option>
+              <option value="dođe">dođe (svršeni)</option>
+            </select>
+            na posao autobusom. <small style="color:var(--muted);">(navika)</small>
+          </li>
+          <li>
+            Kad je video prijatelja,
+            <select data-key="III3_2">
+              <option value="">— odaberi —</option>
+              <option value="priđe">priđe (svršeni)</option>
+              <option value="prilazi">prilazi (nesvršeni)</option>
+            </select>
+            mu i pozdravi se. <small style="color:var(--muted);">(jednokratna radnja)</small>
+          </li>
+          <li>
+            Turisti svaki dan
+            <select data-key="III3_3">
+              <option value="">— odaberi —</option>
+              <option value="prolaze">prolaze (nesvršeni)</option>
+              <option value="prođu">prođu (svršeni)</option>
+            </select>
+            pored tvrđave. <small style="color:var(--muted);">(navika)</small>
+          </li>
+          <li>
+            Konačno sam
+            <select data-key="III3_4">
+              <option value="">— odaberi —</option>
+              <option value="pronašao/pronašla">pronašao/pronašla (svršeni)</option>
+              <option value="nalazim">nalazim (nesvršeni)</option>
+            </select>
+            ključeve! <small style="color:var(--muted);">(završena radnja)</small>
+          </li>
+          <li>
+            On uvek
+            <select data-key="III3_5">
+              <option value="">— odaberi —</option>
+              <option value="nudi">nudi (nesvršeni)</option>
+              <option value="ponudi">ponudi (svršeni)</option>
+            </select>
+            kafu gostima. <small style="color:var(--muted);">(navika)</small>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- VEŽBA III-4: FUTUR I -->
+    <div class="section">
+      <h3 class="section-title green">Vežba III-4 — Futur I</h3>
+      <div class="exercise">
+        <div class="ex-number green">Vežba III · 4</div>
+        <div class="ex-title">Futur I — ću + infinitiv</div>
+        <div class="ex-instruction">
+          Futur I se gradi sa: <strong>ja ću + infinitiv (-ti)</strong>. Svršeni glagoli izražavaju jednokratnu buduću radnju, nesvršeni — radnju koja će biti u toku. Upiši tačan futurski oblik.
+          <span class="ex-ru">Будущее время: <strong>ću + инфинитив (-ti)</strong>. Совершенный — однократное будущее действие, несовершенный — действие в процессе.</span>
+          <span class="ex-en">Future tense: <strong>ću + infinitive (-ti)</strong>. Perfective = single future event; imperfective = action in progress.</span>
+        </div>
+        <div class="note green">
+          <strong>Primer · Пример · Example:</strong><br>
+          <em>Ja ću <strong>doći</strong> u Beograd petog avgusta.</em> (svršeni — jednokratno)<br>
+          <em>Tog jutra ću <strong>prolaziti</strong> pored tvoje kuće.</em> (nesvršeni — u toku)<br>
+          <span style="color:var(--russian); font-size:0.88rem;">Я приеду в Белград пятого августа. / В то утро я буду проходить мимо твоего дома.</span><br>
+          <span style="color:var(--english); font-size:0.88rem; font-style:italic;">I will come to Belgrade on the fifth of August. / That morning I will be passing by your house.</span>
+        </div>
+        <ol class="ex-list">
+          <li>
+            Sutra ću <input type="text" class="inline-input" data-key="III4_1" placeholder="doći / dolaziti..."> (doći) kod tebe u pet sati.
+            <br><small style="color:var(--muted);">jednokratna buduća radnja / однократное действие</small>
+          </li>
+          <li>
+            Celo jutro ću <input type="text" class="inline-input" data-key="III4_2" placeholder="prolaziti..."> (prolaziti) kroz centar.
+            <br><small style="color:var(--muted);">radnja u toku / действие в процессе</small>
+          </li>
+          <li>
+            Hoću da <input type="text" class="inline-input" data-key="III4_3" placeholder="naći / pronaći..."> (pronaći) tu adresu.
+            <br><small style="color:var(--muted);">jednokratna radnja / однократное действие</small>
+          </li>
+          <li>
+            Ona će <input type="text" class="inline-input" data-key="III4_4" placeholder="svratiti..."> (svratiti) kod nas pre puta.
+            <br><small style="color:var(--muted);">jednokratna buduća radnja / однократное действие</small>
+          </li>
+          <li>
+            Dok budemo čekali, ja ću <input type="text" class="inline-input" data-key="III4_5" placeholder="šetati..."> (šetati) po parku.
+            <br><small style="color:var(--muted);">radnja u toku / действие в процессе</small>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- VEŽBA III-5: NAĆI / PRONAĆI -->
+    <div class="section">
+      <h3 class="section-title green">Vežba III-5 — naći vs. pronaći</h3>
+      <div class="exercise">
+        <div class="ex-number green">Vežba III · 5</div>
+        <div class="ex-title">Kada koristiti naći, a kada pronaći?</div>
+        <div class="ex-instruction">
+          Odaberi tačan glagol. U srpskom, <em>naći</em> i <em>pronaći</em> su često zamenljivi, ali <em>pronaći</em> naglašava trud i pretragu (после поисков).
+          <span class="ex-ru"><em>Naći</em> и <em>pronaći</em> часто взаимозаменяемы, но <em>pronaći</em> подчёркивает усилие поиска.</span>
+          <span class="ex-en"><em>Naći</em> and <em>pronaći</em> are often interchangeable, but <em>pronaći</em> emphasises effort/search.</span>
+        </div>
+        <ol class="ex-list">
+          <li>
+            Konačno smo
+            <select data-key="III5_1">
+              <option value="">— odaberi —</option>
+              <option value="pronašli">pronašli (posle dugog traženja)</option>
+              <option value="našli">našli (slučajno)</option>
+            </select>
+            slobodan parking. <small style="color:var(--muted);">(posle dugog traženja)</small>
+          </li>
+          <li>
+            Slučajno sam
+            <select data-key="III5_2">
+              <option value="">— odaberi —</option>
+              <option value="našao/našla">našao/našla (slučajno)</option>
+              <option value="pronašao/pronašla">pronašao/pronašla (posle traženja)</option>
+            </select>
+            novčanik na podu. <small style="color:var(--muted);">(slučajno, nije tražio)</small>
+          </li>
+          <li>
+            Ne mogu da
+            <select data-key="III5_3">
+              <option value="">— odaberi —</option>
+              <option value="nađem / pronađem">nađem / pronađem (oba su OK)</option>
+              <option value="dođem">dođem (pogrešno)</option>
+            </select>
+            ključeve nigde!
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- VEŽBA III-6: SLOBODNA PRODUKCIJA -->
+    <div class="section">
+      <h3 class="section-title green">Vežba III-6 — Napiši sopstvene rečenice</h3>
+      <div class="exercise">
+        <div class="ex-number green">Vežba III · 6</div>
+        <div class="ex-title">Slobodna produkcija — koristi nove reči</div>
+        <div class="ex-instruction">
+          Za svaki zadatak napiši jednu ili dve rečenice koristeći navedene reči ili konstrukcije.
+          <span class="ex-ru">Для каждого задания напиши одно-два предложения, используя указанные слова или конструкции.</span>
+          <span class="ex-en">For each task, write one or two sentences using the given words or structures.</span>
+        </div>
+        <ol class="ex-list">
+          <li>
+            Koristi <strong>raskršće / do raskršnice</strong> — opiši put do nekog mesta:
+            <textarea data-key="III6_1" placeholder="Na raskršću... / Idi do raskršnice, pa..."></textarea>
+          </li>
+          <li>
+            Koristi <strong>radim od kuće</strong> — napiši rečenicu o svom poslu ili životu:
+            <textarea data-key="III6_2" placeholder="Radim od kuće već... / Kad radim od kuće, ja..."></textarea>
+          </li>
+          <li>
+            Koristi <strong>ukrcavati se / iskrcavati se</strong> u rečenici o putovanju:
+            <textarea data-key="III6_3" placeholder="Ukrcavam se na... / Iskrcali smo se na..."></textarea>
+          </li>
+          <li>
+            Napiši rečenicu u <strong>futuru I</strong> sa nesvršenim glagolom (ću + -ti):
+            <textarea data-key="III6_4" placeholder="Sutra ću dolaziti... / Tog dana ću prolaziti..."></textarea>
+          </li>
+          <li>
+            Napiši rečenicu u <strong>futuru I</strong> sa svršenim glagolom:
+            <textarea data-key="III6_5" placeholder="Doći ću... / Pronaći ću..."></textarea>
+          </li>
+          <li>
+            Opiši jednim odlomkom (3–5 rečenica) put od svog doma do najbližeg prodavnice ili pijace. Koristi što više reči iz lekcija!
+            <textarea data-key="III6_6" style="min-height: 110px;" placeholder="Izlazim iz zgrade i idem pravo... Na raskršću skrenem... Prolazim pored... Ulaz u prodavnicu je..."></textarea>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEND SECTION -->
+  <div class="send-section" id="sendSection">
+    <h3>Pošalji domaći zadatak</h3>
+    <p>Kada završiš sve vežbe, klikni dugme ispod da pošalješ odgovore Jasni.</p>
+    <p class="ru">Когда закончишь все упражнения, нажми кнопку, чтобы отправить ответы Ясне.</p>
+    <p class="en">When you finish all exercises, click the button below to send your answers to Jasna.</p>
+    <button class="btn-send" id="btnSend" onclick="sendHomework()">
+      📤 &nbsp; Pošalji odgovore Jasni
+    </button>
+    <div class="error-msg" id="errorMsg">
+      Došlo je do greške pri slanju. Molim te pokušaj ponovo. / Ошибка при отправке — попробуй ещё раз. / Sending error — please try again.
+    </div>
+  </div>
+
+  <!-- SUCCESS BOX -->
+  <div class="success-box" id="successBox">
+    <div class="success-icon">✅</div>
+    <h3>Domaći je poslat!</h3>
+    <p>Tvoji odgovori su uspešno poslati Jasni.</p>
+    <p class="ru">Твои ответы успешно отправлены Ясне.</p>
+    <p class="en">Your answers have been successfully sent to Jasna.</p>
+    <br>
+    <p><strong>Jasna će čim proveri da pošalje povratnu informaciju na WhatsApp.</strong></p>
+    <p class="ru"><strong>Ясна проверит и пришлёт обратную связь в WhatsApp.</strong></p>
+    <p class="en"><strong>Jasna will review and send feedback via WhatsApp.</strong></p>
+  </div>
+
+  <footer class="lesson-footer">
+    Srpski jezik · Domaći zadatak · Roman Nikolenko · Nivo A2 · Lekcije 1 i 2 + Provera znanja
+  </footer>
+
+</div>
+
+<script>
+  // Init EmailJS
+  (function() {
+    emailjs.init({ publicKey: "t7ZaL3psba1HqcGTT" });
+  })();
+
+  function collectAnswers() {
+    const answers = {};
+
+    // Text inputs and textareas
+    document.querySelectorAll('[data-key]').forEach(el => {
+      const key = el.getAttribute('data-key');
+      if (el.tagName === 'TEXTAREA' || el.tagName === 'INPUT') {
+        answers[key] = el.value.trim() || '(nije popunjeno)';
+      } else if (el.tagName === 'SELECT') {
+        answers[key] = el.value || '(nije odabrano)';
+      }
+    });
+
+    // Radio buttons
+    const radioNames = [
+      'I2_1','I2_2','I2_3','I2_4','I2_5',
+      'II3_1','II3_2','II3_3','II3_4','II3_5'
+    ];
+    radioNames.forEach(name => {
+      const checked = document.querySelector(`input[name="${name}"]:checked`);
+      answers[name] = checked ? checked.value : '(nije odabrano)';
+    });
+
+    return answers;
+  }
+
+  function formatAnswers(a) {
+    return `
+=== DEO I: GLAGOLI KRETANJA ===
+
+[I-1] Popuni praznine — prezent:
+1. Svaki dan _____ iz kuće: ${a['I1_1']}
+2. Kada oni _____ u restoran: ${a['I1_2']}
+3. Ne mogu da _____ ključeve: ${a['I1_3']}
+4. Mi _____ pored biblioteke: ${a['I1_4']}
+5. Stefan _____ prozoru: ${a['I1_5']}
+6. Kada _____ tvoja sestra: ${a['I1_6']}
+7. Zašto već _____: ${a['I1_7']}
+
+[I-2] Tačno / Netačno:
+1. Stefan izlazi u deset sati: ${a['I2_1']}
+2. Stefan seda kraj prozora: ${a['I2_2']}
+3. Prolazi pored fontane: ${a['I2_3']}
+4. Turisti traže put do muzeja: ${a['I2_4']}
+5. Stefan posećuje Nikolu: ${a['I2_5']}
+
+[I-3] Odaberi glagol:
+1. Ana _____ iz prodavnice: ${a['I3_1']}
+2. _____ ovde — hoću da ti pokažem: ${a['I3_2']}
+3. Autobus _____ pored škole: ${a['I3_3']}
+4. Ne mogu da _____ adresu: ${a['I3_4']}
+5. Kad _____ u sobu, upalim svetlo: ${a['I3_5']}
+6. Ona _____ stolu i uzme čašu: ${a['I3_6']}
+
+[I-4] Slobodna produkcija:
+1. ${a['I4_1']}
+2. ${a['I4_2']}
+3. ${a['I4_3']}
+4. ${a['I4_4']}
+
+=== DEO II: PRILOŠKE ODREDBE ===
+
+[II-1] Odgovori prema tekstu:
+1. Gde Ana izlazi iz busa: ${a['II1_1']}
+2. Šta je između cvećare i knjižare: ${a['II1_2']}
+3. Sa koje strane je kapija: ${a['II1_3']}
+4. Gde je lift: ${a['II1_4']}
+5. Zašto Maja ne živi blizu centra: ${a['II1_5']}
+
+[II-2] Popuni praznine — priloške odredbe:
+1. Banka je _____ hotela: ${a['II2_1']}
+2. Čekaj me _____ bioskopa: ${a['II2_2']}
+3. Idemo _____ do kraja ulice: ${a['II2_3']}
+4. Kafić je _____ pošte i apoteke: ${a['II2_4']}
+5. Auto je parkiran _____ zgrade: ${a['II2_5']}
+6. Prođi _____ park: ${a['II2_6']}
+7. Sedi _____ mene: ${a['II2_7']}
+8. Idemo _____ stanici: ${a['II2_8']}
+
+[II-3] Tačno / Netačno:
+1. Apoteka je iza stanice: ${a['II3_1']}
+2. Zgrada između cvećare i knjižare: ${a['II3_2']}
+3. Lift je uvek ispravan: ${a['II3_3']}
+4. Ana skrene levo pored apoteke: ${a['II3_4']}
+5. Maja živi na trećem spratu: ${a['II3_5']}
+
+[II-4] Opis adrese (slobodna produkcija):
+${a['II4_1']}
+
+=== DEO III: PROVERA ZNANJA ===
+
+[III-1] Prevodi — reč s prevodom:
+raskršće → RU: ${a['III1_1ru']} | EN: ${a['III1_1en']}
+ulaz → RU: ${a['III1_2ru']} | EN: ${a['III1_2en']}
+izlaz → RU: ${a['III1_3ru']} | EN: ${a['III1_3en']}
+ukrcavati se → RU: ${a['III1_4ru']} | EN: ${a['III1_4en']}
+iskrcavati se → RU: ${a['III1_5ru']} | EN: ${a['III1_5en']}
+nailaziti na → RU: ${a['III1_6ru']} | EN: ${a['III1_6en']}
+svratiti → RU: ${a['III1_7ru']} | EN: ${a['III1_7en']}
+
+[III-2] Promena ć→đ:
+doći ja: ${a['III2_1']} | mi: ${a['III2_2']}
+prići ti: ${a['III2_3']} | oni: ${a['III2_4']}
+naći on/ona: ${a['III2_5']} | vi: ${a['III2_6']}
+izaći ja: ${a['III2_7']} | ti: ${a['III2_8']}
+ući mi: ${a['III2_9']} | oni: ${a['III2_10']}
+
+[III-3] Vid glagola:
+1. Svako jutro ona _____ na posao: ${a['III3_1']}
+2. Kad je video prijatelja _____ mu: ${a['III3_2']}
+3. Turisti svaki dan _____ pored tvrđave: ${a['III3_3']}
+4. Konačno sam _____ ključeve: ${a['III3_4']}
+5. On uvek _____ kafu gostima: ${a['III3_5']}
+
+[III-4] Futur I:
+1. Sutra ću _____ kod tebe: ${a['III4_1']}
+2. Celo jutro ću _____ kroz centar: ${a['III4_2']}
+3. Hoću da _____ tu adresu: ${a['III4_3']}
+4. Ona će _____ kod nas: ${a['III4_4']}
+5. Dok budemo čekali, ja ću _____: ${a['III4_5']}
+
+[III-5] naći vs. pronaći:
+1. Konačno smo _____ parking: ${a['III5_1']}
+2. Slučajno sam _____ novčanik: ${a['III5_2']}
+3. Ne mogu da _____ ključeve: ${a['III5_3']}
+
+[III-6] Slobodna produkcija:
+1. raskršće/do raskršnice: ${a['III6_1']}
+2. radim od kuće: ${a['III6_2']}
+3. ukrcavati/iskrcavati se: ${a['III6_3']}
+4. Futur nesvršeni: ${a['III6_4']}
+5. Futur svršeni: ${a['III6_5']}
+6. Odlomak — put do prodavnice: ${a['III6_6']}
+`.trim();
+  }
+
+  function sendHomework() {
+    const btn = document.getElementById('btnSend');
+    const errMsg = document.getElementById('errorMsg');
+    const sendSection = document.getElementById('sendSection');
+    const successBox = document.getElementById('successBox');
+
+    btn.disabled = true;
+    btn.textContent = '⏳  Šalje se...';
+    errMsg.classList.remove('show');
+
+    const answers = collectAnswers();
+    const formattedAnswers = formatAnswers(answers);
+
+    const templateParams = {
+      student_name: 'Roman Nikolenko',
+      lesson_title: 'Lekcija 1 + 2 + Provera znanja (A2)',
+      answers: formattedAnswers
+    };
+
+    emailjs.send('service_qb8jsid', 'template_vzhuu5q', templateParams)
+      .then(function() {
+        sendSection.style.display = 'none';
+        successBox.classList.add('show');
+        successBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, function(error) {
+        console.error('EmailJS error:', error);
+        btn.disabled = false;
+        btn.textContent = '📤  Pošalji odgovore Jasni';
+        errMsg.classList.add('show');
+      });
+  }
+</script>
+</body>
+</html>
