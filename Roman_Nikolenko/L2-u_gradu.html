@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lekcija: U gradu — Čudna adresa</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #12120f;
+    --paper: #f4f1eb;
+    --paper-dark: #e8e2d4;
+    --accent: #2c5f7a;
+    --accent-hover: #1e4560;
+    --teal: #3a8a7a;
+    --gold: #9a7b2e;
+    --muted: #5a5545;
+    --border: #c5bba8;
+    --russian: #1a3a6b;
+    --english: #2d5a1b;
+    --highlight: #e8f4f0;
+    --msg-ana: #e8f0f7;
+    --msg-maja: #f0ede4;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 16.5px;
+    line-height: 1.8;
+    min-height: 100vh;
+  }
+
+  .page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 44px 38px;
+  }
+
+  /* HEADER */
+  .lesson-header {
+    border-bottom: 3px double var(--border);
+    padding-bottom: 26px;
+    margin-bottom: 38px;
+    text-align: center;
+  }
+
+  .lesson-tag {
+    font-size: 10.5px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+
+  .lesson-subtitle {
+    color: var(--muted);
+    font-size: 1rem;
+  }
+
+  .level-badge {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 2px;
+    margin-top: 12px;
+  }
+
+  /* SECTIONS */
+  .section { margin-bottom: 48px; }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    color: var(--accent);
+    border-left: 4px solid var(--accent);
+    padding-left: 13px;
+    margin-bottom: 20px;
+    line-height: 1.3;
+  }
+
+  /* GRAMMAR */
+  .grammar-intro {
+    background: var(--paper-dark);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 22px 28px;
+    margin-bottom: 24px;
+    font-size: 0.95rem;
+    color: var(--muted);
+  }
+
+  .grammar-intro p { margin-bottom: 10px; }
+  .grammar-intro p:last-child { margin-bottom: 0; }
+
+  .grammar-table-wrap { overflow-x: auto; margin: 16px 0 10px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+
+  th {
+    background: var(--accent);
+    color: white;
+    padding: 9px 13px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.86rem;
+    letter-spacing: 0.4px;
+  }
+
+  td {
+    padding: 8px 13px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  tr:nth-child(even) td { background: rgba(197,187,168,0.15); }
+  tr:hover td { background: rgba(197,187,168,0.28); }
+
+  .srp { font-weight: 600; color: var(--ink); }
+  .rus { color: var(--russian); }
+  .eng { color: var(--english); }
+  .ex-cell { font-size: 0.87rem; font-style: italic; color: var(--muted); }
+
+  .note {
+    background: #f0ede0;
+    border-left: 4px solid var(--gold);
+    padding: 12px 16px;
+    margin: 14px 0;
+    font-size: 0.91rem;
+    border-radius: 0 3px 3px 0;
+  }
+  .note strong { color: var(--gold); }
+
+  /* COLLAPSE */
+  details { margin-top: 14px; }
+
+  details summary {
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 9px 15px;
+    background: var(--paper-dark);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    transition: background 0.2s;
+    user-select: none;
+  }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::before {
+    content: '▶';
+    font-size: 9px;
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  details[open] summary::before { transform: rotate(90deg); }
+  details summary:hover { background: #ddd8ca; }
+
+  .translation-box {
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 3px 3px;
+    padding: 18px 22px;
+    background: white;
+    font-size: 0.93rem;
+  }
+
+  .translation-box p { margin-bottom: 10px; }
+  .translation-box p:last-child { margin-bottom: 0; }
+
+  .tr-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 4px;
+    margin-top: 13px;
+  }
+  .tr-label:first-child { margin-top: 0; }
+  .tr-label.ru { color: var(--russian); }
+  .tr-label.en { color: var(--english); }
+
+  .translation-box p.ru-text { color: var(--russian); }
+  .translation-box p.en-text { color: var(--english); font-style: italic; }
+
+  /* CHAT STORY */
+  .story-wrap {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .story-topbar {
+    background: var(--accent);
+    color: white;
+    padding: 12px 20px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .story-topbar-dot {
+    width: 10px; height: 10px;
+    background: #7ec8b0;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .chat-body {
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .chat-row {
+    display: flex;
+    flex-direction: column;
+    max-width: 82%;
+  }
+
+  .chat-row.ana { align-self: flex-end; align-items: flex-end; }
+  .chat-row.maja { align-self: flex-start; align-items: flex-start; }
+
+  .chat-name {
+    font-size: 0.73rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+    color: var(--muted);
+  }
+  .chat-row.ana .chat-name { color: var(--accent); }
+  .chat-row.maja .chat-name { color: var(--teal); }
+
+  .chat-bubble {
+    padding: 10px 15px;
+    border-radius: 14px;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    position: relative;
+  }
+
+  .chat-row.ana .chat-bubble {
+    background: var(--msg-ana);
+    border-radius: 14px 14px 4px 14px;
+  }
+
+  .chat-row.maja .chat-bubble {
+    background: var(--msg-maja);
+    border-radius: 14px 14px 14px 4px;
+  }
+
+  .vocab-word {
+    color: var(--accent);
+    font-weight: 700;
+    border-bottom: 1px dotted var(--accent);
+  }
+
+  .narration {
+    font-style: italic;
+    color: var(--muted);
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 6px 0;
+    align-self: center;
+  }
+
+  .chat-gap { height: 10px; }
+
+  /* EXERCISES */
+  .exercise {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 24px 28px;
+    margin-bottom: 20px;
+  }
+
+  .ex-number {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  .ex-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.08rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+
+  .ex-instruction {
+    font-size: 0.88rem;
+    color: var(--muted);
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    line-height: 1.5;
+  }
+
+  .ex-ru { color: var(--russian); }
+  .ex-en { color: var(--english); }
+
+  ol.ex-list { padding-left: 20px; }
+  ol.ex-list li { margin-bottom: 11px; line-height: 1.65; }
+
+  .blank {
+    display: inline-block;
+    min-width: 80px;
+    border-bottom: 2px solid var(--ink);
+    margin: 0 3px;
+  }
+
+  .word-bank {
+    background: #f0ede0;
+    border: 1px dashed var(--gold);
+    border-radius: 3px;
+    padding: 10px 14px;
+    margin-bottom: 16px;
+    font-size: 0.91rem;
+    line-height: 1.8;
+  }
+  .word-bank span { font-weight: 700; color: var(--accent); margin-right: 12px; }
+
+  .answer-box {
+    background: #eaf4ea;
+    border: 1px solid #9acb9a;
+    border-radius: 3px;
+    padding: 14px 18px;
+    font-size: 0.91rem;
+  }
+  .answer-box ol { padding-left: 18px; margin-top: 6px; }
+  .answer-box li { margin-bottom: 5px; color: #1e4a1e; }
+  .answer-box strong { color: var(--accent); }
+
+  /* MAP BOX for ex 3 */
+  .map-box {
+    background: #e8f4f0;
+    border: 1px solid #9acabb;
+    border-radius: 4px;
+    padding: 18px 20px;
+    font-size: 0.88rem;
+    margin-bottom: 16px;
+    font-style: italic;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* VOCAB */
+  .vocab-grid { display: flex; flex-direction: column; gap: 2px; }
+
+  .vocab-item {
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .vocab-head {
+    display: grid;
+    grid-template-columns: 190px 1fr;
+    background: var(--paper-dark);
+  }
+
+  .vocab-word-main {
+    padding: 11px 15px;
+    font-weight: 700;
+    font-size: 0.98rem;
+    border-right: 1px solid var(--border);
+  }
+
+  .vocab-sentence-sr {
+    padding: 11px 15px;
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--muted);
+  }
+
+  .vocab-translations {
+    padding: 13px 18px 14px;
+    background: white;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    font-size: 0.88rem;
+  }
+
+  .vocab-tr-block .lang-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .vocab-tr-block.ru .lang-label { color: var(--russian); }
+  .vocab-tr-block.en .lang-label { color: var(--english); }
+  .vocab-tr-block.ru .tr-word { color: var(--russian); font-weight: 600; }
+  .vocab-tr-block.en .tr-word { color: var(--english); font-style: italic; font-weight: 600; }
+  .tr-sentence { font-size: 0.82rem; color: var(--muted); margin-top: 2px; }
+  .vocab-tr-block.ru .tr-sentence { color: var(--russian); opacity: 0.8; }
+  .vocab-tr-block.en .tr-sentence { color: var(--english); opacity: 0.8; font-style: italic; }
+
+  /* LESSON FOOTER */
+  .lesson-footer {
+    margin-top: 56px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  @media (max-width: 580px) {
+    .page { padding: 20px 15px; }
+    h1 { font-size: 1.6rem; }
+    .vocab-head { grid-template-columns: 1fr; }
+    .vocab-word-main { border-right: none; border-bottom: 1px solid var(--border); }
+    .vocab-translations { grid-template-columns: 1fr; }
+    .chat-row { max-width: 94%; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="lesson-header">
+    <div class="lesson-tag">Čas srpskog jezika</div>
+    <h1>Čudna adresa</h1>
+    <div class="lesson-subtitle">Priloške odredbe mesta i pravca — gde? kuda? odakle?</div>
+    <div class="level-badge">A2</div>
+  </header>
+
+  <!-- GRAMATIKA -->
+  <section class="section">
+    <h2 class="section-title">Gramatika: Gde? Kuda? Odakle?</h2>
+
+    <div class="grammar-intro">
+      <p>Priloške odredbe za mesto govore nam <strong>gde se nešto nalazi</strong> ili <strong>u kom pravcu idemo</strong>.</p>
+      <p>Наречия места отвечают на вопросы: <strong>где?</strong> (где находится), <strong>куда?</strong> (в каком направлении), <strong>откуда?</strong> (откуда).</p>
+    </div>
+
+    <div class="grammar-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Srpski</th>
+            <th>Русский</th>
+            <th>English</th>
+            <th>Primer / Пример</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="srp">ispred</td>
+            <td class="rus">перед / впереди</td>
+            <td class="eng">in front of</td>
+            <td class="ex-cell">Čekam te <strong>ispred</strong> pošte.</td>
+          </tr>
+          <tr>
+            <td class="srp">iza</td>
+            <td class="rus">за / позади</td>
+            <td class="eng">behind</td>
+            <td class="ex-cell">Parking je <strong>iza</strong> zgrade.</td>
+          </tr>
+          <tr>
+            <td class="srp">pored</td>
+            <td class="rus">рядом с / возле</td>
+            <td class="eng">next to, beside</td>
+            <td class="ex-cell">Sedi <strong>pored</strong> mene!</td>
+          </tr>
+          <tr>
+            <td class="srp">između</td>
+            <td class="rus">между</td>
+            <td class="eng">between</td>
+            <td class="ex-cell">Kafić je <strong>između</strong> banke i apoteke.</td>
+          </tr>
+          <tr>
+            <td class="srp">nasuprot</td>
+            <td class="rus">напротив</td>
+            <td class="eng">opposite, across from</td>
+            <td class="ex-cell">Stan je <strong>nasuprot</strong> parka.</td>
+          </tr>
+          <tr>
+            <td class="srp">blizu</td>
+            <td class="rus">близко / рядом</td>
+            <td class="eng">close to, near</td>
+            <td class="ex-cell">Škola je <strong>blizu</strong> centra.</td>
+          </tr>
+          <tr>
+            <td class="srp">daleko od</td>
+            <td class="rus">далеко от</td>
+            <td class="eng">far from</td>
+            <td class="ex-cell">Nemamo auto — <strong>daleko je od</strong> stanice.</td>
+          </tr>
+          <tr>
+            <td class="srp">na uglu</td>
+            <td class="rus">на углу</td>
+            <td class="eng">on the corner</td>
+            <td class="ex-cell">Pekara je <strong>na uglu</strong> ulice.</td>
+          </tr>
+          <tr>
+            <td class="srp">pravo</td>
+            <td class="rus">прямо</td>
+            <td class="eng">straight (ahead)</td>
+            <td class="ex-cell">Idite <strong>pravo</strong> do semafora.</td>
+          </tr>
+          <tr>
+            <td class="srp">levo / desno</td>
+            <td class="rus">налево / направо</td>
+            <td class="eng">left / right</td>
+            <td class="ex-cell">Skrenite <strong>levo</strong> na drugoj ulici.</td>
+          </tr>
+          <tr>
+            <td class="srp">gore / dole</td>
+            <td class="rus">вверх / вниз; наверху / внизу</td>
+            <td class="eng">up / down; upstairs / downstairs</td>
+            <td class="ex-cell">Lift je <strong>gore</strong>, na kraju hodnika.</td>
+          </tr>
+          <tr>
+            <td class="srp">unutra / napolje</td>
+            <td class="rus">внутри / на улицу (снаружи)</td>
+            <td class="eng">inside / outside</td>
+            <td class="ex-cell">Hladno je — uđi <strong>unutra</strong>!</td>
+          </tr>
+          <tr>
+            <td class="srp">prema</td>
+            <td class="rus">по направлению к / к</td>
+            <td class="eng">towards</td>
+            <td class="ex-cell">Idemo <strong>prema</strong> centru.</td>
+          </tr>
+          <tr>
+            <td class="srp">kroz</td>
+            <td class="rus">через / сквозь</td>
+            <td class="eng">through</td>
+            <td class="ex-cell">Prođite <strong>kroz</strong> park.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <strong>Napomena:</strong> Većina ovih izraza stoji uz genitiv imenice: <em>ispred <u>pošte</u>, iza <u>zgrade</u>, pored <u>mene</u>...</em> — genitiv detaljno učimo u sledećoj lekciji!
+      <br><span style="color:var(--russian); font-size:0.88rem;">Большинство этих выражений требует родительного падежа существительного.</span>
+    </div>
+  </section>
+
+  <!-- TEKST -->
+  <section class="section">
+    <h2 class="section-title">Tekst: Čudna adresa</h2>
+
+    <div class="story-wrap">
+      <div class="story-topbar">
+        <span class="story-topbar-dot"></span>
+        Maja i Ana — poruke
+      </div>
+
+      <div class="chat-body">
+
+        <div class="chat-row maja">
+          <div class="chat-name">Maja</div>
+          <div class="chat-bubble">
+            Ana! Dođi danas kod mene na ručak. 🍝
+          </div>
+        </div>
+
+        <div class="chat-row ana">
+          <div class="chat-name">Ana</div>
+          <div class="chat-bubble">
+            Super! Ali gde živiš? Ne znam tvoju adresu.
+          </div>
+        </div>
+
+        <div class="chat-row maja">
+          <div class="chat-name">Maja</div>
+          <div class="chat-bubble">
+            Pa, nije baš lako objasniti... Uzmi bus broj 15 i izađi <span class="vocab-word">blizu</span> zelene pijace. Vidiš li veliku apoteku <span class="vocab-word">ispred</span> stanice?
+          </div>
+        </div>
+
+        <div class="chat-row ana">
+          <div class="chat-name">Ana</div>
+          <div class="chat-bubble">
+            Da, vidim apoteku.
+          </div>
+        </div>
+
+        <div class="chat-row maja">
+          <div class="chat-name">Maja</div>
+          <div class="chat-bubble">
+            Okej, idi <span class="vocab-word">prema</span> apoteci, ali nemoj da uđeš unutra. 😄 Skrenite <span class="vocab-word">desno</span> odmah <span class="vocab-word">pored</span> nje.
+          </div>
+        </div>
+
+        <div class="chat-row ana">
+          <div class="chat-name">Ana</div>
+          <div class="chat-bubble">
+            Hm, okej. I šta onda?
+          </div>
+        </div>
+
+        <div class="chat-row maja">
+          <div class="chat-name">Maja</div>
+          <div class="chat-bubble">
+            Idi <span class="vocab-word">pravo</span> do male fontane. Zgrada <span class="vocab-word">iza</span> fontane — ta nije moja. Moja zgrada je ona <span class="vocab-word">između</span> cvećare i male knjižare. Kapija je sa <span class="vocab-word">leve</span> strane, ne sa desne.
+          </div>
+        </div>
+
+        <div class="chat-row ana">
+          <div class="chat-name">Ana</div>
+          <div class="chat-bubble">
+            Uredu... cvećara, knjižara... Koji sprat?
+          </div>
+        </div>
+
+        <div class="chat-row maja">
+          <div class="chat-name">Maja</div>
+          <div class="chat-bubble">
+            Treći sprat. Lift je malo dalje u hodniku — <span class="vocab-word">nasuprot</span> sandučića za poštu. Ali lift često ne radi, pa idi <span class="vocab-word">gore</span> stepeništem. 😬
+          </div>
+        </div>
+
+        <div class="chat-row ana">
+          <div class="chat-name">Ana</div>
+          <div class="chat-bubble">
+            Maja... zašto ne živiš <span class="vocab-word">blizu</span> centra kao svi normalni ljudi? 😂
+          </div>
+        </div>
+
+        <div class="chat-row maja">
+          <div class="chat-name">Maja</div>
+          <div class="chat-bubble">
+            Jer je stanarina <span class="vocab-word">daleko od</span> centra MNOGO jeftinija! 😂 Čekam te u dva!
+          </div>
+        </div>
+
+        <div class="chat-row ana">
+          <div class="chat-name">Ana</div>
+          <div class="chat-bubble">
+            Dolazim. Ako se izgubim, zoveš ti meni taksi. 😤
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <details>
+      <summary>Prevod / Перевод / Translation</summary>
+      <div class="translation-box">
+
+        <span class="tr-label ru">Русский перевод</span>
+        <p class="ru-text">Маja: Ана! Приходи сегодня ко мне на обед.</p>
+        <p class="ru-text">Ана: Отлично! Но где ты живёшь? Я не знаю твой адрес.</p>
+        <p class="ru-text">Маja: Ну, это не так просто объяснить... Сядь на автобус номер 15 и выйди рядом с зелёным рынком. Видишь ли ты большую аптеку напротив остановки?</p>
+        <p class="ru-text">Ана: Да, вижу аптеку.</p>
+        <p class="ru-text">Маja: Хорошо, иди по направлению к аптеке, но не входи внутрь. Сверни направо сразу рядом с ней.</p>
+        <p class="ru-text">Ана: Хм, ладно. И что потом?</p>
+        <p class="ru-text">Маja: Иди прямо до маленького фонтана. Здание за фонтаном — это не моё. Моё здание — то, что между цветочным магазином и маленьким книжным магазином. Ворота слева, а не справа.</p>
+        <p class="ru-text">Ана: Хорошо... цветочный, книжный... Какой этаж?</p>
+        <p class="ru-text">Маja: Третий этаж. Лифт находится чуть дальше в коридоре — напротив почтовых ящиков. Но лифт часто не работает, так что иди наверх через лестницу.</p>
+        <p class="ru-text">Ана: Маja... почему ты не живёшь рядом с центром, как нормальные люди?</p>
+        <p class="ru-text">Маja: Потому что аренда далеко от центра НАМНОГО дешевле! Жду тебя в два!</p>
+        <p class="ru-text">Ана: Иду. Если потеряюсь — ты вызываешь мне такси.</p>
+
+        <span class="tr-label en">English translation</span>
+        <p class="en-text">Maja: Ana! Come over for lunch today.</p>
+        <p class="en-text">Ana: Great! But where do you live? I don't know your address.</p>
+        <p class="en-text">Maja: Well, it's not so easy to explain... Take bus number 15 and get off near the green market. Do you see the big pharmacy in front of the bus stop?</p>
+        <p class="en-text">Ana: Yes, I see the pharmacy.</p>
+        <p class="en-text">Maja: OK, walk towards the pharmacy, but don't go inside. Turn right right next to it.</p>
+        <p class="en-text">Ana: Hmm, alright. And then what?</p>
+        <p class="en-text">Maja: Go straight to the small fountain. The building behind the fountain — that's not mine. My building is the one between the flower shop and the small bookshop. The gate is on the left side, not the right.</p>
+        <p class="en-text">Ana: Okay... flower shop, bookshop... Which floor?</p>
+        <p class="en-text">Maja: Third floor. The lift is a bit further down the hallway — opposite the post boxes. But the lift often doesn't work, so go up through the staircase.</p>
+        <p class="en-text">Ana: Maja... why don't you live near the centre like normal people?</p>
+        <p class="en-text">Maja: Because the rent far from the centre is SO much cheaper! I'll see you at two!</p>
+        <p class="en-text">Ana: I'm coming. If I get lost, you're calling me a taxi.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- VEŽBE -->
+  <section class="section">
+    <h2 class="section-title">Vežbe / Упражнения / Exercises</h2>
+
+    <!-- Vežba 1 -->
+    <div class="exercise">
+      <div class="ex-number">Vežba 1</div>
+      <div class="ex-title">Pitanje i odgovor</div>
+      <div class="ex-instruction">
+        Odgovori na pitanja kratkim rečenicama prema tekstu.<br>
+        <span class="ex-ru">Ответь на вопросы короткими предложениями по тексту.</span><br>
+        <span class="ex-en">Answer the questions in short sentences based on the text.</span>
+      </div>
+      <ol class="ex-list">
+        <li>Gde Ana treba da izađe iz busa?</li>
+        <li>Šta se nalazi između cvećare i knjižare?</li>
+        <li>Sa koje strane je kapija — leve ili desne?</li>
+        <li>Gde je lift u zgradi?</li>
+        <li>Zašto Maja ne živi blizu centra?</li>
+      </ol>
+      <details>
+        <summary>Odgovori / Ответы / Answers</summary>
+        <div class="answer-box">
+          <ol>
+            <li>Treba da izađe <strong>blizu zelene pijace</strong>.</li>
+            <li>Između cvećare i knjižare je <strong>Majina zgrada</strong>.</li>
+            <li>Kapija je sa <strong>leve</strong> strane.</li>
+            <li>Lift je u hodniku, <strong>nasuprot sandučića za poštu</strong>.</li>
+            <li>Jer je stanarina <strong>daleko od centra mnogo jeftinija</strong>.</li>
+          </ol>
+        </div>
+      </details>
+    </div>
+
+    <!-- Vežba 2 -->
+    <div class="exercise">
+      <div class="ex-number">Vežba 2</div>
+      <div class="ex-title">Popuni praznine</div>
+      <div class="ex-instruction">
+        Izaberi odgovarajuću prilosku odredbu i stavi je u rečenicu.<br>
+        <span class="ex-ru">Выбери подходящее наречие места и вставь его в предложение.</span><br>
+        <span class="ex-en">Choose the correct adverb of place and fill in the gap.</span>
+      </div>
+      <div class="word-bank">
+        <span>ispred</span><span>iza</span><span>pored</span><span>između</span><span>nasuprot</span><span>prema</span><span>kroz</span><span>pravo</span>
+      </div>
+      <ol class="ex-list">
+        <li>Banka je <span class="blank"></span> hotela — možeš je videti s druge strane ulice.</li>
+        <li>Čekaj me <span class="blank"></span> bioskopa, na ulazu.</li>
+        <li>Idemo <span class="blank"></span> do kraja ulice, pa skrenemo levo.</li>
+        <li>Kafić je <span class="blank"></span> pošte i apoteke.</li>
+        <li>Auto je parkiran <span class="blank"></span> zgrade.</li>
+        <li>Prođi <span class="blank"></span> park — tako je kraće.</li>
+        <li>Sedi <span class="blank"></span> mene, ovde ima mesta.</li>
+        <li>Idemo <span class="blank"></span> stanici — bus polazi za deset minuta.</li>
+      </ol>
+      <details>
+        <summary>Odgovori / Ответы / Answers</summary>
+        <div class="answer-box">
+          <ol>
+            <li><strong>nasuprot</strong></li>
+            <li><strong>ispred</strong></li>
+            <li><strong>pravo</strong></li>
+            <li><strong>između</strong></li>
+            <li><strong>iza</strong></li>
+            <li><strong>kroz</strong></li>
+            <li><strong>pored</strong></li>
+            <li><strong>prema</strong></li>
+          </ol>
+        </div>
+      </details>
+    </div>
+
+    <!-- Vežba 3 -->
+    <div class="exercise">
+      <div class="ex-number">Vežba 3</div>
+      <div class="ex-title">Tačno ili netačno?</div>
+      <div class="ex-instruction">
+        Na osnovu teksta, da li su rečenice tačne (T) ili netačne (N)?<br>
+        <span class="ex-ru">По тексту: верны (T) или неверны (N) эти предложения?</span><br>
+        <span class="ex-en">According to the text, are the sentences true (T) or false (N)?</span>
+      </div>
+      <ol class="ex-list">
+        <li>Apoteka je iza autobuske stanice. &nbsp; T / N</li>
+        <li>Majina zgrada je između cvećare i knjižare. &nbsp; T / N</li>
+        <li>Lift je uvek ispravan. &nbsp; T / N</li>
+        <li>Ana treba da skrene levo, pored apoteke. &nbsp; T / N</li>
+        <li>Maja živi na trećem spratu. &nbsp; T / N</li>
+      </ol>
+      <details>
+        <summary>Odgovori / Ответы / Answers</summary>
+        <div class="answer-box">
+          <ol>
+            <li><strong>N</strong> — Apoteka je <strong>ispred</strong> stanice.</li>
+            <li><strong>T</strong></li>
+            <li><strong>N</strong> — Lift <strong>često ne radi</strong>.</li>
+            <li><strong>N</strong> — Ana treba da skrene <strong>desno</strong> pored apoteke.</li>
+            <li><strong>T</strong></li>
+          </ol>
+        </div>
+      </details>
+    </div>
+
+    <!-- Vežba 4 -->
+    <div class="exercise">
+      <div class="ex-number">Vežba 4</div>
+      <div class="ex-title">Opiši sliku — gde se šta nalazi?</div>
+      <div class="ex-instruction">
+        Pročitaj opis i odgovori na pitanja.<br>
+        <span class="ex-ru">Прочитай описание и ответь на вопросы.</span><br>
+        <span class="ex-en">Read the description and answer the questions.</span>
+      </div>
+      <div class="map-box">
+        🏪 Na glavnoj ulici postoji nekoliko radnji. Na uglu je velika banka. Pored banke, sa desne strane, je mali restoran. Između restorana i knjižare postoji uska ulica. Nasuprot banke, s druge strane ulice, je park sa fontanom. Iza parka je bolnica.
+      </div>
+      <ol class="ex-list">
+        <li>Gde je banka?</li>
+        <li>Šta se nalazi između restorana i knjižare?</li>
+        <li>Šta je nasuprot banke?</li>
+        <li>Gde je bolnica?</li>
+        <li>Sa koje strane banke je restoran?</li>
+      </ol>
+      <details>
+        <summary>Odgovori / Ответы / Answers</summary>
+        <div class="answer-box">
+          <ol>
+            <li>Banka je <strong>na uglu</strong> glavne ulice.</li>
+            <li>Između restorana i knjižare je <strong>uska ulica</strong>.</li>
+            <li>Nasuprot banke je <strong>park sa fontanom</strong>.</li>
+            <li>Bolnica je <strong>iza parka</strong>.</li>
+            <li>Restoran je sa <strong>desne</strong> strane banke.</li>
+          </ol>
+        </div>
+      </details>
+    </div>
+
+    <!-- Vežba 5 -->
+    <div class="exercise">
+      <div class="ex-number">Vežba 5</div>
+      <div class="ex-title">Tvoja adresa — slobodna produkcija</div>
+      <div class="ex-instruction">
+        Opiši gde živiš ili gde je tvoja škola / posao. Koristi što više reči iz lekcije!<br>
+        <span class="ex-ru">Опиши, где ты живёшь или где находится твоя школа / работа. Используй как можно больше слов из урока!</span><br>
+        <span class="ex-en">Describe where you live or where your school / work is. Use as many words from the lesson as possible!</span>
+      </div>
+      <ol class="ex-list">
+        <li>Živim <span class="blank" style="min-width:200px;"></span></li>
+        <li>Blizu moje kuće je <span class="blank" style="min-width:180px;"></span></li>
+        <li>Pored <span class="blank" style="min-width:120px;"></span> se nalazi <span class="blank" style="min-width:140px;"></span></li>
+        <li>Da dođeš kod mene, treba da ideš <span class="blank" style="min-width:200px;"></span></li>
+      </ol>
+      
+    </div>
+
+  </section>
+
+  <!-- NOVE REČI -->
+  <section class="section">
+    <h2 class="section-title">Nove reči iz teksta</h2>
+
+    <p style="font-size:0.88rem; color:var(--muted); margin-bottom:16px; font-style:italic;">
+      Klikni da vidiš prevod. — Нажми, чтобы увидеть перевод.
+    </p>
+
+    <div class="vocab-grid">
+
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">pijaca</div>
+          <div class="vocab-sentence-sr">Kupujem povrće na pijaci svake subote.</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">рынок</span>
+              <div class="tr-sentence">Каждую субботу я покупаю овощи на рынке.</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">market</span>
+              <div class="tr-sentence">I buy vegetables at the market every Saturday.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">apoteka</div>
+          <div class="vocab-sentence-sr">Apoteka je otvorena i noću.</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">аптека</span>
+              <div class="tr-sentence">Аптека работает и ночью.</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">pharmacy, chemist</span>
+              <div class="tr-sentence">The pharmacy is open at night too.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">cvećara</div>
+          <div class="vocab-sentence-sr">Kupio sam ruže u cvećari na uglu.</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">цветочный магазин</span>
+              <div class="tr-sentence">Я купил розы в цветочном магазине на углу.</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">flower shop, florist</span>
+              <div class="tr-sentence">I bought roses at the flower shop on the corner.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">knjižara</div>
+          <div class="vocab-sentence-sr">U toj knjižari ima dobrih romana.</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">книжный магазин</span>
+              <div class="tr-sentence">В том книжном магазине есть хорошие романы.</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">bookshop, bookstore</span>
+              <div class="tr-sentence">That bookshop has good novels.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">hodnik</div>
+          <div class="vocab-sentence-sr">Cipele ostavite u hodniku, molim vas.</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">коридор / прихожая</span>
+              <div class="tr-sentence">Пожалуйста, оставьте обувь в прихожей.</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">hallway, corridor</span>
+              <div class="tr-sentence">Please leave your shoes in the hallway.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">sandučić za poštu</div>
+          <div class="vocab-sentence-sr">Sandučić za poštu je pun reklamnih letaka.</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">почтовый ящик</span>
+              <div class="tr-sentence">Почтовый ящик полон рекламных листовок.</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">post box, letterbox</span>
+              <div class="tr-sentence">The post box is full of flyers.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">stepenište</div>
+          <div class="vocab-sentence-sr">Lift ne radi, pa idemo stepeništem.</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">лестница (в здании)</span>
+              <div class="tr-sentence">Лифт не работает, поэтому идём по лестнице.</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">staircase, stairwell</span>
+              <div class="tr-sentence">The lift doesn't work, so we take the stairs.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">stanarina</div>
+          <div class="vocab-sentence-sr">Stanarina u centru je veoma visoka.</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">аренда (квартиры) / квартплата</span>
+              <div class="tr-sentence">Аренда в центре очень высокая.</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">rent</span>
+              <div class="tr-sentence">The rent in the city centre is very high.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">izgubiti se</div>
+          <div class="vocab-sentence-sr">Lako se izgubim u novom gradu.</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">заблудиться / потеряться</span>
+              <div class="tr-sentence">В новом городе я легко теряюсь.</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">to get lost</span>
+              <div class="tr-sentence">I easily get lost in a new city.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">jeftin / -a / -o</div>
+          <div class="vocab-sentence-sr">Ovaj restoran je dobar i jeftin.</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">дешёвый</span>
+              <div class="tr-sentence">Этот ресторан хороший и дешёвый.</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">cheap, inexpensive</span>
+              <div class="tr-sentence">This restaurant is good and cheap.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="lesson-footer">
+    Čas srpskog jezika · Priloške odredbe mesta i pravca · Nivo A2 · Čudna adresa
+  </footer>
+
+</div>
+</body>
+</html>
