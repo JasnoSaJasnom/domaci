@@ -1,0 +1,2008 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lekcija: Genitiv jednine — Maja se seli</title>
+<!--
+  GRAMATIČKE NAPOMENE (interno):
+  Genitiv jednine — nastavci:
+  Muški rod (tvrda osnova): -a → stola, grada, stana, prozora, hodnika
+  Muški rod (meka osnova): -a → prijatelja, muža
+  Srednji rod: -a → mesta, prozora (isto kao m.r.)
+  Ženski rod na -a: -e → sobe, kuhinje, pijace, Maje, Ane
+  Ženski rod na suglasnik: -i → stvari, noći, reči (i-osnova)
+  Genitiv uz negaciju: Nema + G: nema stola, nema stolice
+  Genitiv uz količinu: puno, malo, dosta, previše + G
+  Genitiv uz predloge: ispred, iza, pored, između, nasuprot, blizu, daleko od, do, od, iz, bez, kod, oko, posle, pre
+  Genitiv uz komparativ: jeftinije od + G
+  Svojinski genitiv: stan Majinog komšije → neformalni opis
+  PROVERENO: svi oblici su standardni srpski ekavica, latinica.
+-->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #12120f;
+    --paper: #f4f1eb;
+    --paper-dark: #e8e2d4;
+    --accent: #5a3e7a;
+    --accent-hover: #3d2a57;
+    --teal: #3a8a7a;
+    --gold: #9a7b2e;
+    --muted: #5a5545;
+    --border: #c5bba8;
+    --russian: #1a3a6b;
+    --english: #2d5a1b;
+    --highlight: #f0ecf8;
+    --msg-ana: #e8f0f7;
+    --msg-maja: #f0ede4;
+    --correct: #2a5a1a;
+    --correct-bg: #eaf5e8;
+    --correct-border: #9acb9a;
+    --wrong: #7a1a1a;
+    --wrong-bg: #faeaea;
+    --wrong-border: #e09090;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 16.5px;
+    line-height: 1.8;
+    min-height: 100vh;
+  }
+
+  .page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 44px 38px;
+  }
+
+  /* HEADER */
+  .lesson-header {
+    border-bottom: 3px double var(--border);
+    padding-bottom: 26px;
+    margin-bottom: 38px;
+    text-align: center;
+  }
+
+  .lesson-tag {
+    font-size: 10.5px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+
+  .lesson-subtitle {
+    color: var(--muted);
+    font-size: 1rem;
+  }
+
+  .level-badge {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 2px;
+    margin-top: 12px;
+  }
+
+  /* SECTIONS */
+  .section { margin-bottom: 48px; }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    color: var(--accent);
+    border-left: 4px solid var(--accent);
+    padding-left: 13px;
+    margin-bottom: 20px;
+    line-height: 1.3;
+  }
+
+  /* GRAMMAR */
+  .grammar-intro {
+    background: var(--paper-dark);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 22px 28px;
+    margin-bottom: 24px;
+    font-size: 0.95rem;
+    color: var(--muted);
+  }
+
+  .grammar-intro p { margin-bottom: 10px; }
+  .grammar-intro p:last-child { margin-bottom: 0; }
+  .grammar-intro strong { color: var(--ink); }
+
+  .grammar-table-wrap { overflow-x: auto; margin: 16px 0 10px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+
+  th {
+    background: var(--accent);
+    color: white;
+    padding: 9px 13px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.86rem;
+    letter-spacing: 0.4px;
+  }
+
+  td {
+    padding: 8px 13px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  tr:nth-child(even) td { background: rgba(197,187,168,0.15); }
+  tr:hover td { background: rgba(197,187,168,0.28); }
+
+  .srp { font-weight: 600; color: var(--ink); }
+  .srp-end { font-weight: 700; color: var(--accent); }
+  .rus { color: var(--russian); }
+  .eng { color: var(--english); }
+  .ex-cell { font-size: 0.87rem; font-style: italic; color: var(--muted); }
+  .ex-cell strong { color: var(--accent); }
+
+  .note {
+    background: #f5f0e0;
+    border-left: 4px solid var(--gold);
+    padding: 12px 16px;
+    margin: 14px 0;
+    font-size: 0.91rem;
+    border-radius: 0 3px 3px 0;
+    color: var(--muted);
+  }
+  .note strong { color: var(--gold); }
+  .note .ru { color: var(--russian); display: block; margin-top: 6px; font-size: 0.87rem; }
+  .note .en { color: var(--english); display: block; margin-top: 4px; font-size: 0.87rem; font-style: italic; }
+
+  /* SUBSET TABLE — genitiv upotreba */
+  .usage-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 18px 0;
+  }
+
+  .usage-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .usage-card-head {
+    background: var(--accent);
+    color: white;
+    padding: 8px 14px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  .usage-card-body {
+    padding: 10px 14px;
+    font-size: 0.88rem;
+  }
+
+  .usage-card-body p { margin-bottom: 5px; }
+  .usage-card-body p:last-child { margin-bottom: 0; }
+  .usage-card-body .sr { font-weight: 600; color: var(--ink); }
+  .usage-card-body .sub-ru { color: var(--russian); font-size: 0.83rem; }
+  .usage-card-body .sub-en { color: var(--english); font-size: 0.83rem; font-style: italic; }
+
+  /* COLLAPSE */
+  details { margin-top: 14px; }
+
+  details summary {
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 9px 15px;
+    background: var(--paper-dark);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    transition: background 0.2s;
+    user-select: none;
+  }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::before {
+    content: '▶';
+    font-size: 9px;
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  details[open] summary::before { transform: rotate(90deg); }
+  details summary:hover { background: #ddd8ca; }
+
+  .translation-box {
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 3px 3px;
+    padding: 18px 22px;
+    background: white;
+    font-size: 0.93rem;
+  }
+
+  .translation-box p { margin-bottom: 10px; }
+  .translation-box p:last-child { margin-bottom: 0; }
+
+  .tr-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 4px;
+    margin-top: 13px;
+  }
+  .tr-label:first-child { margin-top: 0; }
+  .tr-label.ru { color: var(--russian); }
+  .tr-label.en { color: var(--english); }
+
+  .translation-box p.ru-text { color: var(--russian); }
+  .translation-box p.en-text { color: var(--english); font-style: italic; }
+
+  /* CHAT STORY */
+  .story-wrap {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .story-topbar {
+    background: var(--accent);
+    color: white;
+    padding: 12px 20px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .story-topbar-dot {
+    width: 10px; height: 10px;
+    background: #b09ed4;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .chat-body {
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .chat-row {
+    display: flex;
+    flex-direction: column;
+    max-width: 82%;
+  }
+
+  .chat-row.ana { align-self: flex-end; align-items: flex-end; }
+  .chat-row.maja { align-self: flex-start; align-items: flex-start; }
+
+  .chat-name {
+    font-size: 0.73rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+    color: var(--muted);
+  }
+  .chat-row.ana .chat-name { color: var(--accent); }
+  .chat-row.maja .chat-name { color: var(--teal); }
+
+  .chat-bubble {
+    padding: 10px 15px;
+    border-radius: 14px;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    position: relative;
+  }
+
+  .chat-row.ana .chat-bubble {
+    background: var(--msg-ana);
+    border-radius: 14px 14px 4px 14px;
+  }
+
+  .chat-row.maja .chat-bubble {
+    background: var(--msg-maja);
+    border-radius: 14px 14px 14px 4px;
+  }
+
+  .vocab-word {
+    color: var(--accent);
+    font-weight: 700;
+    border-bottom: 1px dotted var(--accent);
+  }
+
+  .chat-gap { height: 10px; }
+
+  /* EXERCISES */
+  .exercise {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 24px 28px;
+    margin-bottom: 20px;
+  }
+
+  .ex-number {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  .ex-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.08rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+
+  .ex-instruction {
+    font-size: 0.88rem;
+    color: var(--muted);
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    line-height: 1.5;
+  }
+
+  .ex-ru { color: var(--russian); display: block; }
+  .ex-en { color: var(--english); display: block; font-style: italic; }
+
+  ol.ex-list { padding-left: 20px; }
+  ol.ex-list li { margin-bottom: 11px; line-height: 1.65; }
+
+  .blank {
+    display: inline-block;
+    min-width: 80px;
+    border-bottom: 2px solid var(--ink);
+    margin: 0 3px;
+  }
+
+  .word-bank {
+    background: #f0ecf8;
+    border: 1px dashed var(--accent);
+    border-radius: 3px;
+    padding: 10px 14px;
+    margin-bottom: 16px;
+    font-size: 0.91rem;
+    line-height: 1.8;
+  }
+  .word-bank span { font-weight: 700; color: var(--accent); margin-right: 12px; }
+
+  /* INTERACTIVE EXERCISES */
+  .fill-item {
+    margin-bottom: 14px;
+    line-height: 1.9;
+  }
+
+  .fill-item .hint {
+    font-size: 0.82rem;
+    color: var(--russian);
+    font-style: italic;
+    margin-left: 4px;
+  }
+
+  .fill-input {
+    border: none;
+    border-bottom: 2px solid var(--accent);
+    background: transparent;
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 1rem;
+    color: var(--ink);
+    width: 110px;
+    padding: 1px 4px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .fill-input:focus { border-bottom-color: var(--accent-hover); }
+  .fill-input.correct { border-bottom-color: var(--correct); background: var(--correct-bg); border-radius: 2px 2px 0 0; }
+  .fill-input.wrong { border-bottom-color: var(--wrong); background: var(--wrong-bg); border-radius: 2px 2px 0 0; }
+
+  .feedback-msg {
+    font-size: 0.82rem;
+    margin-left: 6px;
+    font-style: italic;
+    display: none;
+  }
+  .feedback-msg.show { display: inline; }
+  .feedback-msg.ok { color: var(--correct); }
+  .feedback-msg.err { color: var(--wrong); }
+
+  .check-btn {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 8px 20px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 3px;
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .check-btn:hover { background: var(--accent-hover); }
+
+  .score-display {
+    margin-top: 12px;
+    font-size: 0.9rem;
+    color: var(--muted);
+    display: none;
+  }
+  .score-display.show { display: block; }
+  .score-display strong { color: var(--accent); }
+
+  /* MC EXERCISES */
+  .mc-item { margin-bottom: 16px; }
+  .mc-item .mc-question { margin-bottom: 8px; font-weight: 500; }
+  .mc-options { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  .mc-btn {
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    background: var(--paper-dark);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    color: var(--ink);
+  }
+
+  .mc-btn:hover:not([disabled]) { background: #ddd8ca; border-color: var(--muted); }
+  .mc-btn.selected-correct { background: var(--correct-bg); border-color: var(--correct); color: var(--correct); font-weight: 600; }
+  .mc-btn.selected-wrong { background: var(--wrong-bg); border-color: var(--wrong); color: var(--wrong); font-weight: 600; }
+  .mc-btn.reveal-correct { background: var(--correct-bg); border-color: var(--correct); color: var(--correct); }
+  .mc-btn[disabled] { cursor: default; }
+
+  .mc-feedback {
+    margin-top: 6px;
+    font-size: 0.83rem;
+    font-style: italic;
+    display: none;
+    line-height: 1.5;
+  }
+  .mc-feedback.show { display: block; }
+  .mc-feedback.ok { color: var(--correct); }
+  .mc-feedback.err { color: var(--wrong); }
+
+  /* MATCH EXERCISE */
+  .match-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 20px;
+    margin-bottom: 12px;
+  }
+
+  .match-col-head {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .match-left-items, .match-right-items {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .match-chip {
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    background: var(--paper-dark);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.15s;
+    user-select: none;
+  }
+
+  .match-chip:hover { background: #ddd8ca; }
+  .match-chip.selected { background: var(--highlight); border-color: var(--accent); color: var(--accent); font-weight: 600; }
+  .match-chip.matched-ok { background: var(--correct-bg); border-color: var(--correct); color: var(--correct); cursor: default; }
+  .match-chip.matched-err { background: var(--wrong-bg); border-color: var(--wrong); color: var(--wrong); animation: shake 0.3s; }
+
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+  }
+
+  /* TRUE/FALSE */
+  .tf-item { margin-bottom: 12px; display: flex; align-items: flex-start; gap: 10px; flex-wrap: wrap; }
+  .tf-text { flex: 1; min-width: 200px; line-height: 1.6; }
+  .tf-btns { display: flex; gap: 6px; flex-shrink: 0; }
+
+  .tf-btn {
+    padding: 4px 12px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    background: var(--paper-dark);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .tf-btn:hover:not([disabled]) { background: #ddd8ca; }
+  .tf-btn.tf-correct { background: var(--correct-bg); border-color: var(--correct); color: var(--correct); }
+  .tf-btn.tf-wrong { background: var(--wrong-bg); border-color: var(--wrong); color: var(--wrong); }
+  .tf-btn[disabled] { cursor: default; }
+
+  .tf-feedback {
+    width: 100%;
+    font-size: 0.82rem;
+    font-style: italic;
+    margin-top: 2px;
+    padding-left: 0;
+    display: none;
+    line-height: 1.45;
+  }
+  .tf-feedback.show { display: block; }
+  .tf-feedback.ok { color: var(--correct); }
+  .tf-feedback.err { color: var(--wrong); }
+
+  /* WORD ORDER */
+  .wo-sentence { margin-bottom: 18px; }
+
+  .wo-hint {
+    font-size: 0.83rem;
+    color: var(--muted);
+    margin-bottom: 6px;
+    font-style: italic;
+  }
+
+  .wo-hint .wo-hint-ru { color: var(--russian); }
+  .wo-hint .wo-hint-en { color: var(--english); }
+
+  .wo-chips-pool {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    min-height: 38px;
+    padding: 6px;
+    background: #f5f2ec;
+    border: 1px dashed var(--border);
+    border-radius: 3px;
+    margin-bottom: 6px;
+  }
+
+  .wo-answer-area {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    min-height: 42px;
+    padding: 6px;
+    background: white;
+    border: 2px solid var(--border);
+    border-radius: 3px;
+    margin-bottom: 6px;
+    transition: border-color 0.2s;
+  }
+
+  .wo-answer-area.correct-area { border-color: var(--correct); background: var(--correct-bg); }
+  .wo-answer-area.wrong-area { border-color: var(--wrong); }
+
+  .wo-chip {
+    padding: 5px 10px;
+    background: var(--paper-dark);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+  }
+
+  .wo-chip:hover { background: #ddd8ca; }
+  .wo-chip.in-answer { background: var(--highlight); border-color: var(--accent); }
+
+  .wo-explanation {
+    font-size: 0.82rem;
+    color: var(--muted);
+    display: none;
+    margin-top: 4px;
+    font-style: italic;
+  }
+  .wo-explanation.show { display: block; }
+  .wo-explanation .rule-ru { color: var(--russian); display: block; }
+  .wo-explanation .rule-en { color: var(--english); display: block; }
+
+  /* VOCAB */
+  .vocab-grid { display: flex; flex-direction: column; gap: 2px; }
+
+  .vocab-item {
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .vocab-head {
+    display: grid;
+    grid-template-columns: 190px 1fr;
+    background: var(--paper-dark);
+  }
+
+  .vocab-word-main {
+    padding: 11px 15px;
+    font-weight: 700;
+    font-size: 0.98rem;
+    border-right: 1px solid var(--border);
+  }
+
+  .vocab-sentence-sr {
+    padding: 11px 15px;
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--muted);
+  }
+
+  .vocab-translations {
+    padding: 13px 18px 14px;
+    background: white;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    font-size: 0.88rem;
+  }
+
+  .vocab-tr-block .lang-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .vocab-tr-block.ru .lang-label { color: var(--russian); }
+  .vocab-tr-block.en .lang-label { color: var(--english); }
+  .vocab-tr-block.ru .tr-word { color: var(--russian); font-weight: 600; }
+  .vocab-tr-block.en .tr-word { color: var(--english); font-style: italic; font-weight: 600; }
+  .tr-sentence { font-size: 0.82rem; color: var(--muted); margin-top: 2px; }
+  .vocab-tr-block.ru .tr-sentence { color: var(--russian); opacity: 0.8; }
+  .vocab-tr-block.en .tr-sentence { color: var(--english); opacity: 0.8; font-style: italic; }
+
+  /* NEXT LESSON BOX */
+  .next-lesson {
+    background: var(--highlight);
+    border: 1px solid #c0aee0;
+    border-radius: 4px;
+    padding: 18px 22px;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  .next-lesson strong { color: var(--accent); }
+  .next-lesson .nl-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .next-lesson .ru { color: var(--russian); display: block; margin-top: 5px; font-size: 0.87rem; }
+  .next-lesson .en { color: var(--english); display: block; margin-top: 3px; font-size: 0.87rem; font-style: italic; }
+
+  /* FOOTER */
+  .lesson-footer {
+    margin-top: 56px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  @media (max-width: 580px) {
+    .page { padding: 20px 15px; }
+    h1 { font-size: 1.6rem; }
+    .vocab-head { grid-template-columns: 1fr; }
+    .vocab-word-main { border-right: none; border-bottom: 1px solid var(--border); }
+    .vocab-translations { grid-template-columns: 1fr; }
+    .chat-row { max-width: 94%; }
+    .usage-grid { grid-template-columns: 1fr; }
+    .match-wrap { grid-template-columns: 1fr; }
+    .wo-chips-pool, .wo-answer-area { min-height: 32px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="lesson-header">
+    <div class="lesson-tag">Čas srpskog jezika</div>
+    <h1>Maja se seli</h1>
+    <div class="lesson-subtitle">Genitiv jednine — čega ima? čega nema? gde je to?</div>
+    <div class="level-badge">A2</div>
+  </header>
+
+  <!-- GRAMATIKA -->
+  <section class="section">
+    <h2 class="section-title">Gramatika: Genitiv jednine</h2>
+
+    <div class="grammar-intro">
+      <p>Rodительный падеж (genitiv) — <strong>čiji? čega? od čega?</strong> Ovaj padež je jedan od najvažnijih u srpskom.</p>
+      <p><span style="color:var(--russian);">Родительный падеж — один из самых важных в сербском языке. Он отвечает на вопросы: <strong>чей? чего? откуда?</strong></span></p>
+      <p><span style="color:var(--english); font-style:italic;">The genitive case answers: <strong>whose? of what? from where?</strong> It is used very frequently in Serbian.</span></p>
+    </div>
+
+    <h3 style="font-family:'Playfair Display',serif; font-size:1.1rem; margin-bottom:12px; color:var(--ink);">Nastavci / Окончания / Endings</h3>
+
+    <div class="grammar-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Rod / Род / Gender</th>
+            <th>Nominativ</th>
+            <th>Genitiv</th>
+            <th>Nastavak</th>
+            <th>Primer / Пример</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="srp">muški rod<br><span class="rus" style="font-size:0.82rem;">мужской род</span></td>
+            <td class="srp">sto<br>prozor<br>komšija</td>
+            <td><span class="srp-end">stol<strong>a</strong><br>prozor<strong>a</strong><br>komšij<strong>e</strong></span></td>
+            <td style="font-weight:700; color:var(--accent); font-size:1.05rem;">-a<br><span style="font-size:0.8rem; color:var(--muted);">(-e kod -ja)</span></td>
+            <td class="ex-cell">Nema <strong>stola</strong>.<br>Boja <strong>prozora</strong>.</td>
+          </tr>
+          <tr>
+            <td class="srp">srednji rod<br><span class="rus" style="font-size:0.82rem;">средний род</span></td>
+            <td class="srp">mesto<br>okno<br>sunce</td>
+            <td><span class="srp-end">mest<strong>a</strong><br>okn<strong>a</strong><br>sunc<strong>a</strong></span></td>
+            <td style="font-weight:700; color:var(--accent); font-size:1.05rem;">-a</td>
+            <td class="ex-cell">Do <strong>mesta</strong> su dva koraka.</td>
+          </tr>
+          <tr>
+            <td class="srp">ženski rod (-a)<br><span class="rus" style="font-size:0.82rem;">женский род (-а)</span></td>
+            <td class="srp">soba<br>kuhinja<br>Maja</td>
+            <td><span class="srp-end">sob<strong>e</strong><br>kuhinje<br>Maj<strong>e</strong></span></td>
+            <td style="font-weight:700; color:var(--accent); font-size:1.05rem;">-e</td>
+            <td class="ex-cell">Prozor <strong>sobe</strong>.<br>Kod <strong>Maje</strong>.</td>
+          </tr>
+          <tr>
+            <td class="srp">ženski rod (sugl.)<br><span class="rus" style="font-size:0.82rem;">женский род (соглас.)</span></td>
+            <td class="srp">stvar<br>noć<br>reč</td>
+            <td><span class="srp-end">stvar<strong>i</strong><br>noć<strong>i</strong><br>reč<strong>i</strong></span></td>
+            <td style="font-weight:700; color:var(--accent); font-size:1.05rem;">-i</td>
+            <td class="ex-cell">Puno <strong>stvari</strong> u kutiji.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <strong>Napomena:</strong> Muški rod na <em>-ija</em> (komšija, sluga, tata, deda) u genitivu dobija <strong>-e</strong>: komšij<strong>e</strong>, tat<strong>e</strong> — isto kao ženski rod!
+      <span class="ru">Существительные мужского рода на <em>-ija</em> в родительном получают окончание <strong>-e</strong>: komšij<strong>e</strong>, tat<strong>e</strong>.</span>
+      <span class="en">Masculine nouns ending in <em>-ija</em> take <strong>-e</strong> in the genitive: komšij<strong>e</strong>, tat<strong>e</strong>.</span>
+    </div>
+
+    <h3 style="font-family:'Playfair Display',serif; font-size:1.1rem; margin: 24px 0 12px; color:var(--ink);">Kada koristimo genitiv? / Когда используется? / When is it used?</h3>
+
+    <div class="usage-grid">
+      <div class="usage-card">
+        <div class="usage-card-head">Nema + genitiv / нет + род. пад.</div>
+        <div class="usage-card-body">
+          <p><span class="sr">Nema <strong>stola</strong>.</span></p>
+          <p class="sub-ru">Нет <strong>стола</strong>.</p>
+          <p class="sub-en">There is no <strong>table</strong>.</p>
+          <p style="margin-top:8px;"><span class="sr">Nema <strong>toplog tuša</strong>.</span></p>
+          <p class="sub-ru">Нет горячего душа.</p>
+          <p class="sub-en">There is no hot shower.</p>
+        </div>
+      </div>
+
+      <div class="usage-card">
+        <div class="usage-card-head">Puno / malo / dosta + genitiv</div>
+        <div class="usage-card-body">
+          <p><span class="sr">Puno <strong>kutija</strong>.</span></p>
+          <p class="sub-ru">Много коробок.</p>
+          <p class="sub-en">A lot of boxes.</p>
+          <p style="margin-top:8px;"><span class="sr">Malo <strong>prostora</strong>.</span></p>
+          <p class="sub-ru">Мало пространства.</p>
+          <p class="sub-en">Little space.</p>
+        </div>
+      </div>
+
+      <div class="usage-card">
+        <div class="usage-card-head">Predlozi mesta + genitiv</div>
+        <div class="usage-card-body">
+          <p><span class="sr">ispred <strong>zgrade</strong></span></p>
+          <p class="sub-ru">перед зданием</p>
+          <p class="sub-en">in front of the building</p>
+          <p style="margin-top:8px;"><span class="sr">do <strong>parka</strong> · blizu <strong>stanice</strong></span></p>
+          <p class="sub-ru">до парка · рядом со станцией</p>
+          <p class="sub-en">to the park · near the station</p>
+        </div>
+      </div>
+
+      <div class="usage-card">
+        <div class="usage-card-head">Svojina / Принадлежность / Possession</div>
+        <div class="usage-card-body">
+          <p><span class="sr">stan <strong>komšije</strong></span></p>
+          <p class="sub-ru">квартира соседа</p>
+          <p class="sub-en">the neighbour's flat</p>
+          <p style="margin-top:8px;"><span class="sr">ključ <strong>stana</strong> · boja <strong>zida</strong></span></p>
+          <p class="sub-ru">ключ квартиры · цвет стены</p>
+          <p class="sub-en">the flat key · the wall's colour</p>
+        </div>
+      </div>
+
+      <div class="usage-card">
+        <div class="usage-card-head">Od / iz / bez + genitiv</div>
+        <div class="usage-card-body">
+          <p><span class="sr">iz <strong>kuhinje</strong> · od <strong>tata</strong></span></p>
+          <p class="sub-ru">из кухни · от папы</p>
+          <p class="sub-en">from the kitchen · from dad</p>
+          <p style="margin-top:8px;"><span class="sr">bez <strong>lifta</strong> · bez <strong>terase</strong></span></p>
+          <p class="sub-ru">без лифта · без террасы</p>
+          <p class="sub-en">without a lift · without a terrace</p>
+        </div>
+      </div>
+
+      <div class="usage-card">
+        <div class="usage-card-head">Komparativ + od + genitiv</div>
+        <div class="usage-card-body">
+          <p><span class="sr">jeftinija od <strong>centra</strong></span></p>
+          <p class="sub-ru">дешевле центра</p>
+          <p class="sub-en">cheaper than the centre</p>
+          <p style="margin-top:8px;"><span class="sr">dalje od <strong>stanice</strong></span></p>
+          <p class="sub-ru">дальше от станции</p>
+          <p class="sub-en">further from the station</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEKST -->
+  <section class="section">
+    <h2 class="section-title">Tekst: Maja se seli</h2>
+
+    <div class="story-wrap">
+      <div class="story-topbar">
+        <span class="story-topbar-dot"></span>
+        Maja i Ana — poruke
+      </div>
+
+      <div class="chat-body">
+
+        <div class="chat-row ana">
+          <div class="chat-name">Ana</div>
+          <div class="chat-bubble">
+            Maja! Čula sam da se seliš! Kada mogu da dođem da vidim <span class="vocab-word">nov stan</span>?
+          </div>
+        </div>
+
+        <div class="chat-row maja">
+          <div class="chat-name">Maja</div>
+          <div class="chat-bubble">
+            Dođi u subotu! Ali te upozoravam — stan je još uvek pun <span class="vocab-word">kutija</span>. Nema ni <span class="vocab-word">stola</span>, ni <span class="vocab-word">stolice</span>. 😅
+          </div>
+        </div>
+
+        <div class="chat-row ana">
+          <div class="chat-name">Ana</div>
+          <div class="chat-bubble">
+            Nema veze! A gde je stan tačno? Je l' blizu <span class="vocab-word">centra</span>?
+          </div>
+        </div>
+
+        <div class="chat-row maja">
+          <div class="chat-name">Maja</div>
+          <div class="chat-bubble">
+            Nije daleko od <span class="vocab-word">tržnog centra</span> — može peške za deset minuta. Zgrada je odmah iza <span class="vocab-word">parka</span> sa ribnjacima. Znaš li taj park?
+          </div>
+        </div>
+
+        <div class="chat-row ana">
+          <div class="chat-name">Ana</div>
+          <div class="chat-bubble">
+            Da da! I kako izgleda sam stan?
+          </div>
+        </div>
+
+        <div class="chat-row maja">
+          <div class="chat-name">Maja</div>
+          <div class="chat-bubble">
+            Ima dnevnu sobu, spavaću sobu i malu <span class="vocab-word">kuhinju</span>. Boja <span class="vocab-word">zidova</span> je svetlozelena — malo čudna, znam. 😄 I nema <span class="vocab-word">lifta</span>, ali imam samo drugi sprat.
+          </div>
+        </div>
+
+        <div class="chat-row ana">
+          <div class="chat-name">Ana</div>
+          <div class="chat-bubble">
+            A terasa? Ili bar prozor sa <span class="vocab-word">pogledom</span>?
+          </div>
+        </div>
+
+        <div class="chat-row maja">
+          <div class="chat-name">Maja</div>
+          <div class="chat-bubble">
+            Nema <span class="vocab-word">terase</span>, nažalost. Ali prozor <span class="vocab-word">dnevne sobe</span> gleda prema parku — sasvim lepo! 🌿
+          </div>
+        </div>
+
+        <div class="chat-row ana">
+          <div class="chat-name">Ana</div>
+          <div class="chat-bubble">
+            Super! A komšije? Znaš li već nešto?
+          </div>
+        </div>
+
+        <div class="chat-row maja">
+          <div class="chat-name">Maja</div>
+          <div class="chat-bubble">
+            Stan <span class="vocab-word">komšije</span> ispred mog je prazan — niko ne živi. A stan <span class="vocab-word">komšinice</span> odozdo — ona je baš ljubazna, donela mi je <span class="vocab-word">teglu</span> džema prvog dana! 🍓
+          </div>
+        </div>
+
+        <div class="chat-row ana">
+          <div class="chat-name">Ana</div>
+          <div class="chat-bubble">
+            Awww! Maja, čini mi se da ti je ovo mnogo bolje mesto od <span class="vocab-word">starog stana</span>. 😊
+          </div>
+        </div>
+
+        <div class="chat-row maja">
+          <div class="chat-name">Maja</div>
+          <div class="chat-bubble">
+            Mislim da da! I stanarina — ista cena, manje stresa! 😂 Čekam te u subotu od <span class="vocab-word">podne</span>.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <details>
+      <summary>Prevod / Перевод / Translation</summary>
+      <div class="translation-box">
+
+        <span class="tr-label ru">Русский перевод</span>
+        <p class="ru-text">Ана: Маja! Я слышала, что ты переезжаешь! Когда я могу прийти посмотреть новую квартиру?</p>
+        <p class="ru-text">Маja: Приходи в субботу! Но предупреждаю — квартира ещё полна коробок. Нет ни стола, ни стула.</p>
+        <p class="ru-text">Ана: Ничего страшного! А где квартира? Близко от центра?</p>
+        <p class="ru-text">Маja: Недалеко от торгового центра — пешком минут десять. Дом — сразу за парком с прудами. Знаешь этот парк?</p>
+        <p class="ru-text">Ана: Да, да! А как выглядит сама квартира?</p>
+        <p class="ru-text">Маja: Есть гостиная, спальня и маленькая кухня. Цвет стен — светло-зелёный, немного странный, знаю. И нет лифта, но у меня всего второй этаж.</p>
+        <p class="ru-text">Ана: А терраса? Или хотя бы окно с видом?</p>
+        <p class="ru-text">Маja: Террасы, к сожалению, нет. Но окно гостиной выходит на парк — очень мило!</p>
+        <p class="ru-text">Ана: Отлично! А соседи? Ты уже что-нибудь знаешь?</p>
+        <p class="ru-text">Маja: Квартира соседа напротив моей пустая — никто не живёт. А квартира соседки снизу — она очень приятная, принесла мне банку варенья в первый день!</p>
+        <p class="ru-text">Ана: Ааа! Маja, мне кажется, это место намного лучше старой квартиры.</p>
+        <p class="ru-text">Маja: Я тоже так думаю! И аренда — та же цена, меньше стресса! Жду тебя в субботу с полудня.</p>
+
+        <span class="tr-label en">English translation</span>
+        <p class="en-text">Ana: Maja! I heard you're moving! When can I come and see the new flat?</p>
+        <p class="en-text">Maja: Come on Saturday! But fair warning — the flat is still full of boxes. There's no table or chair yet.</p>
+        <p class="en-text">Ana: Doesn't matter! Where exactly is the flat? Is it close to the centre?</p>
+        <p class="en-text">Maja: It's not far from the shopping centre — ten minutes on foot. The building is right behind the park with the ponds. Do you know that park?</p>
+        <p class="en-text">Ana: Yes, yes! And what does the flat itself look like?</p>
+        <p class="en-text">Maja: There's a living room, a bedroom, and a small kitchen. The colour of the walls is light green — a bit strange, I know. And there's no lift, but I'm only on the second floor.</p>
+        <p class="en-text">Ana: What about a terrace? Or at least a window with a view?</p>
+        <p class="en-text">Maja: No terrace, unfortunately. But the living room window looks out onto the park — quite lovely!</p>
+        <p class="en-text">Ana: Great! And the neighbours? Do you know anything yet?</p>
+        <p class="en-text">Maja: The neighbour's flat in front of mine is empty — no one lives there. But the downstairs neighbour's flat — she's really friendly, she brought me a jar of jam on the first day!</p>
+        <p class="en-text">Ana: Awww! Maja, I think this is a much better place than the old flat.</p>
+        <p class="en-text">Maja: I think so too! And the rent — same price, less stress! I'll see you on Saturday from noon.</p>
+
+      </div>
+    </details>
+  </section>
+
+  <!-- VEŽBE -->
+  <section class="section">
+    <h2 class="section-title">Vežbe / Упражнения / Exercises</h2>
+
+    <!-- ===== VEŽBA 1 — Tačno/Netačno ===== -->
+    <div class="exercise">
+      <div class="ex-number">Vežba 1</div>
+      <div class="ex-title">Tačno ili netačno?</div>
+      <div class="ex-instruction">
+        Da li su rečenice tačne (T) ili netačne (N) prema tekstu?<br>
+        <span class="ex-ru">Верны (T) или неверны (N) эти предложения по тексту?</span>
+        <span class="ex-en">Are these sentences true (T) or false (N) according to the text?</span>
+      </div>
+
+      <div id="tf-ex1">
+
+        <div class="tf-item" data-correct="N">
+          <div class="tf-text">1. Majin stan ima terasu.</div>
+          <div class="tf-btns">
+            <button class="tf-btn" onclick="checkTF(this,'T','ex1-1','N','Nema terase — Maja kaže: Nema terase, nažalost. / Террасы нет. / There is no terrace.')">T</button>
+            <button class="tf-btn" onclick="checkTF(this,'N','ex1-1','N','Tačno! Maja kaže: Nema terase, nažalost. / Верно! / Correct!')">N</button>
+          </div>
+          <div class="tf-feedback" id="ex1-1"></div>
+        </div>
+
+        <div class="tf-item" data-correct="T">
+          <div class="tf-text">2. Stan je blizu tržnog centra.</div>
+          <div class="tf-btns">
+            <button class="tf-btn" onclick="checkTF(this,'T','ex1-2','T','Tačno! Maja kaže: nije daleko od tržnog centra — može peške za deset minuta. / Верно! / Correct!')">T</button>
+            <button class="tf-btn" onclick="checkTF(this,'N','ex1-2','T','Netačno. Maja kaže: nije daleko od tržnog centra. / Неверно. / Incorrect.')">N</button>
+          </div>
+          <div class="tf-feedback" id="ex1-2"></div>
+        </div>
+
+        <div class="tf-item" data-correct="N">
+          <div class="tf-text">3. Boja zidova je bela.</div>
+          <div class="tf-btns">
+            <button class="tf-btn" onclick="checkTF(this,'T','ex1-3','N','Netačno. Boja zidova je svetlozelena. / Неверно. / Incorrect.')">T</button>
+            <button class="tf-btn" onclick="checkTF(this,'N','ex1-3','N','Tačno! Boja zidova je svetlozelena. / Верно! / Correct!')">N</button>
+          </div>
+          <div class="tf-feedback" id="ex1-3"></div>
+        </div>
+
+        <div class="tf-item" data-correct="T">
+          <div class="tf-text">4. Komšinica je donela Maji teglu džema.</div>
+          <div class="tf-btns">
+            <button class="tf-btn" onclick="checkTF(this,'T','ex1-4','T','Tačno! / Верно! / Correct!')">T</button>
+            <button class="tf-btn" onclick="checkTF(this,'N','ex1-4','T','Netačno. Komšinica je bila ljubazna i donela džem prvog dana. / Неверно. / Incorrect.')">N</button>
+          </div>
+          <div class="tf-feedback" id="ex1-4"></div>
+        </div>
+
+        <div class="tf-item" data-correct="N">
+          <div class="tf-text">5. Stan komšije ispred Majinog je zauzet.</div>
+          <div class="tf-btns">
+            <button class="tf-btn" onclick="checkTF(this,'T','ex1-5','N','Netačno. Stan komšije je prazan — niko ne živi. / Неверно. / Incorrect.')">T</button>
+            <button class="tf-btn" onclick="checkTF(this,'N','ex1-5','N','Tačno! Stan je prazan — niko ne živi. / Верно! / Correct!')">N</button>
+          </div>
+          <div class="tf-feedback" id="ex1-5"></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===== VEŽBA 2 — Promeni u genitiv (fill-in) ===== -->
+    <div class="exercise">
+      <div class="ex-number">Vežba 2</div>
+      <div class="ex-title">Stavi imenicu u genitiv</div>
+      <div class="ex-instruction">
+        Promeni imenicu u zagradi u genitiv jednine.<br>
+        <span class="ex-ru">Поставь существительное в скобках в родительный падеж единственного числа.</span>
+        <span class="ex-en">Put the noun in brackets into the genitive singular.</span>
+      </div>
+
+      <div id="fill-ex2">
+
+        <div class="fill-item">
+          1. Nema <input class="fill-input" id="f2-1" placeholder="..."> u stanu.
+          <span class="hint">(sto / стол / table)</span>
+          <span class="feedback-msg" id="fb2-1"></span>
+        </div>
+
+        <div class="fill-item">
+          2. Boja <input class="fill-input" id="f2-2" placeholder="..."> je svetlozelena.
+          <span class="hint">(zid / стена / wall)</span>
+          <span class="feedback-msg" id="fb2-2"></span>
+        </div>
+
+        <div class="fill-item">
+          3. Prozor <input class="fill-input" id="f2-3" placeholder="..."> gleda prema parku.
+          <span class="hint">(dnevna soba / гостиная / living room)</span>
+          <span class="feedback-msg" id="fb2-3"></span>
+        </div>
+
+        <div class="fill-item">
+          4. Stan <input class="fill-input" id="f2-4" placeholder="..."> je prazan.
+          <span class="hint">(komšija / сосед / neighbour)</span>
+          <span class="feedback-msg" id="fb2-4"></span>
+        </div>
+
+        <div class="fill-item">
+          5. Nema <input class="fill-input" id="f2-5" placeholder="..."> u zgradi.
+          <span class="hint">(lift / лифт / lift)</span>
+          <span class="feedback-msg" id="fb2-5"></span>
+        </div>
+
+        <div class="fill-item">
+          6. Ana je blizu <input class="fill-input" id="f2-6" placeholder="...">.
+          <span class="hint">(stanica / станция / station)</span>
+          <span class="feedback-msg" id="fb2-6"></span>
+        </div>
+
+        <div class="fill-item">
+          7. Ključ <input class="fill-input" id="f2-7" placeholder="..."> je na stolu.
+          <span class="hint">(stan / квартира / flat)</span>
+          <span class="feedback-msg" id="fb2-7"></span>
+        </div>
+
+        <div class="fill-item">
+          8. Imam puno <input class="fill-input" id="f2-8" placeholder="..."> za raspakivanje.
+          <span class="hint">(kutija / коробка / box — žr.)</span>
+          <span class="feedback-msg" id="fb2-8"></span>
+        </div>
+
+      </div>
+
+      <button class="check-btn" onclick="checkFill2()">Proveri odgovore / Проверить / Check</button>
+      <div class="score-display" id="score-ex2"></div>
+    </div>
+
+    <!-- ===== VEŽBA 3 — Multiple choice ===== -->
+    <div class="exercise">
+      <div class="ex-number">Vežba 3</div>
+      <div class="ex-title">Izaberi tačan genitiv</div>
+      <div class="ex-instruction">
+        Odaberi ispravan oblik genitiva.<br>
+        <span class="ex-ru">Выбери правильную форму родительного падежа.</span>
+        <span class="ex-en">Choose the correct genitive form.</span>
+      </div>
+
+      <!-- Q1 -->
+      <div class="mc-item">
+        <div class="mc-question">1. Nema <em>___</em> u dnevnoj sobi.</div>
+        <div class="mc-options">
+          <button class="mc-btn" onclick="checkMC(this,'wrong','mc1','Netačno. <em>Stolica</em> je ženski rod na -a → genitiv: stolice (ne stolici, ne stolica). / Неверно. / Incorrect.')">stolici</button>
+          <button class="mc-btn" onclick="checkMC(this,'correct','mc1','Tačno! <em>Stolica</em> (ž.r. na -a) → genitiv: <strong>stolice</strong>. / Верно! / Correct!')">stolice</button>
+          <button class="mc-btn" onclick="checkMC(this,'wrong','mc1','Netačno. <em>Stolica</em> je ženski rod na -a → genitiv: stolice. / Неверно. / Incorrect.')">stolica</button>
+        </div>
+        <div class="mc-feedback" id="mc1"></div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mc-item">
+        <div class="mc-question">2. Stan je daleko od <em>___</em>.</div>
+        <div class="mc-options">
+          <button class="mc-btn" onclick="checkMC(this,'wrong','mc2','Netačno. <em>Centar</em> je muški rod → genitiv: centra. / Неверно. / Incorrect.')">centru</button>
+          <button class="mc-btn" onclick="checkMC(this,'wrong','mc2','Netačno. <em>Centar</em> je muški rod → genitiv: centra (ne centara — to je množina). / Неверно. / Incorrect.')">centara</button>
+          <button class="mc-btn" onclick="checkMC(this,'correct','mc2','Tačno! <em>Centar</em> (m.r.) → genitiv: <strong>centra</strong>. / Верно! / Correct!')">centra</button>
+        </div>
+        <div class="mc-feedback" id="mc2"></div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mc-item">
+        <div class="mc-question">3. Zgrada je iza <em>___</em>.</div>
+        <div class="mc-options">
+          <button class="mc-btn" onclick="checkMC(this,'correct','mc3','Tačno! <em>Park</em> (m.r.) → genitiv: <strong>parka</strong>. / Верно! / Correct!')">parka</button>
+          <button class="mc-btn" onclick="checkMC(this,'wrong','mc3','Netačno. <em>Park</em> je muški rod → genitiv: parka, ne parku. / Неверно. / Incorrect.')">parku</button>
+          <button class="mc-btn" onclick="checkMC(this,'wrong','mc3','Netačno. <em>Park</em> je muški rod → genitiv: parka, ne park. / Неверно. / Incorrect.')">park</button>
+        </div>
+        <div class="mc-feedback" id="mc3"></div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="mc-item">
+        <div class="mc-question">4. Puno <em>___</em> čeka na raspakivanje.</div>
+        <div class="mc-options">
+          <button class="mc-btn" onclick="checkMC(this,'wrong','mc4','Netačno. <em>Stvar</em> je ženski rod na suglasnik → genitiv: stvari. / Неверно. / Incorrect.')">stvare</button>
+          <button class="mc-btn" onclick="checkMC(this,'wrong','mc4','Netačno. <em>Stvar</em> je ženski rod na suglasnik → genitiv: stvari, ne stvar. / Неверно. / Incorrect.')">stvar</button>
+          <button class="mc-btn" onclick="checkMC(this,'correct','mc4','Tačno! <em>Stvar</em> (ž.r. na suglasnik) → genitiv: <strong>stvari</strong>. / Верно! / Correct!')">stvari</button>
+        </div>
+        <div class="mc-feedback" id="mc4"></div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="mc-item">
+        <div class="mc-question">5. Prozor <em>___</em> gleda prema parku.</div>
+        <div class="mc-options">
+          <button class="mc-btn" onclick="checkMC(this,'wrong','mc5','Netačno. <em>Kuhinja</em> je ženski rod na -a → genitiv: kuhinje. / Неверно. / Incorrect.')">kuhinji</button>
+          <button class="mc-btn" onclick="checkMC(this,'correct','mc5','Tačno! <em>Kuhinja</em> (ž.r. na -a) → genitiv: <strong>kuhinje</strong>. / Верно! / Correct!')">kuhinje</button>
+          <button class="mc-btn" onclick="checkMC(this,'wrong','mc5','Netačno. <em>Kuhinja</em> je ženski rod na -a → genitiv: kuhinje, ne kuhinja. / Неверно. / Incorrect.')">kuhinja</button>
+        </div>
+        <div class="mc-feedback" id="mc5"></div>
+      </div>
+
+    </div>
+
+    <!-- ===== VEŽBA 4 — Nema/Ima konstrukcija ===== -->
+    <div class="exercise">
+      <div class="ex-number">Vežba 4</div>
+      <div class="ex-title">Ima ili nema?</div>
+      <div class="ex-instruction">
+        Napiši rečenice prema slikovnom opisu. Koristi konstrukciju <strong>ima + akuzativ</strong> ili <strong>nema + genitiv</strong>.<br>
+        <span class="ex-ru">Составь предложения по описанию. Используй конструкцию <strong>ima + вин. пад.</strong> или <strong>nema + род. пад.</strong></span>
+        <span class="ex-en">Write sentences based on the description. Use <strong>ima + accusative</strong> or <strong>nema + genitive</strong>.</span>
+      </div>
+
+      <div style="background: #f0ecf8; border: 1px solid #c0aee0; border-radius: 4px; padding: 14px 18px; margin-bottom: 16px; font-size: 0.88rem; line-height: 1.8; color: var(--muted);">
+        🏠 <em>U Majinom novom stanu:</em>
+        dnevna soba ✓ &nbsp;|&nbsp; spavaća soba ✓ &nbsp;|&nbsp; kuhinja ✓ &nbsp;|&nbsp; terasa ✗ &nbsp;|&nbsp; lift ✗ &nbsp;|&nbsp; sto ✗ &nbsp;|&nbsp; pogled na park ✓
+      </div>
+
+      <div id="fill-ex4">
+
+        <div class="fill-item">
+          1. Stan <input class="fill-input" id="f4-1" placeholder="..." style="min-width:130px;"> dnevnu sobu.
+          <span class="hint">(ima / нет)</span>
+          <span class="feedback-msg" id="fb4-1"></span>
+        </div>
+
+        <div class="fill-item">
+          2. Stan nema <input class="fill-input" id="f4-2" placeholder="..." style="min-width:90px;">.
+          <span class="hint">(terasa / терраса / terrace)</span>
+          <span class="feedback-msg" id="fb4-2"></span>
+        </div>
+
+        <div class="fill-item">
+          3. Nema <input class="fill-input" id="f4-3" placeholder="..." style="min-width:70px;"> u zgradi.
+          <span class="hint">(lift / лифт / lift)</span>
+          <span class="feedback-msg" id="fb4-3"></span>
+        </div>
+
+        <div class="fill-item">
+          4. Nema <input class="fill-input" id="f4-4" placeholder="..." style="min-width:70px;"> u stanu.
+          <span class="hint">(sto / стол / table)</span>
+          <span class="feedback-msg" id="fb4-4"></span>
+        </div>
+
+        <div class="fill-item">
+          5. Stan ima <input class="fill-input" id="f4-5" placeholder="..." style="min-width:130px;">.
+          <span class="hint">(поглед на парк / view of the park)</span>
+          <span class="feedback-msg" id="fb4-5"></span>
+        </div>
+
+      </div>
+
+      <button class="check-btn" onclick="checkFill4()">Proveri odgovore / Проверить / Check</button>
+      <div class="score-display" id="score-ex4"></div>
+    </div>
+
+    <!-- ===== VEŽBA 5 — Spoji parove ===== -->
+    <div class="exercise">
+      <div class="ex-number">Vežba 5</div>
+      <div class="ex-title">Spoji — genitiv uz predlog</div>
+      <div class="ex-instruction">
+        Spoji predlog sa ispravnim genitivnim oblikom.<br>
+        <span class="ex-ru">Соедини предлог с правильной формой родительного падежа.</span>
+        <span class="ex-en">Match each preposition with the correct genitive form.</span>
+      </div>
+
+      <div class="match-wrap">
+        <div>
+          <div class="match-col-head">Predlog / Предлог</div>
+          <div class="match-left-items" id="match-left">
+            <div class="match-chip" data-id="1" onclick="selectLeft(this)">blizu ___</div>
+            <div class="match-chip" data-id="2" onclick="selectLeft(this)">iza ___</div>
+            <div class="match-chip" data-id="3" onclick="selectLeft(this)">od ___</div>
+            <div class="match-chip" data-id="4" onclick="selectLeft(this)">bez ___</div>
+            <div class="match-chip" data-id="5" onclick="selectLeft(this)">kod ___</div>
+          </div>
+        </div>
+        <div>
+          <div class="match-col-head">Imenica u genitivu</div>
+          <div class="match-right-items" id="match-right">
+            <div class="match-chip" data-id="3" onclick="selectRight(this)">Maje</div>
+            <div class="match-chip" data-id="1" onclick="selectRight(this)">stanice</div>
+            <div class="match-chip" data-id="5" onclick="selectRight(this)">komšije</div>
+            <div class="match-chip" data-id="2" onclick="selectRight(this)">parka</div>
+            <div class="match-chip" data-id="4" onclick="selectRight(this)">lifta</div>
+          </div>
+        </div>
+      </div>
+      <div class="score-display" id="score-match" style="display:block; color:var(--muted); font-size:0.85rem;">
+        <span class="ex-ru" style="display:block; margin-bottom:2px;">Нажми на предлог, затем на перевод.</span>
+        <span class="ex-en">Click a preposition, then click the matching genitive form.</span>
+      </div>
+    </div>
+
+    <!-- ===== VEŽBA 6 — Red reči ===== -->
+    <div class="exercise">
+      <div class="ex-number">Vežba 6</div>
+      <div class="ex-title">Složi rečenicu</div>
+      <div class="ex-instruction">
+        Posloži reči u ispravnu rečenicu. Klikni na reč da je dodaš, klikni ponovo da je vratiš.<br>
+        <span class="ex-ru">Расставь слова в правильном порядке. Нажми на слово, чтобы добавить его, нажми снова — чтобы убрать.</span>
+        <span class="ex-en">Arrange the words into the correct sentence. Click a word to add it, click again to remove it.</span>
+      </div>
+
+      <!-- Sentence 1 -->
+      <div class="wo-sentence" id="wo1">
+        <div class="wo-hint">
+          <span class="wo-hint-ru">Нет ни стола, ни стула в квартире.</span>
+          <span class="wo-hint-en">There is no table or chair in the flat.</span>
+        </div>
+        <div class="wo-chips-pool" id="wo1-pool"></div>
+        <div style="font-size:0.8rem; color:var(--muted); margin-bottom:4px; font-style:italic;">← Tvoja rečenica / Твоё предложение:</div>
+        <div class="wo-answer-area" id="wo1-answer"></div>
+        <div class="wo-explanation" id="wo1-exp">
+          <span class="rule-ru">Verно! Порядок: Nema + genitiv (stola, stolice). Частица <em>ni...ni</em> = ни...ни.</span>
+          <span class="rule-en">Correct! Order: Nema + genitive (stola, stolice). Particle <em>ni...ni</em> = neither...nor.</span>
+        </div>
+        <button class="check-btn" onclick="checkWO(1)" style="margin-right:8px;">Proveri / Проверить</button>
+        <button class="check-btn" onclick="resetWO(1)" style="background:var(--muted);">Reset</button>
+      </div>
+
+      <!-- Sentence 2 -->
+      <div class="wo-sentence" id="wo2" style="margin-top:20px;">
+        <div class="wo-hint">
+          <span class="wo-hint-ru">Цвет стен — светло-зелёный.</span>
+          <span class="wo-hint-en">The colour of the walls is light green.</span>
+        </div>
+        <div class="wo-chips-pool" id="wo2-pool"></div>
+        <div style="font-size:0.8rem; color:var(--muted); margin-bottom:4px; font-style:italic;">← Tvoja rečenica / Твоё предложение:</div>
+        <div class="wo-answer-area" id="wo2-answer"></div>
+        <div class="wo-explanation" id="wo2-exp">
+          <span class="rule-ru">Верно! Порядок: Boja (субъект) + zidova (геnitiv, атрибут) + je + светло-зелёный цвет.</span>
+          <span class="rule-en">Correct! Order: Boja (subject) + zidova (genitive, attribute) + je + colour adjective.</span>
+        </div>
+        <button class="check-btn" onclick="checkWO(2)" style="margin-right:8px;">Proveri / Проверить</button>
+        <button class="check-btn" onclick="resetWO(2)" style="background:var(--muted);">Reset</button>
+      </div>
+
+    </div>
+
+    <!-- ===== VEŽBA 7 — Prevod (ru→sr) ===== -->
+    <div class="exercise">
+      <div class="ex-number">Vežba 7</div>
+      <div class="ex-title">Prevedi na srpski</div>
+      <div class="ex-instruction">
+        Prevedi rečenice na srpski jezik koristeći genitiv.<br>
+        <span class="ex-ru">Переведи предложения на сербский язык, используя родительный падеж.</span>
+        <span class="ex-en">Translate the sentences into Serbian using the genitive case.</span>
+      </div>
+
+      <div id="fill-ex7">
+
+        <div class="fill-item" style="flex-direction:column; display:block; margin-bottom:18px;">
+          <div style="color:var(--russian); margin-bottom:4px;">1. Нет горячей воды. <em style="font-size:0.82rem;">(топла вода)</em></div>
+          <div style="color:var(--english); font-style:italic; margin-bottom:6px; font-size:0.9rem;">There is no hot water.</div>
+          <input type="text" class="fill-input" id="f7-1" placeholder="Nema ..." style="min-width:220px;">
+          <span class="feedback-msg" id="fb7-1"></span>
+        </div>
+
+        <div class="fill-item" style="flex-direction:column; display:block; margin-bottom:18px;">
+          <div style="color:var(--russian); margin-bottom:4px;">2. Квартира напротив моей — пустая. <em style="font-size:0.82rem;">(насупрот)</em></div>
+          <div style="color:var(--english); font-style:italic; margin-bottom:6px; font-size:0.9rem;">The flat opposite mine is empty.</div>
+          <input type="text" class="fill-input" id="f7-2" placeholder="Stan nasuprot ..." style="min-width:260px;">
+          <span class="feedback-msg" id="fb7-2"></span>
+        </div>
+
+        <div class="fill-item" style="flex-direction:column; display:block; margin-bottom:18px;">
+          <div style="color:var(--russian); margin-bottom:4px;">3. Ключ квартиры на столе.</div>
+          <div style="color:var(--english); font-style:italic; margin-bottom:6px; font-size:0.9rem;">The key of the flat is on the table.</div>
+          <input type="text" class="fill-input" id="f7-3" placeholder="Ključ ..." style="min-width:220px;">
+          <span class="feedback-msg" id="fb7-3"></span>
+        </div>
+
+        <div class="fill-item" style="flex-direction:column; display:block; margin-bottom:18px;">
+          <div style="color:var(--russian); margin-bottom:4px;">4. Аренда здесь дешевле центра.</div>
+          <div style="color:var(--english); font-style:italic; margin-bottom:6px; font-size:0.9rem;">The rent here is cheaper than the centre.</div>
+          <input type="text" class="fill-input" id="f7-4" placeholder="Stanarina je jeftinija ..." style="min-width:260px;">
+          <span class="feedback-msg" id="fb7-4"></span>
+        </div>
+
+      </div>
+
+      <button class="check-btn" onclick="checkFill7()">Proveri odgovore / Проверить / Check</button>
+      <div class="score-display" id="score-ex7"></div>
+
+      <div class="note" style="margin-top:16px;">
+        <strong>Napomena:</strong> Prevodni zadaci imaju više mogućih tačnih odgovora — feedback prikazuje jedan primer.
+        <span class="ru">Переводные задания допускают несколько вариантов — в подсказке показан один пример.</span>
+        <span class="en">Translation tasks may have multiple correct answers — feedback shows one example.</span>
+      </div>
+    </div>
+
+    <!-- ===== VEŽBA 8 — Slobodna produkcija ===== -->
+    <div class="exercise">
+      <div class="ex-number">Vežba 8</div>
+      <div class="ex-title">Opiši svoje mesto stanovanja</div>
+      <div class="ex-instruction">
+        Odgovori na pitanja u celim rečenicama. Koristi što više genitiva iz lekcije!<br>
+        <span class="ex-ru">Ответь на вопросы полными предложениями. Используй как можно больше форм родительного падежа!</span>
+        <span class="ex-en">Answer the questions in full sentences. Use as many genitive forms from the lesson as possible!</span>
+      </div>
+
+      <ol class="ex-list">
+        <li>Imaš li lift u zgradi? Ima li terase?</li>
+        <li>Šta se nalazi blizu tvog stana / kuće?</li>
+        <li>Koliko imaš soba? Čega nema u tvom stanu?</li>
+        <li>Koja je boja zidova u tvojoj spavaćoj sobi?</li>
+        <li>Kako izgleda pogled iz tvojog prozora?</li>
+      </ol>
+
+      <div class="note" style="margin-top:14px;">
+        Nema jednog tačnog odgovora — razgovarajte! 🗣️
+        <span class="ru">Нет единственно верного ответа — обсудите!</span>
+        <span class="en">No single correct answer — discuss!</span>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- VOKABULAR -->
+  <section class="section">
+    <h2 class="section-title">Nove reči iz teksta</h2>
+
+    <p style="font-size:0.88rem; color:var(--muted); margin-bottom:16px; font-style:italic;">
+      Klikni da vidiš prevod i primer. — Нажми, чтобы увидеть перевод.
+    </p>
+
+    <div class="vocab-grid">
+
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">seliti se / preseliti se</div>
+          <div class="vocab-sentence-sr">Maja se seli u nov stan sledeće nedelje.</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">переезжать / переехать</span>
+              <div class="tr-sentence">Маja переезжает в новую квартиру на следующей неделе.</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">to move (house)</span>
+              <div class="tr-sentence">Maja is moving to a new flat next week.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">upozoriti / upozoravati</div>
+          <div class="vocab-sentence-sr">Upozoravam te — lift ne radi!</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">предупреждать / предупредить</span>
+              <div class="tr-sentence">Предупреждаю тебя — лифт не работает!</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">to warn</span>
+              <div class="tr-sentence">I'm warning you — the lift doesn't work!</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">tržni centar</div>
+          <div class="vocab-sentence-sr">Novi tržni centar je otvoren u centru grada.</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">торговый центр / ТЦ</span>
+              <div class="tr-sentence">В центре города открылся новый торговый центр.</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">shopping centre / mall</span>
+              <div class="tr-sentence">A new shopping centre opened in the city centre.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">ribnjak</div>
+          <div class="vocab-sentence-sr">U parku ima mali ribnjak sa patkama.</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">пруд</span>
+              <div class="tr-sentence">В парке есть маленький пруд с утками.</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">pond</span>
+              <div class="tr-sentence">There is a small pond with ducks in the park.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">dnevna soba</div>
+          <div class="vocab-sentence-sr">Sedimo u dnevnoj sobi i gledamo film.</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">гостиная (комната)</span>
+              <div class="tr-sentence">Мы сидим в гостиной и смотрим фильм.</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">living room</span>
+              <div class="tr-sentence">We are sitting in the living room watching a film.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">spavaća soba</div>
+          <div class="vocab-sentence-sr">Spavaća soba je mala, ali udobna.</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">спальня</span>
+              <div class="tr-sentence">Спальня маленькая, но уютная.</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">bedroom</span>
+              <div class="tr-sentence">The bedroom is small but comfortable.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">terasa</div>
+          <div class="vocab-sentence-sr">Ujutro pijem kafu na terasi.</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">терраса / балкон</span>
+              <div class="tr-sentence">По утрам я пью кофе на террасе.</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">terrace / balcony</span>
+              <div class="tr-sentence">In the morning I drink coffee on the terrace.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">pogled</div>
+          <div class="vocab-sentence-sr">Iz ove sobe ima lep pogled na reku.</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">вид; взгляд</span>
+              <div class="tr-sentence">Из этой комнаты открывается красивый вид на реку.</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">view; look</span>
+              <div class="tr-sentence">From this room there is a beautiful view of the river.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">komšija / komšinica</div>
+          <div class="vocab-sentence-sr">Moj komšija je student, a komšinica penzionerka.</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">сосед / соседка</span>
+              <div class="tr-sentence">Мой сосед — студент, а соседка — пенсионерка.</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">neighbour (m/f)</span>
+              <div class="tr-sentence">My neighbour (m) is a student, and my neighbour (f) is a pensioner.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">tegla</div>
+          <div class="vocab-sentence-sr">Babica mi je dala teglu domaćeg ajvara.</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">банка (стеклянная)</span>
+              <div class="tr-sentence">Бабушка дала мне банку домашнего айвара.</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">jar</span>
+              <div class="tr-sentence">Grandma gave me a jar of homemade ajvar.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">raspakivati / raspakirati</div>
+          <div class="vocab-sentence-sr">Ceo dan raspakovavam kutije — ne mogu više!</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">распаковывать / распаковать</span>
+              <div class="tr-sentence">Весь день распаковываю коробки — больше не могу!</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">to unpack</span>
+              <div class="tr-sentence">I've been unpacking boxes all day — I can't do it anymore!</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <div class="vocab-item">
+        <div class="vocab-head">
+          <div class="vocab-word-main">stanarina</div>
+          <div class="vocab-sentence-sr">Stanarina u ovom kvartu nije visoka.</div>
+        </div>
+        <details>
+          <summary>Prevod / Перевод</summary>
+          <div class="vocab-translations">
+            <div class="vocab-tr-block ru">
+              <span class="lang-label">Русский</span>
+              <span class="tr-word">аренда / квартплата</span>
+              <div class="tr-sentence">Аренда в этом районе не высокая.</div>
+            </div>
+            <div class="vocab-tr-block en">
+              <span class="lang-label">English</span>
+              <span class="tr-word">rent</span>
+              <div class="tr-sentence">The rent in this neighbourhood is not high.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SLEDEĆA LEKCIJA -->
+  <section class="section">
+    <h2 class="section-title">Šta sledi? / Что дальше? / What's next?</h2>
+
+    <div class="next-lesson">
+      <div class="nl-title">Lekcija 4 — Genitiv množine</div>
+      Naučili smo genitiv jednine. Sledeći korak je <strong>genitiv množine</strong> — koji se nastavci koriste za više stvari, i zašto kažemo <em>puno studenata</em> ali <em>puno voda</em>? Uz to ćemo uvesti još predloga i tipičnih konstrukcija.
+      <span class="ru">Мы изучили родительный падеж единственного числа. Следующий шаг — <strong>родительный падеж множественного числа</strong>: окончания, типичные конструкции и предлоги.</span>
+      <span class="en">We've learned the genitive singular. Next up: <strong>genitive plural</strong> — which endings are used for groups of things, and why do we say <em>puno studenata</em> but <em>puno voda</em>?</span>
+    </div>
+  </section>
+
+  <footer class="lesson-footer">
+    Čas srpskog jezika · Genitiv jednine · Nivo A2 · Maja se seli
+  </footer>
+
+</div>
+
+<script>
+  // ===== TRUE/FALSE =====
+  function checkTF(btn, chosen, feedbackId, correct, msg) {
+    const item = btn.closest('.tf-item');
+    const btns = item.querySelectorAll('.tf-btn');
+    btns.forEach(b => b.disabled = true);
+    const fb = document.getElementById(feedbackId);
+    fb.innerHTML = msg;
+    fb.className = 'tf-feedback show ' + (chosen === correct ? 'ok' : 'err');
+    if (chosen === correct) {
+      btn.classList.add('tf-correct');
+    } else {
+      btn.classList.add('tf-wrong');
+      btns.forEach(b => { if (b.textContent.trim() === correct) b.classList.add('tf-correct'); });
+    }
+  }
+
+  // ===== FILL-IN EX 2 =====
+  const answers2 = {
+    'f2-1': ['stola'],
+    'f2-2': ['zida'],
+    'f2-3': ['dnevne sobe'],
+    'f2-4': ['komšije'],
+    'f2-5': ['lifta'],
+    'f2-6': ['stanice'],
+    'f2-7': ['stana'],
+    'f2-8': ['kutija']
+  };
+
+  function checkFill2() {
+    let correct = 0, total = Object.keys(answers2).length;
+    for (const [id, acc] of Object.entries(answers2)) {
+      const inp = document.getElementById(id);
+      const fb = document.getElementById('fb' + id.slice(1));
+      const val = inp.value.trim().toLowerCase();
+      const ok = acc.some(a => a.toLowerCase() === val);
+      inp.className = 'fill-input ' + (ok ? 'correct' : 'wrong');
+      fb.className = 'feedback-msg show ' + (ok ? 'ok' : 'err');
+      fb.textContent = ok ? '✓' : '✗ → ' + acc[0];
+      if (ok) correct++;
+    }
+    const sc = document.getElementById('score-ex2');
+    sc.className = 'score-display show';
+    sc.innerHTML = '<strong>' + correct + ' / ' + total + '</strong> tačnih odgovora';
+  }
+
+  // ===== MC =====
+  function checkMC(btn, result, feedbackId, msg) {
+    const container = btn.closest('.mc-item');
+    const allBtns = container.querySelectorAll('.mc-btn');
+    allBtns.forEach(b => b.disabled = true);
+    const fb = document.getElementById(feedbackId);
+    fb.innerHTML = msg;
+    if (result === 'correct') {
+      btn.classList.add('selected-correct');
+      fb.className = 'mc-feedback show ok';
+    } else {
+      btn.classList.add('selected-wrong');
+      fb.className = 'mc-feedback show err';
+      allBtns.forEach(b => { if (!b.disabled || b.classList.contains('selected-wrong')) {
+        // reveal correct
+      }});
+    }
+  }
+
+  // ===== FILL-IN EX 4 =====
+  const answers4 = {
+    'f4-1': ['ima'],
+    'f4-2': ['terase'],
+    'f4-3': ['lifta'],
+    'f4-4': ['stola'],
+    'f4-5': ['pogled na park']
+  };
+
+  function checkFill4() {
+    let correct = 0, total = Object.keys(answers4).length;
+    for (const [id, acc] of Object.entries(answers4)) {
+      const inp = document.getElementById(id);
+      const fb = document.getElementById('fb' + id.slice(1));
+      const val = inp.value.trim().toLowerCase();
+      const ok = acc.some(a => a.toLowerCase() === val);
+      inp.className = 'fill-input ' + (ok ? 'correct' : 'wrong');
+      fb.className = 'feedback-msg show ' + (ok ? 'ok' : 'err');
+      fb.textContent = ok ? '✓' : '✗ → ' + acc[0];
+      if (ok) correct++;
+    }
+    const sc = document.getElementById('score-ex4');
+    sc.className = 'score-display show';
+    sc.innerHTML = '<strong>' + correct + ' / ' + total + '</strong> tačnih odgovora';
+  }
+
+  // ===== MATCH =====
+  let selectedLeft = null;
+
+  function selectLeft(chip) {
+    if (chip.classList.contains('matched-ok')) return;
+    document.querySelectorAll('#match-left .match-chip').forEach(c => c.classList.remove('selected'));
+    chip.classList.add('selected');
+    selectedLeft = chip;
+  }
+
+  function selectRight(chip) {
+    if (!selectedLeft) return;
+    if (chip.classList.contains('matched-ok')) return;
+
+    const lid = parseInt(selectedLeft.dataset.id);
+    const rid = parseInt(chip.dataset.id);
+
+    if (lid === rid) {
+      selectedLeft.classList.remove('selected');
+      selectedLeft.classList.add('matched-ok');
+      chip.classList.add('matched-ok');
+      selectedLeft.innerHTML += ' ✓';
+      chip.innerHTML += ' ✓';
+      selectedLeft.onclick = null;
+      chip.onclick = null;
+      selectedLeft = null;
+      checkMatchDone();
+    } else {
+      chip.classList.add('matched-err');
+      selectedLeft.classList.add('matched-err');
+      setTimeout(() => {
+        chip.classList.remove('matched-err');
+        selectedLeft.classList.remove('matched-err');
+        selectedLeft.classList.remove('selected');
+        selectedLeft = null;
+      }, 500);
+    }
+  }
+
+  function checkMatchDone() {
+    const all = document.querySelectorAll('#match-left .match-chip');
+    const done = [...all].every(c => c.classList.contains('matched-ok'));
+    if (done) {
+      const sc = document.getElementById('score-match');
+      sc.innerHTML = '<strong style="color:var(--correct);">✓ Sve tačno! Отлично! All correct!</strong>';
+    }
+  }
+
+  // ===== WORD ORDER =====
+  const woData = {
+    1: {
+      words: ['Nema', 'ni', 'stola,', 'ni', 'stolice.'],
+      correct: 'nema ni stola, ni stolice.'
+    },
+    2: {
+      words: ['Boja', 'zidova', 'je', 'svetlozelena.'],
+      correct: 'boja zidova je svetlozelena.'
+    }
+  };
+
+  function initWO() {
+    for (const [n, data] of Object.entries(woData)) {
+      const pool = document.getElementById('wo' + n + '-pool');
+      const shuffled = [...data.words].sort(() => Math.random() - 0.5);
+      pool.innerHTML = '';
+      shuffled.forEach(w => {
+        const chip = document.createElement('span');
+        chip.className = 'wo-chip';
+        chip.textContent = w;
+        chip.onclick = () => moveToAnswer(n, chip);
+        pool.appendChild(chip);
+      });
+      document.getElementById('wo' + n + '-answer').innerHTML = '';
+    }
+  }
+
+  function moveToAnswer(n, chip) {
+    const answer = document.getElementById('wo' + n + '-answer');
+    const pool = document.getElementById('wo' + n + '-pool');
+    if (chip.parentElement === pool) {
+      chip.classList.add('in-answer');
+      chip.onclick = () => moveToPool(n, chip);
+      answer.appendChild(chip);
+    }
+    answer.classList.remove('correct-area', 'wrong-area');
+  }
+
+  function moveToPool(n, chip) {
+    const pool = document.getElementById('wo' + n + '-pool');
+    chip.classList.remove('in-answer');
+    chip.onclick = () => moveToAnswer(n, chip);
+    pool.appendChild(chip);
+    document.getElementById('wo' + n + '-answer').classList.remove('correct-area', 'wrong-area');
+  }
+
+  function checkWO(n) {
+    const answer = document.getElementById('wo' + n + '-answer');
+    const chips = answer.querySelectorAll('.wo-chip');
+    const given = [...chips].map(c => c.textContent).join(' ').trim().toLowerCase();
+    const correct = woData[n].correct;
+    const exp = document.getElementById('wo' + n + '-exp');
+    if (given === correct) {
+      answer.classList.add('correct-area');
+      answer.classList.remove('wrong-area');
+      exp.className = 'wo-explanation show';
+    } else {
+      answer.classList.add('wrong-area');
+      answer.classList.remove('correct-area');
+      exp.className = 'wo-explanation';
+    }
+  }
+
+  function resetWO(n) {
+    initWOSingle(n);
+  }
+
+  function initWOSingle(n) {
+    const data = woData[n];
+    const pool = document.getElementById('wo' + n + '-pool');
+    const answer = document.getElementById('wo' + n + '-answer');
+    pool.innerHTML = '';
+    answer.innerHTML = '';
+    answer.classList.remove('correct-area', 'wrong-area');
+    document.getElementById('wo' + n + '-exp').className = 'wo-explanation';
+    const shuffled = [...data.words].sort(() => Math.random() - 0.5);
+    shuffled.forEach(w => {
+      const chip = document.createElement('span');
+      chip.className = 'wo-chip';
+      chip.textContent = w;
+      chip.onclick = () => moveToAnswer(n, chip);
+      pool.appendChild(chip);
+    });
+  }
+
+  // ===== FILL-IN EX 7 =====
+  const answers7 = {
+    'f7-1': ['nema tople vode', 'nema tople vode'],
+    'f7-2': ['stan nasuprot mog je prazan', 'stan nasuprot moga je prazan', 'stan nasuprot mojeg je prazan'],
+    'f7-3': ['ključ stana je na stolu'],
+    'f7-4': ['stanarina je jeftinija od centra', 'stanarina je ovde jeftinija od centra']
+  };
+
+  function checkFill7() {
+    let correct = 0, total = Object.keys(answers7).length;
+    for (const [id, acc] of Object.entries(answers7)) {
+      const inp = document.getElementById(id);
+      const fb = document.getElementById('fb' + id.slice(1));
+      const val = inp.value.trim().toLowerCase().replace(/\s+/g, ' ');
+      const ok = acc.some(a => a.toLowerCase() === val);
+      inp.className = 'fill-input ' + (ok ? 'correct' : 'wrong');
+      fb.className = 'feedback-msg show ' + (ok ? 'ok' : 'err');
+      fb.textContent = ok ? '✓' : '→ Primer: ' + acc[0];
+      if (ok) correct++;
+    }
+    const sc = document.getElementById('score-ex7');
+    sc.className = 'score-display show';
+    sc.innerHTML = '<strong>' + correct + ' / ' + total + '</strong> tačnih';
+  }
+
+  // Init
+  window.onload = function() {
+    initWO();
+  };
+</script>
+
+</body>
+</html>
